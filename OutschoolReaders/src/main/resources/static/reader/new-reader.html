@@ -9,16 +9,52 @@
 </head>
 <body>
 <h1>新读者注册</h1>
-<label for="name"><font color="red">*</font>姓名：</label><input type="text" name="name" id="name"><br>
-<label for="gender">性别：</label><input type="text" name="gender" id="gender"><br>
-<label for="identityNo">身份证号：</label><input type="text" name="identityNo" id="identityNo"><br>
-<label for="address">住址（或工作单位）：</label><input type="text" name="address" id="address"><br>
-<label for="phone">联系电话：</label><input type="text" name="phone" id="phone"><br>
-<label for="email">电子邮件：</label><input type="text" name="email" id="email"><br>
-<input type="submit" value="注册" onclick="submit()">
+<form method="post" action="addReader" onsubmit="return check()">
+	<label for="name"><font color="red">*</font>姓名：</label><input type="text" name="name" id="name"><br>
+	<label for="gender">性别：</label><input type="text" name="gender" id="gender"><br>
+	<label for="identityNo">身份证号：</label><input type="text" name="identityNo" id="identityNo"><br>
+	<label for="address">住址（或工作单位）：</label><input type="text" name="address" id="address"><br>
+	<label for="phone">联系电话：</label><input type="text" name="phone" id="phone"><br>
+	<label for="email">电子邮件：</label><input type="text" name="email" id="email"><br>
+	<input type="submit" value="注册">
+</form>
 <script>
-function submit(){
-	window.location = 'new-reader-success.html';
+function check(){
+	var name = document.getElementById('name').value;
+	console.log(name);
+	if(name == null || name.trim() == ''){
+		alert('姓名不能为空！');
+		return false;
+	}
+	if(name.length > 10){
+		alert('姓名不能长于10个字！');
+		return false;
+	}
+	var identityNo = document.getElementById('identityNo').value;
+	console.log(identityNo);
+	if(identityNo.length > 18){
+		alert('身份证号不能长于18位！');
+		return false;
+	}
+	var address = document.getElementById('address').value;
+	console.log(address);
+	if(address.length > 60){
+		alert('住址（或工作单位）不能长于60个字！');
+		return false;
+	}
+	var phone = document.getElementById('phone').value;
+	console.log(phone);
+	if(phone.length > 16){
+		alert('联系电话不能长于16位！');
+		return false;
+	}
+	var email = document.getElementById('email').value;
+	console.log(email);
+	if(email.length > 30){
+		alert('电子邮件不能长于30位！');
+		return false;
+	}
+	return true;
 }
 </script>
 </body>

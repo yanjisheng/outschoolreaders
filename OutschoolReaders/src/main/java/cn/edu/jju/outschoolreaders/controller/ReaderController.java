@@ -1,5 +1,10 @@
 package cn.edu.jju.outschoolreaders.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +24,24 @@ public class ReaderController {
 	@Autowired
 	private ReaderService readerService;
 	
+	/**
+	 * 新读者注册
+	 */
 	@PostMapping("/reader/addReader")
-	public void addReader(Reader reader) {
+	public void addReader(HttpServletResponse response, Reader reader) throws IOException {
 		readerService.addReader(reader);
+		response.sendRedirect("/reader/new-reader-success.html");
+	}
+	
+	@PostMapping("/reader/getReader")
+	public void turnGetReader(HttpServletRequest request, HttpServletResponse response, 
+			String cardNo, String name) throws IOException {
+		Reader reader = readerService.getReaderByCardNoAndName(cardNo, name);
+		if(reader == null) {
+			response.sendRedirect("/reader/error.html");
+		} else {
+			response.sendRedirect("/reader/info.html");
+		}
 	}
 	
 	@GetMapping("/reader/getReader")
