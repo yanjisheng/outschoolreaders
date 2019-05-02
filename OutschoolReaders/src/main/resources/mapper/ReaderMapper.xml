@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.jju.outschoolreaders.dao.ReaderDao">
+	<insert id="addOne" parameterType="Reader">
+		insert into reader(cardNo, name, gender, identityNo, address, phone, email, 
+		validThru, category, managerId, remark, createdAt) 
+		values(#{cardNo}, #{name}, #{gender}, #{identityNo}, #{address}, #{phone}, #{email}, 
+		#{validThru}, #{category}, #{managerId}, #{remark}, now())
+	</insert>
+	<insert id="addList" parameterType="Reader">
+		insert into reader(cardNo, name, gender, identityNo, address, phone, email, 
+		validThru, category, managerId, remark, createdAt) values
+		<foreach collection="list" item="item" separator=",">
+			(#{cardNo}, #{name}, #{gender}, #{identityNo}, #{address}, #{phone}, #{email}, 
+			#{validThru}, #{category}, #{managerId}, #{remark}, now())
+		</foreach>
+	</insert>
+	<update id="modify" parameterType="Reader">
+		update reader set 
+		<if test="cardNo != null and cardNo != ''">
+			cardNo = #{cardNo}, 
+		</if>
+		<if test="name != null and name != ''">
+			name = #{name}, 
+		</if>
+		<if test="gender != null and gender != ''">
+			gender = #{gender}, 
+		</if>
+		<if test="identityNo != null and identityNo != ''">
+			identityNo = #{identityNo}, 
+		</if>
+		<if test="address != null and address != ''">
+			address = #{address}, 
+		</if>
+		<if test="phone != null and phone != ''">
+			phone = #{phone}, 
+		</if>
+		<if test="email != null and email != ''">
+			email = #{email}, 
+		</if>
+		<if test="validThru != null and validThru != ''">
+			validThru = #{validThru}, 
+		</if>
+		<if test="category != null and category != ''">
+			category = #{category}, 
+		</if>
+		<if test="managerId != null and managerId != ''">
+			managerId = #{managerId}, 
+		</if>
+		<if test="remark != null and remark != ''">
+			remark = #{remark}, 
+		</if>
+		modifiedAt = now() where id = #{id}
+	</update>
+	<select id="selectById" parameterType="Integer" resultType="Reader">
+		select id, cardNo, name, gender, identityNo, address, phone, email, 
+		validThru, category, managerId, remark, createdAt, modifiedAt
+		where id = #{id}
+	</select>
+	<select id="selectByCardNo" parameterType="String" resultType="Reader">
+		select id, cardNo, name, gender, identityNo, address, phone, email, 
+		validThru, category, managerId, remark, createdAt, modifiedAt
+		where cardNo = #{cardNo}
+	</select>
+</mapper>

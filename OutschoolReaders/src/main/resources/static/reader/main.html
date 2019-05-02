@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="X-UA-compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>九江学院图书馆校外读者管理系统</title>
+<link rel="stylesheet" type="text/css" href="/general.css">
+</head>
+<body>
+<h1>读者入口</h1>
+<label for="cardNo">借阅证号：</label><input type="text" name="cardNo" id="cardNo"><br>
+<label for="name">姓名：</label><input type="text" name="name" id="name"><br>
+<input type="submit" value="查询" onclick="submit()">
+<div class="btn"><a href="agreement.html">新读者注册</a></div>
+<script>
+function submit(){
+	window.location = 'info.html';
+}
+</script>
+</body>
+</html>

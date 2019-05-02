@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.jju.outschoolreaders.dao.TransactionDao">
+	<insert id="addOne" parameterType="Transaction">
+		insert into transaction(readerId, date, amount, type, validThru, managerId, createdAt)
+		values(#{readerId}, #{date}, #{amount}, #{type}, #{validThru}, #{managerId}, now())
+	</insert>
+	<insert id="addList" parameterType="Transaction">
+		insert into transaction(readerId, date, amount, type, validThru, managerId, createdAt) values
+		<foreach collection="transaction" item="item" separator=",">
+			(#{readerId}, #{date}, #{amount}, #{type}, #{validThru}, #{managerId}, now())
+		</foreach>
+	</insert>
+	<select id="selectById" parameterType="Integer" resultType="Transaction">
+		select id, readerId, date, amount, type, validThru, managerId, createdAt from transaction
+		where id = #{id}
+	</select>
+	<select id="count" parameterType="TransactionQuery" resultType="int">
+		select count(id) from (select id from transaction
+		<where>
+			<if test="readerIds != null and readerIds.size &gt; 0">
+				and readerId in 
+				<foreach collection="readerIds" item="readerIdItem" open="(" separator="," close=")">
+					#{readerIdItem}
+				</foreach>
+			</if>
+			<if test="startDate != null">
+				and date &gt;= #{startDate}
+			</if>
+			<if test="endDate != null">
+				and date &lt;= #{endDate}
+			</if>
+			<if test="amountMin != null">
+				and abs(amount) &gt; #{amountMin}
+			</if>
+			<if test="amountMax != null">
+				and abs(amount) &lt; #{amountMax}
+			</if>
+			<if test="types != null and types &gt; 0">
+				and type in 
+				<foreach collection="types" item="typeItem" open="(" separator="," close=")">
+					#{typeItem}
+				</foreach>
+			</if>
+			<if test="managerIds != null and managerIds.size &gt; 0">
+				and managerId in 
+				<foreach collection="managerIds" item="managerIdItem" open="(" separator="," close=")">
+					#{managerIdItem}
+				</foreach>
+			</if>
+		</where>	
+		) t
+	</select>
+	<select id="query" parameterType="TransactionQuery" resultType="Transaction">
+		select id, readerId, date, amount, type, validThru, managerId, createdAt from transaction
+		<where>
+			<if test="readerIds != null and readerIds.size &gt; 0">
+				and readerId in 
+				<foreach collection="readerIds" item="readerIdItem" open="(" separator="," close=")">
+					#{readerIdItem}
+				</foreach>
+			</if>
+			<if test="startDate != null">
+				and date &gt;= #{startDate}
+			</if>
+			<if test="endDate != null">
+				and date &lt;= #{endDate}
+			</if>
+			<if test="amountMin != null">
+				and abs(amount) &gt; #{amountMin}
+			</if>
+			<if test="amountMax != null">
+				and abs(amount) &lt; #{amountMax}
+			</if>
+			<if test="types != null and types &gt; 0">
+				and type in 
+				<foreach collection="types" item="typeItem" open="(" separator="," close=")">
+					#{typeItem}
+				</foreach>
+			</if>
+			<if test="managerIds != null and managerIds.size &gt; 0">
+				and managerId in 
+				<foreach collection="managerIds" item="managerIdItem" open="(" separator="," close=")">
+					#{managerIdItem}
+				</foreach>
+			</if>
+		</where>
+		<if test="page != null and page.pageSize &gt; 0">
+			limit #{page.offset}, #{page.pageSize} order by date desc
+		</if>
+	</select>
+</mapper>
