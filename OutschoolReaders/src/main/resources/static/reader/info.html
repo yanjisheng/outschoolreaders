@@ -9,6 +9,46 @@
 </head>
 <body>
 <h1>读者信息</h1>
+<table>
+	<tr><td>借阅证号：</td><td><span id="cardNo"></span></td></tr>
+	<tr><td>姓名：</td><td><span id="name"></span></td></tr>
+	<tr><td>性别：</td><td><span id="gender"></span></td></tr>
+	<tr><td>身份证号：</td><td><span id="identityNo"></span></td></tr>
+	<tr><td>住址（或工作单位）：</td><td><span id="address"></span></td></tr>
+	<tr><td>联系电话：</td><td><span id="phone"></span></td></tr>
+	<tr><td>电子邮件：</td><td><span id="email"></span></td></tr>
+	<tr><td>有效期至：</td><td><span id="validThru"></span></td></tr>
+	<tr><td>读者类型：</td><td><span id="category"></span></td></tr>
+</table>
+<div class="btn btn-blue"><a href="modify.html">修改</a></div>
 <div class="btn"><a href="/">返回首页</a></div>
+<script>
+var url = window.location.toString();
+var cardNoIndex = url.indexOf('cardNo=');
+var nameIndex = url.indexOf('name=');
+var cardNo;
+var name;
+if(cardNoIndex < nameIndex && cardNoIndex > 0){
+	cardNo = url.substring(cardNoIndex + 7, nameIndex - 1);
+	name = decodeURI(url.substring(nameIndex + 5, url.length));
+}
+var xhr = new XMLHttpRequest();
+xhr.open("GET","getReader?cardNo="+cardNo+"&name="+name,true);
+xhr.onreadystatechange = function(){
+	if(xhr.readyState == 4 && xhr.status == 200 || xhr.status == 304){
+		var data = JSON.parse(xhr.responseText);
+		document.getElementById("cardNo").innerText = data.cardNo;
+		document.getElementById("name").innerText = data.name;
+		document.getElementById("gender").innerText = data.gender;
+		document.getElementById("identityNo").innerText = data.identityNo;
+		document.getElementById("address").innerText = data.address;
+		document.getElementById("phone").innerText = data.phone;
+		document.getElementById("email").innerText = data.email;
+		document.getElementById("validThru").innerText = data.validThru;
+		document.getElementById("category").innerText = data.category;
+	}
+}
+xhr.send();
+</script>
 </body>
 </html>

@@ -47,3 +47,15 @@ div.btn{
 div.btn-blue{
 	background-color: #204a87;
 }
+table{
+	border-collapse: collapse;
+	margin: 5px 0px;
+}
+table td{
+	border: 1px solid #333333;
+	margin: 0px;
+}
+tr>td:first-of-type{
+	width: 100px;
+	text-align: right;
+}

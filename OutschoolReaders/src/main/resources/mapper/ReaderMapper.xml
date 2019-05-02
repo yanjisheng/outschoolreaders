@@ -54,12 +54,12 @@
 	</update>
 	<select id="selectById" parameterType="Integer" resultType="Reader">
 		select id, cardNo, name, gender, identityNo, address, phone, email, 
-		validThru, category, managerId, remark, createdAt, modifiedAt
-		where id = #{id}
+		validThru, category, managerId, remark, createdAt, modifiedAt 
+		from reader	where id = #{id}
 	</select>
 	<select id="selectByCardNo" parameterType="String" resultType="Reader">
 		select id, cardNo, name, gender, identityNo, address, phone, email, 
 		validThru, category, managerId, remark, createdAt, modifiedAt
-		where cardNo = #{cardNo}
+		from reader where cardNo = #{cardNo}
 	</select>
 </mapper>
