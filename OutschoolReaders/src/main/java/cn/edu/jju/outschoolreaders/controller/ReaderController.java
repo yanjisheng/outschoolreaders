@@ -34,6 +34,9 @@ public class ReaderController {
 		response.sendRedirect("/reader/new-reader-success.html");
 	}
 	
+	/**
+	 * 读者查询入口
+	 */
 	@PostMapping("/reader/getReader")
 	public void turnGetReader(HttpServletRequest request, HttpServletResponse response, 
 			String cardNo, String name) throws IOException {
@@ -46,6 +49,9 @@ public class ReaderController {
 		}
 	}
 	
+	/**
+	 * 获取读者详细信息
+	 */
 	@GetMapping("/reader/getReader")
 	public Reader getReader(String cardNo, String name) {
 		return readerService.getReaderByCardNoAndName(cardNo, name);
