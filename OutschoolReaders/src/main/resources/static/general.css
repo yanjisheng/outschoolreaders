@@ -18,13 +18,13 @@ label{
 	width: 100px;
 	height: 30px;
 }
-input[type=text], input[type=password]{
+input[type=text], input[type=password], input[type=date]{
 	width: 200px;
 	height: 30px;
 	border: 1px solid #000000;
 	margin: 5px 0px;
 }
-input[type=submit]{
+input[type=submit], input[type=button], button{
 	width: 100px;
 	height: 40px;
 	background-color: #204a87;
@@ -32,6 +32,7 @@ input[type=submit]{
 	color: #ffffff;
 	border-radius: 20px;
 	font-size: 16px;
+	cursor: pointer;
 }
 div.btn{
 	display: inline-block;
@@ -56,6 +57,5 @@ table td{
 	margin: 0px;
 }
 tr>td:first-of-type{
-	width: 100px;
 	text-align: right;
 }

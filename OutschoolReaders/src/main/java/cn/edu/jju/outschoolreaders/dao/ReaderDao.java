@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import cn.edu.jju.outschoolreaders.model.Reader;
+import cn.edu.jju.outschoolreaders.model.ReaderQuery;
 
 /**
  * 校外读者基本信息
@@ -23,4 +24,8 @@ public interface ReaderDao {
 	public Reader selectById(Integer readerId);
 	
 	public Reader selectByCardNo(String cardNo);
+	
+	public int count(ReaderQuery query);
+	
+	public List<Reader> query(ReaderQuery query);
 }

@@ -21,6 +21,7 @@ public class TransactionQuery extends Transaction{
 	private BigDecimal amountMax;//缴费金额上限
 	private List<Byte> types;//类型
 	private List<Integer> managerIds;//经办人
+	
 	private Page page;
 	
 	public List<Integer> getReaderIds() {

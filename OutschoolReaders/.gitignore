@@ -31,3 +31,4 @@ HELP.md
 OutschoolReaders.log
 OutschoolReaders.log*
 .mvn
+src/main/resources/static/dependencies

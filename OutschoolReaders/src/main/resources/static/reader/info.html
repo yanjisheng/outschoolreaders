@@ -10,7 +10,7 @@
 <body>
 <h1>读者信息</h1>
 <table>
-	<tr><td>借阅证号：</td><td><span id="cardNo"></span></td></tr>
+	<tr><td style="width:100px">借阅证号：</td><td><span id="cardNo"></span></td></tr>
 	<tr><td>姓名：</td><td><span id="name"></span></td></tr>
 	<tr><td>性别：</td><td><span id="gender"></span></td></tr>
 	<tr><td>身份证号：</td><td><span id="identityNo"></span></td></tr>
@@ -36,7 +36,12 @@ var xhr = new XMLHttpRequest();
 xhr.open("GET","getReader?cardNo="+cardNo+"&name="+name,true);
 xhr.onreadystatechange = function(){
 	if(xhr.readyState == 4 && xhr.status == 200 || xhr.status == 304){
-		var data = JSON.parse(xhr.responseText);
+		try{
+			var data = JSON.parse(xhr.responseText);
+		}catch(e){
+			alert('借阅证号或姓名输入错误！');
+			return;
+		}
 		document.getElementById("cardNo").innerText = data.cardNo;
 		document.getElementById("name").innerText = data.name;
 		document.getElementById("gender").innerText = data.gender;
