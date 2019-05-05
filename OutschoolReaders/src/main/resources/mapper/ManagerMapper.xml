@@ -23,7 +23,8 @@
 		select id, loginName, password, name, superAdmin from manager
 		where loginName = #{loginName}
 	</select>
-	<delete id="delete" parameterType="Integer">
-		delete from manager where id = #{id}
-	</delete>
+	<update id="delete" parameterType="Integer">
+		update manager set superAdmin = -1
+		where id = #{id}
+	</update>
 </mapper>

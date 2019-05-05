@@ -86,7 +86,7 @@
 			</if>
 		</where>
 		<if test="page != null and page.pageSize &gt; 0">
-			limit #{page.offset}, #{page.pageSize} order by date desc
+			order by date desc limit #{page.offset}, #{page.pageSize}
 		</if>
 	</select>
 </mapper>

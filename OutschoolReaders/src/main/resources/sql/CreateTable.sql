@@ -20,7 +20,7 @@ create table manager
 loginName char(16) unique not null comment '登录名',
 password char(16) not null comment '密码',
 name varchar(10) comment '姓名',
-superAdmin tinyint default 0 comment '是否超级管理员（0不是，1是）'
+superAdmin tinyint default 0 comment '权限（0普通管理员，1超级管理员，-1已删除）'
 )comment='管理员信息';
 
 create table transaction
@@ -33,3 +33,6 @@ validThru datetime comment '有效期至',
 managerId int comment '经办人',
 createdAt datetime comment '创建时间'
 )comment='校外读者缴（退）费记录';
+
+insert into manager(loginName, password, name, superAdmin)
+values('superadmin', 'abc123', '超级管理员', 1);

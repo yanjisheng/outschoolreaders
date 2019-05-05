@@ -6,17 +6,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>九江学院图书馆校外读者管理系统</title>
 <link rel="stylesheet" type="text/css" href="/general.css">
+<script src="/dependencies/jquery.js"></script>
 </head>
 <body>
 <h1>管理员入口</h1>
-<form method="post" action="">
-	<label for="loginName">登录名：</label><input type="text" name="loginName" id="loginName"><br>
-	<label for="password">密码：</label><input type="password" name="password" id="password"><br>
-	<input type="submit" value="登录" onclick="submit()">
-</form>
+<label for="loginName">登录名：</label><input type="text" name="loginName" id="loginName"><br>
+<label for="password">密码：</label><input type="password" name="password" id="password"><br>
+<input type="submit" value="登录" onclick="login()">
 <script>
-function submit(){
-	window.location = 'new-reader-success.html';
+function login(){
+	var loginName = $("#loginName").val();
+	var password = $("#password").val();
+	if(loginName == "" || password == ""){
+		alert("登录名和密码不能为空！");
+		return;
+	}
+	localStorage.setItem("loginName", loginName);
+	localStorage.setItem("password", password);
+	$.ajax({
+		"url":"login",
+		"method":"POST",
+		"data":{
+			"loginName":loginName,
+			"password":password
+		},
+		"dataType":"text",
+		"success":function(data){
+			if(data == "success"){
+				window.location = "main.html";
+			}else if(data == "fail"){
+				alert("登录名或密码错误！");
+			}
+		}
+	});	
 }
 </script>
 </body>

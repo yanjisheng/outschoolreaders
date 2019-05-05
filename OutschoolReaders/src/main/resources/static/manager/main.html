@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="X-UA-compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>九江学院图书馆校外读者管理系统</title>
 <link rel="stylesheet" type="text/css" href="/general.css">
 <script src="/dependencies/jquery.js"></script>
@@ -17,13 +16,70 @@
 <label for="identityNo">身份证号</label><input type="text" id="identityNo"><br>
 <label for="startCreate">注册日期</label><input type="date" id="startCreate">-<input type="date" id="endCreate">
 <label for="startValid">有效期至</label><input type="date" id="startValid">-<input type="date" id="endValid">
-<input type="submit" value="查询">
-<table>
-	<tr><td>序号</td><td>借阅证号</td><td>姓名</td><td>身份证号</td><td>读者类型</td><td>注册日期</td><td>有效期至</td></tr>
-</table>
+<input type="submit" value="查询" onclick="query()">
+<div id="readers">
+	<table id="readers">
+		<tr><td>序号</td><td>借阅证号</td><td>姓名</td><td>身份证号</td><td>读者类型</td><td>注册日期</td><td>有效期至</td><td>操作</td></tr>
+		<tr v-for="reader in list">
+			<td>{{reader.id}}</td>
+			<td>{{reader.cardNo}}</td>
+			<td>{{reader.name}}</td>
+			<td>{{reader.identityNo}}</td>
+			<td>{{reader.category}}</td>
+			<td>{{reader.createdAt}}</td>
+			<td>{{reader.validThru}}</td>
+			<td>修改 缴费</td>
+		</tr>
+	</table>
+	共{{count}}条数据 第<input type="text" style="width:50px" id="pageNum" value="1">页 
+</div>
 <div class="btn" style="width:150px"><a href="manage.html">管理员信息管理</a></div>
+<input type="submit" value="退出" onclick="logout()">
 <script>
-
+var vue = new Vue({
+	el: "#readers",
+	data: {
+		count: 0,
+		list: []
+	}
+}); 
+$(document).ready(query);
+function query(){
+	$.ajax({
+		"url":"getReaders",
+		"method":"POST",
+		"data":{
+			"loginName": localStorage.getItem("loginName"),
+			"password": localStorage.getItem("password"),
+			"cardNo": $("#cardNo").val(),
+			"name": $("#name").val(),
+			"identityNo": $("#identityNo").val(),
+			"startCreate": $("#startCreate").val(),
+			"endCreate": $("#endCreate").val(),
+			"startValid": $("#startValid").val(),
+			"endValid": $("#endValid").val(),
+			"page.pageNum": $("#pageNum").val(),
+		},
+		"dataType":"json",
+		"success":function(data){
+			if(data.count == -1){
+				alert("您尚未登录，请先登录！");
+				window.location = "login.html";
+			}else{
+				vue.count = data.count;
+				vue.list = data.list;			
+			}
+		},
+		"error":function(){
+			alert("数据格式有误，请重新输入！");
+		}
+	});
+}
+function logout(){
+	localStorage.removeItem("loginName");
+	localStorage.removeItem("password");
+	window.location = "login.html";
+}
 </script>
 </body>
 </html>

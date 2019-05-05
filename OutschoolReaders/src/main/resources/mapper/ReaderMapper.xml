@@ -116,7 +116,7 @@
 		from reader 
 		<include refid="queryPart"></include>
 		<if test="page != null and page.pageSize &gt; 0">
-			limit #{page.offset}, #{page.pageSize} order by modifiedDate desc
+			order by modifiedAt desc limit #{page.offset}, #{page.pageSize}
 		</if>
 	</select>
 </mapper>
