@@ -29,7 +29,11 @@ public class Page {
 		this.pageNum = pageNum;
 	}
 	public int getOffset() {
-		return (pageNum-1)*pageSize;
+		int offset = (pageNum-1)*pageSize;
+		if(offset < 0) {
+			return 0;
+		}
+		return offset;
 	}
 	
 }

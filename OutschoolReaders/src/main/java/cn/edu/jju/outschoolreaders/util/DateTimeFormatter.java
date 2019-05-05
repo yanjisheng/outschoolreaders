@@ -48,18 +48,20 @@ public class DateTimeFormatter implements Converter<String, Date>{
 		Date date = null;
 		try {
 			date = dateTime.parse(source);
+			return date;
 		} catch (ParseException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		try {
 			date = onlyDate.parse(source);
+			return date;
 		} catch (ParseException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		try {
 			date = onlyTime.parse(source);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return date;
 	}

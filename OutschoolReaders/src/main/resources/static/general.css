@@ -12,13 +12,16 @@ a{
 	text-decoration: inherit;
 	font-size: 16px;
 }
+a.small{
+	color: #1c5be8;
+}
 label{
 	display: inline-block;
 	text-align: right;
 	width: 100px;
 	height: 30px;
 }
-input[type=text], input[type=password], input[type=date]{
+input[type=text], input[type=password], input[type=date], input[type=number]{
 	width: 200px;
 	height: 30px;
 	border: 1px solid #000000;

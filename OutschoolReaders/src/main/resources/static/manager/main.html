@@ -26,21 +26,23 @@
 			<td>{{reader.name}}</td>
 			<td>{{reader.identityNo}}</td>
 			<td>{{reader.category}}</td>
-			<td>{{reader.createdAt}}</td>
-			<td>{{reader.validThru}}</td>
-			<td>修改 缴费</td>
+			<td>{{reader.createdAt.substring(0,10)}}</td>
+			<td>{{reader.validThru == null ? "" : reader.validThru.substring(0,10)}}</td>
+			<td><a class="small" :href="'reader.html?id=' + reader.id">修改</a> 
+					<a class="small" :href="'pay.html?id=' + reader.id">缴费</a></td>
 		</tr>
 	</table>
-	共{{count}}条数据 第<input type="text" style="width:50px" id="pageNum" value="1">页 
+	共{{count}}条数据 第<input type="number" style="width:50px" id="pageNum" value="1" min="1" onchange="query()">页
+	<button onclick="sub()">上一页</button> <button onclick="add()">下一页</button> 
 </div>
 <div class="btn" style="width:150px"><a href="manage.html">管理员信息管理</a></div>
 <input type="submit" value="退出" onclick="logout()">
 <script>
 var vue = new Vue({
-	el: "#readers",
-	data: {
-		count: 0,
-		list: []
+	"el": "#readers",
+	"data": {
+		"count": 0,
+		"list": []
 	}
 }); 
 $(document).ready(query);
@@ -79,6 +81,14 @@ function logout(){
 	localStorage.removeItem("loginName");
 	localStorage.removeItem("password");
 	window.location = "login.html";
+}
+function add(){
+	$("#pageNum").val(1 + parseInt($("#pageNum").val()));
+	query();
+}
+function sub(){
+	$("#pageNum").val($("#pageNum").val() - 1);
+	query();
 }
 </script>
 </body>

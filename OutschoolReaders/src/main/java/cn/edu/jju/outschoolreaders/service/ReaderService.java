@@ -30,6 +30,11 @@ public class ReaderService {
 		readerDao.addOne(reader);
 	}
 	
+	public Reader getReaderById(Integer readerId) {
+		log.debug("按id["+readerId+"]查询读者信息");
+		return readerDao.selectById(readerId);
+	}
+	
 	public Reader getReaderByCardNoAndName(String cardNo, String name) {
 		log.debug("按借阅证卡号["+cardNo+"]和姓名["+name+"]查询读者信息");
 		Reader reader = readerDao.selectByCardNo(cardNo);
@@ -40,6 +45,7 @@ public class ReaderService {
 	}
 	
 	public PageResult<Reader> queryReaders(ReaderQuery query) {
+		log.debug("按条件查询读者列表");
 		int count = readerDao.count(query);
 		List<Reader> list = readerDao.query(query);
 		return new PageResult<>(count, list);

@@ -30,6 +30,9 @@ public class ManagerController {
 	@Autowired
 	private ReaderService readerService;
 	
+	/**
+	 * 管理员登录
+	 */
 	@PostMapping("/manager/login")
 	public String login(String loginName, String password) {
 		Manager manager = managerService.getManagerByLoginNameAndPassword(loginName, password);
@@ -39,12 +42,25 @@ public class ManagerController {
 		return "fail";
 	}
 	
+	/**
+	 * 管理员主页查询读者列表
+	 */
 	@PostMapping("/manager/getReaders")
 	public PageResult<Reader> getReaders(String loginName, String password, ReaderQuery query) {
 		Manager manager = managerService.getManagerByLoginNameAndPassword(loginName, password);
 		if(manager == null) {
-			return new PageResult<>(-1, new ArrayList<>());
+			return new PageResult<>(PageResult.UNAUTHORIZED, new ArrayList<>());
 		}
 		return readerService.queryReaders(query);
+	}
+	
+	@PostMapping("/manager/getReaderById")
+	public Reader getReaderById(String loginName, String password, Integer id) {
+		Manager manager = managerService.getManagerByLoginNameAndPassword(loginName, password);
+		if(manager == null) {
+			return new Reader();
+		}
+		//TODO
+		return null;
 	}
 }

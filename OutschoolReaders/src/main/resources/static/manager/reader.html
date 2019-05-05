@@ -9,6 +9,37 @@
 </head>
 <body>
 <h1>修改读者信息</h1>
-
+<div id="container">
+	<label for="name"><font color="red">*</font>姓名：</label><input type="text" id="name" :value=""><br>
+	<label for="gender">性别：</label><input type="text" id="gender"><br>
+	<label for="identityNo">身份证号：</label><input type="text" id="identityNo"><br>
+	<label for="address">住址（或工作单位）：</label><input type="text" id="address"><br>
+	<label for="phone">联系电话：</label><input type="text" id="phone"><br>
+	<label for="email">电子邮件：</label><input type="text" id="email"><br>
+</div>
+<input type="submit" value="修改" onclick="modify()">
+<div class="btn"><a href="main.html">返回</a></div>
+<script>
+var url = window.location.toString();
+var index = url.indexOf('id=');
+var id;
+try{
+	id = parseInt(url.substring(index + 3, url.length));
+}catch(e){
+	alert("您尚未登录，请先登录！");
+	window.location = "login.html";
+}
+var vue = new Vue({
+	"el": "#container",
+	"data": {
+		
+	}
+});
+function init(){
+	$.ajax({
+		
+	});
+}
+</script>
 </body>
 </html>

@@ -83,7 +83,7 @@
 				and validThru &gt;= #{startValid}
 			</if>
 			<if test="endValid != null">
-				and validThru &lt;= #{endValid}
+				and validThru &lt; #{endValid}
 			</if>
 			<if test="managerIds != null and managerIds.size &gt; 0">
 				and managerId in 
@@ -95,13 +95,13 @@
 				and createdAt &gt;= #{startCreate}
 			</if>
 			<if test="endCreate != null">
-				and createdAt &lt;= #{endCreate}
+				and createdAt &lt; #{endCreate}
 			</if>
 			<if test="startModify != null">
 				and modifiedAt &gt;= #{startModify}
 			</if>
 			<if test="endModify != null">
-				and modifiedAt &lt;= #{endModify}
+				and modifiedAt &lt; #{endModify}
 			</if>
 		</where>
 	</sql>
