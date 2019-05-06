@@ -74,9 +74,44 @@ $("document").ready(init);
 var warnCount = 0;
 function validWarn(){
 	if(warnCount <= 0){
-		alert("此处修改有效期仅适用于读者已缴费补更新有效期或无需缴费的情况。如读者前来缴费续期，请先回到列表页，然后点击“缴费”。");
+		alert("此处修改有效期仅适用于读者已缴费补更新有效期或无需缴费的情况。\n"+
+				"如读者前来缴费续期，请先回到列表页，然后点击“缴费”。");
 	}
 	warnCount ++;
+}
+function modify(){
+	//TODO 前端提交校验
+	$.ajax({
+		"url": "modifyReader",
+		"method": "POST",
+		"data": {
+			"loginName": localStorage.getItem("loginName"),
+			"password": localStorage.getItem("password"),
+			"id": id,
+			"name": $("#name").val(),
+			"gender": $("#gender").val(),
+			"identityNo": $("#identityNo").val(),
+			"address": $("#address").val(),
+			"phone": $("#phone").val(),
+			"email": $("#email").val(),
+			"validThru": $("#validThru").val(),
+			"category": $("#category").val(),
+			"remark": $("#remark").val(),
+		},
+		"dataType": "text",
+		"success": function(res){
+			if(res == "unauthorized"){
+				alert("您尚未登录，请先登录！");
+				window.location = "login.html";
+			}else if(res == "success"){
+				alert("修改成功！");
+				window.location = "reader.html?id="+id;
+			}
+		},
+		"error": function(){
+			alert("系统错误！");
+		}
+	});
 }
 </script>
 </body>

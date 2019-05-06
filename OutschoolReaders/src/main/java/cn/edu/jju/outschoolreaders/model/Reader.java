@@ -111,4 +111,23 @@ public class Reader {
 	public void setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
+	
+	public String getCategoryName() {
+		String categoryName = null;
+		if(category == null) {
+			return categoryName;
+		}
+		switch(category) {
+		case 1:
+			categoryName = "A类（九江市民，原价）";
+			break;
+		case 2:
+			categoryName = "B类（九江学院毕业生及职工家属，半价）";
+			break;
+		case 3:
+			categoryName = "C类（单位用户，免费）";
+			break;
+		}
+		return categoryName;
+	}
 }

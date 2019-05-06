@@ -38,13 +38,13 @@
 		<if test="email != null and email != ''">
 			email = #{email}, 
 		</if>
-		<if test="validThru != null and validThru != ''">
+		<if test="validThru != null">
 			validThru = #{validThru}, 
 		</if>
-		<if test="category != null and category != ''">
+		<if test="category != null">
 			category = #{category}, 
 		</if>
-		<if test="managerId != null and managerId != ''">
+		<if test="managerId != null">
 			managerId = #{managerId}, 
 		</if>
 		<if test="remark != null and remark != ''">

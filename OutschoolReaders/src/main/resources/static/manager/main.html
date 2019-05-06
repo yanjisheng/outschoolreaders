@@ -25,7 +25,7 @@
 			<td>{{reader.cardNo}}</td>
 			<td>{{reader.name}}</td>
 			<td>{{reader.identityNo}}</td>
-			<td>{{reader.category}}</td>
+			<td>{{reader.categoryName == null ? "" : reader.categoryName.substring(0,2)}}</td>
 			<td>{{reader.createdAt.substring(0,10)}}</td>
 			<td>{{reader.validThru == null ? "" : reader.validThru.substring(0,10)}}</td>
 			<td><a class="small" :href="'reader.html?id=' + reader.id">修改</a> 

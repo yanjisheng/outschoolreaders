@@ -67,4 +67,18 @@ public class ManagerController {
 		}
 		return reader;
 	}
+	
+	/**
+	 * 管理员修改读者信息
+	 */
+	@PostMapping("/manager/modifyReader")
+	public String modifyReader(String loginName, String password, Reader reader) {
+		Manager manager = managerService.getManagerByLoginNameAndPassword(loginName, password);
+		if(manager == null) {
+			return "unauthorized";
+		}
+		reader.setManagerId(manager.getId());
+		readerService.modifyReader(reader);
+		return "success";
+	}
 }

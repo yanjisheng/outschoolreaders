@@ -50,4 +50,9 @@ public class ReaderService {
 		List<Reader> list = readerDao.query(query);
 		return new PageResult<>(count, list);
 	}
+
+	public void modifyReader(Reader reader) {
+		log.info("修改读者["+reader.getId()+"]信息");
+		readerDao.modify(reader);
+	}
 }

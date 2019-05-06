@@ -12,7 +12,10 @@ category tinyint comment '读者类型（1A类原价，2B类半价，3C类免费
 managerId int comment '经办人',
 remark varchar(60) comment '备注',
 createdAt datetime comment '创建时间',
-modifiedAt datetime comment '修改时间'
+modifiedAt datetime comment '修改时间',
+index name(name),
+index identityNo(identityNo),
+index validThru(validThru)
 )comment='校外读者信息';
 
 create table manager
@@ -36,3 +39,6 @@ createdAt datetime comment '创建时间'
 
 insert into manager(loginName, password, name, superAdmin)
 values('superadmin', 'abc123', '超级管理员', 1);
+
+create index name on reader(name);
+create index identityNo on reader(identityNo);
