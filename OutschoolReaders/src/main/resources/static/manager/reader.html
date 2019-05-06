@@ -6,17 +6,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>九江学院图书馆校外读者管理系统</title>
 <link rel="stylesheet" type="text/css" href="/general.css">
+<script src="/dependencies/jquery.js"></script>
+<script src="/dependencies/vue.js"></script>
 </head>
 <body>
-<h1>修改读者信息</h1>
-<div id="container">
-	<label for="name"><font color="red">*</font>姓名：</label><input type="text" id="name" :value=""><br>
-	<label for="gender">性别：</label><input type="text" id="gender"><br>
-	<label for="identityNo">身份证号：</label><input type="text" id="identityNo"><br>
-	<label for="address">住址（或工作单位）：</label><input type="text" id="address"><br>
-	<label for="phone">联系电话：</label><input type="text" id="phone"><br>
-	<label for="email">电子邮件：</label><input type="text" id="email"><br>
-</div>
+<h1>读者详细信息</h1>
+<table id="container">
+	<tr><td style="width:100px">借阅证号：</td><td>{{reader.cardNo}}</td></tr>
+	<tr><td>姓名：</td><td>{{reader.name}}</td></tr>
+	<tr><td>性别：</td><td>{{reader.gender}}</td></tr>
+	<tr><td>身份证号：</td><td>{{reader.identityNo}}</td></tr>
+	<tr><td>住址（或工作单位）：</td><td>{{reader.address}}</td></tr>
+	<tr><td>联系电话：</td><td>{{reader.phone}}</td></tr>
+	<tr><td>电子邮件：</td><td>{{reader.email}}</td></tr>
+	<tr><td>有效期至：</td><td>{{reader.validThru}}</td></tr>
+	<tr><td>读者类型：</td><td>{{reader.category}}</td></tr>
+	<tr><td>经办人：</td><td>{{reader.managerId}}</td></tr>
+	<tr><td>备注：</td><td>{{reader.remark}}</td></tr>
+	<tr><td>注册时间：</td><td>{{reader.createdAt}}</td></tr>
+</table>
 <input type="submit" value="修改" onclick="modify()">
 <div class="btn"><a href="main.html">返回</a></div>
 <script>
@@ -32,14 +40,36 @@ try{
 var vue = new Vue({
 	"el": "#container",
 	"data": {
-		
+		"reader": null
 	}
 });
 function init(){
 	$.ajax({
-		
+		"url": "getReaderById",
+		"method": "POST",
+		"data": {
+			"loginName": localStorage.getItem("loginName"),
+			"password": localStorage.getItem("password"),
+			"id": id
+		},
+		"dataType": "json",
+		"success":function(reader){
+			if(reader.id == -1){
+				alert("您尚未登录，请先登录！");
+				window.location = "login.html";
+			}else{
+				vue.reader = reader;			
+			}
+		},
+		"error":function(){
+			alert("系统错误！");
+		}
 	});
 }
+function modify(){
+	window.location = "reader-modify.html?id="+id;
+}
+$("document").ready(init);
 </script>
 </body>
 </html>

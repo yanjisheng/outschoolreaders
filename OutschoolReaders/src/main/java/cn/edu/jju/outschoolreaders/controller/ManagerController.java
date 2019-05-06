@@ -1,10 +1,6 @@
 package cn.edu.jju.outschoolreaders.controller;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,13 +50,21 @@ public class ManagerController {
 		return readerService.queryReaders(query);
 	}
 	
+	/**
+	 * 管理员查询读者详细信息
+	 */
 	@PostMapping("/manager/getReaderById")
 	public Reader getReaderById(String loginName, String password, Integer id) {
 		Manager manager = managerService.getManagerByLoginNameAndPassword(loginName, password);
-		if(manager == null) {
-			return new Reader();
+		Reader nullReader = new Reader();
+		nullReader.setId(-1);
+		if(manager == null) {			
+			return nullReader;
 		}
-		//TODO
-		return null;
+		Reader reader = readerService.getReaderById(id);
+		if(reader == null) {
+			return nullReader;
+		}
+		return reader;
 	}
 }

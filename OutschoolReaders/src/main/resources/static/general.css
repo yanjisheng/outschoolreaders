@@ -37,6 +37,15 @@ input[type=submit], input[type=button], button{
 	font-size: 16px;
 	cursor: pointer;
 }
+select{
+	width: 203.53px;
+	height: 33.53px;
+	border: 1px solid #000000;
+	margin: 5px 0px;
+	padding: 1px;
+	position: relative;
+	left: -3.53px;
+}
 div.btn{
 	display: inline-block;
 	position: relative;
