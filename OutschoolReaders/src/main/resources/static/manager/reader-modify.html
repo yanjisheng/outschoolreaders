@@ -12,6 +12,7 @@
 <body>
 <h1>修改读者信息</h1>
 <div id="container">
+	<label for="cardNo"><font color="red">*</font>借阅证号：</label><input type="text" id="cardNo" :value="reader.cardNo"><br>
 	<label for="name"><font color="red">*</font>姓名：</label><input type="text" id="name" :value="reader.name"><br>
 	<label for="gender">性别：</label><input type="text" id="gender" :value="reader.gender"><br>
 	<label for="identityNo">身份证号：</label><input type="text" id="identityNo" :value="reader.identityNo"><br>
@@ -23,8 +24,8 @@
 <label for="category">读者类型：</label>
 <select id="category">
 	<option value="1">A类（九江市民，原价）</option>
-	<option value="2">B类（九江学院毕业生及职工家属，半价）</option>
-	<option value="3">C类（单位用户，免费）</option>
+	<option value="2">B类（九江学院毕业生及职工家属，服务费半价）</option>
+	<option value="3">C类（单位用户，免服务费）</option>
 </select><br>
 <label for="remark">备注：</label><input type="text" id="remark"><br>
 <input type="submit" value="修改" onclick="modify()">
@@ -88,6 +89,7 @@ function modify(){
 			"loginName": localStorage.getItem("loginName"),
 			"password": localStorage.getItem("password"),
 			"id": id,
+			"cardNo": $("#cardNo").val(),
 			"name": $("#name").val(),
 			"gender": $("#gender").val(),
 			"identityNo": $("#identityNo").val(),

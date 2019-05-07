@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="X-UA-compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>九江学院图书馆校外读者管理系统</title>
+<link rel="stylesheet" type="text/css" href="/general.css">
+<script src="/dependencies/jquery.js"></script>
+</head>
+<body>
+<h1>添加管理员</h1>
+<label for="loginName">登录名：</label><input type="text" id="loginName"><br>
+<label for="name">姓名：</label><input type="text" id="name"><br>
+<label for="superAdmin">权限：</label>
+<select id="superAdmin">
+	<option value="0">管理员</option>
+	<option value="1">超级管理员</option>
+</select><br>
+<input type="submit" value="确定" onclick="addManager()">
+<div class="btn"><a href="manage.html">返回</a></div>
+<script>
+function addManager(){
+	var loginName = $("#loginName").val();
+	var name = $("#name").val();
+	if(loginName == ""){
+		alert("登录名不能为空！");
+		return;
+	}
+	$.ajax({
+		"url":"addManager",
+		"method":"POST",
+		"data":{
+			"superAdminLoginName": localStorage.getItem("loginName"),
+			"superAdminPassword": localStorage.getItem("password"),
+			"loginName": loginName,
+			"name": name,
+			"superAdmin": $("#superAdmin").val()
+		},
+		"dataType":"text",
+		"success":function(data){
+			if(data == "success"){
+				alert("添加成功！");
+				window.location = "manage.html";
+			}else if(data == "unauthorized"){
+				alert("您尚未登录，请先登录！");
+			}
+		}
+	});	
+}
+</script>
+</body>
+</html>

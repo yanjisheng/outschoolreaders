@@ -1,4 +1,4 @@
-create table reader
+create table if not exists reader
 (id int primary key auto_increment,
 cardNo varchar(20) unique comment '借阅证卡号',
 name varchar(10) not null comment '姓名',
@@ -18,7 +18,7 @@ index identityNo(identityNo),
 index validThru(validThru)
 )comment='校外读者信息';
 
-create table manager
+create table if not exists manager
 (id int primary key auto_increment,
 loginName char(16) unique not null comment '登录名',
 password char(16) not null comment '密码',
@@ -26,7 +26,7 @@ name varchar(10) comment '姓名',
 superAdmin tinyint default 0 comment '权限（0普通管理员，1超级管理员，-1已删除）'
 )comment='管理员信息';
 
-create table transaction
+create table if not exists transaction
 (id int primary key auto_increment,
 readerId int not null comment '缴费人',
 date datetime not null comment '缴费日期',
@@ -39,6 +39,3 @@ createdAt datetime comment '创建时间'
 
 insert into manager(loginName, password, name, superAdmin)
 values('superadmin', 'abc123', '超级管理员', 1);
-
-create index name on reader(name);
-create index identityNo on reader(identityNo);

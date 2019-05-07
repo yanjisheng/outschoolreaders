@@ -3,8 +3,6 @@ package cn.edu.jju.outschoolreaders.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.session.RowBounds;
-
 import cn.edu.jju.outschoolreaders.model.Transaction;
 import cn.edu.jju.outschoolreaders.model.TransactionQuery;
 

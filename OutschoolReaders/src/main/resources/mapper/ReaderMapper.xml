@@ -115,8 +115,9 @@
 		validThru, category, managerId, remark, createdAt, modifiedAt
 		from reader 
 		<include refid="queryPart"></include>
+		order by modifiedAt desc 
 		<if test="page != null and page.pageSize &gt; 0">
-			order by modifiedAt desc limit #{page.offset}, #{page.pageSize}
+			limit #{page.offset}, #{page.pageSize}
 		</if>
 	</select>
 </mapper>

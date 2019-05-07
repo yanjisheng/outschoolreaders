@@ -68,4 +68,26 @@ public class Transaction {
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
+	
+	public String getTypeName() {
+		String typeName = null;
+		if(type == null) {
+			return typeName;
+		}
+		switch(type) {
+		case 1:
+			typeName = "阅览服务费";
+			break;
+		case 2:
+			typeName = "借阅服务费";
+			break;
+		case 3:
+			typeName = "借阅押金";
+			break;
+		case 4:
+			typeName = "退押金";
+			break;
+		}
+		return typeName;
+	}
 }

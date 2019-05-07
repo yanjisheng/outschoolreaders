@@ -11,6 +11,7 @@
 </head>
 <body>
 <h1>读者详细信息</h1>
+<h2>读者基本信息</h2>
 <table id="container">
 	<tr><td style="width:100px">借阅证号：</td><td>{{reader.cardNo}}</td></tr>
 	<tr><td>姓名：</td><td>{{reader.name}}</td></tr>
@@ -25,7 +26,20 @@
 	<tr><td>备注：</td><td>{{reader.remark}}</td></tr>
 	<tr><td>注册时间：</td><td>{{reader.createdAt}}</td></tr>
 </table>
+<h2>读者缴费记录</h2>
+<table id="payRecords">
+	<tr><td>序号</td><td>缴费日期</td><td>金额</td><td>类型</td><td>有效期至</td><td>经办人</td></tr>
+	<tr v-for="(transaction,index) in list">
+		<td>{{index+1}}</td>
+		<td>{{transaction.date}}</td>
+		<td>{{transaction.amount}}元</td>
+		<td>{{transaction.typeName}}</td>
+		<td>{{transaction.validThru}}</td>
+		<td>{{transaction.managerId}}</td>
+	</tr>
+</table>
 <input type="submit" value="修改" onclick="modify()">
+<input type="submit" value="缴费" onclick="pay()">
 <div class="btn"><a href="main.html">返回</a></div>
 <script>
 var url = window.location.toString();
@@ -41,6 +55,13 @@ var vue = new Vue({
 	"el": "#container",
 	"data": {
 		"reader": null
+	}
+});
+var vueRecords = new Vue({
+	"el": "#payRecords",
+	"data": {
+		"count": 0,
+		"list": null
 	}
 });
 function init(){
@@ -65,9 +86,34 @@ function init(){
 			alert("系统错误！");
 		}
 	});
+	$.ajax({
+		"url": "getPaymentsByReaderId",
+		"method": "POST",
+		"data": {
+			"loginName": localStorage.getItem("loginName"),
+			"password": localStorage.getItem("password"),
+			"id": id
+		},
+		"dataType": "json",
+		"success":function(data){
+			if(data.count == -1){
+				alert("您尚未登录，请先登录！");
+				window.location = "login.html";
+			}else{
+				vueRecords.count = data.count;
+				vueRecords.list = data.list;
+			}
+		},
+		"error":function(){
+			alert("系统错误2！");
+		}
+	});
 }
 function modify(){
 	window.location = "reader-modify.html?id="+id;
+}
+function pay(){
+	window.location = "pay.html?id="+id;
 }
 $("document").ready(init);
 </script>

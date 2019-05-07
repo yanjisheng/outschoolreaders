@@ -122,10 +122,10 @@ public class Reader {
 			categoryName = "A类（九江市民，原价）";
 			break;
 		case 2:
-			categoryName = "B类（九江学院毕业生及职工家属，半价）";
+			categoryName = "B类（九江学院毕业生及职工家属，服务费半价）";
 			break;
 		case 3:
-			categoryName = "C类（单位用户，免费）";
+			categoryName = "C类（单位用户，免服务费）";
 			break;
 		}
 		return categoryName;

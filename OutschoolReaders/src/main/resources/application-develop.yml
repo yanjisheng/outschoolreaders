@@ -6,3 +6,4 @@ spring:
     password: abc123
 server:
   port: 9301
+default-password: abc123

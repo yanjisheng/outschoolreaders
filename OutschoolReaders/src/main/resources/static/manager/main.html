@@ -20,15 +20,15 @@
 <div id="readers">
 	<table id="readers">
 		<tr><td>序号</td><td>借阅证号</td><td>姓名</td><td>身份证号</td><td>读者类型</td><td>注册日期</td><td>有效期至</td><td>操作</td></tr>
-		<tr v-for="reader in list">
-			<td>{{reader.id}}</td>
+		<tr v-for="(reader,index) in list">
+			<td>{{index+1}}</td>
 			<td>{{reader.cardNo}}</td>
 			<td>{{reader.name}}</td>
 			<td>{{reader.identityNo}}</td>
 			<td>{{reader.categoryName == null ? "" : reader.categoryName.substring(0,2)}}</td>
 			<td>{{reader.createdAt.substring(0,10)}}</td>
 			<td>{{reader.validThru == null ? "" : reader.validThru.substring(0,10)}}</td>
-			<td><a class="small" :href="'reader.html?id=' + reader.id">修改</a> 
+			<td><a class="small" :href="'reader.html?id=' + reader.id">详情</a> 
 					<a class="small" :href="'pay.html?id=' + reader.id">缴费</a></td>
 		</tr>
 	</table>

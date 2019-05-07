@@ -35,7 +35,7 @@
 			<if test="amountMax != null">
 				and abs(amount) &lt; #{amountMax}
 			</if>
-			<if test="types != null and types &gt; 0">
+			<if test="types != null and types.size &gt; 0">
 				and type in 
 				<foreach collection="types" item="typeItem" open="(" separator="," close=")">
 					#{typeItem}
@@ -57,8 +57,9 @@
 	<select id="query" parameterType="TransactionQuery" resultType="Transaction">
 		select id, readerId, date, amount, type, validThru, managerId, createdAt from transaction
 		<include refid="queryPart"/>
+		order by date desc 
 		<if test="page != null and page.pageSize &gt; 0">
-			order by date desc limit #{page.offset}, #{page.pageSize}
+			limit #{page.offset}, #{page.pageSize}
 		</if>
 	</select>
 </mapper>

@@ -8,16 +8,16 @@
 <link rel="stylesheet" type="text/css" href="/general.css">
 </head>
 <body>
-<h1>读者入口</h1>
+<h1>九江学院图书馆校外读者管理系统——读者入口</h1>
 <form method="post" action="getReader" onsubmit="return check()">
 	<label for="cardNo">借阅证号：</label><input type="text" name="cardNo" id="cardNo"><br>
 	<label for="name">姓名：</label><input type="text" name="name" id="name"><br>
-	<input type="submit" value="查询" onclick="query()">
+	<input type="submit" value="查询">
 	<div class="btn"><a href="agreement.html">新读者注册</a></div>
 </form>
 <script>
-function query(){
-	window.location = 'info.html';
+function check(){
+	
 }
 </script>
 </body>

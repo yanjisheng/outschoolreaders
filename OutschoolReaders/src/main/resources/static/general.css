@@ -1,7 +1,11 @@
 @charset "UTF-8";
 h1{
-	margin: 0px;
+	margin: 5px 0px;
 	font-size: 30px;
+}
+h2{
+	margin: 5px 0px;
+	font-size: 20px;
 }
 p{
 	margin: 0px;
@@ -36,6 +40,7 @@ input[type=submit], input[type=button], button{
 	border-radius: 20px;
 	font-size: 16px;
 	cursor: pointer;
+	margin: 5px 0px;
 }
 select{
 	width: 203.53px;
@@ -56,6 +61,7 @@ div.btn{
 	text-align: center;
 	line-height: 40px;
 	border-radius: 20px;
+	margin: 5px 0px;
 }
 div.btn-blue{
 	background-color: #204a87;

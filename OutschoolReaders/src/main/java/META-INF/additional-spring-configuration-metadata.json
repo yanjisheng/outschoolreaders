@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "default-password",
+  "type": "java.lang.String",
+  "description": "新管理员账户的默认密码"
+}]}
