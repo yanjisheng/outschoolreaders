@@ -110,8 +110,12 @@ function modify(){
 				window.location = "reader.html?id="+id;
 			}
 		},
-		"error": function(){
-			alert("系统错误！");
+		"error": function(data){
+			if(JSON.stringify(data).indexOf("SQLIntegrityConstraintViolationException") >= 0){
+				alert("借阅证号与系统中已存在的记录重复！");
+			}else{
+				alert("系统错误！");
+			}
 		}
 	});
 }

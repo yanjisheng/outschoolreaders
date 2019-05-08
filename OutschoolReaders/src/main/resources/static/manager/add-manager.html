@@ -44,6 +44,14 @@ function addManager(){
 				window.location = "manage.html";
 			}else if(data == "unauthorized"){
 				alert("您尚未登录，请先登录！");
+				window.location = "login.html";
+			}
+		},
+		"error":function(data){
+			if(JSON.stringify(data).indexOf("SQLIntegrityConstraintViolationException") >= 0){
+				alert("登录名重复！");
+			}else{
+				alert("系统错误！");
 			}
 		}
 	});	

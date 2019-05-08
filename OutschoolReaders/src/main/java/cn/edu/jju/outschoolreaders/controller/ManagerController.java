@@ -156,7 +156,7 @@ public class ManagerController {
 	
 	/**
 	 * 查询全部管理员信息<br>
-	 * 本接口仅限超级管理员访问
+	 * 以下接口仅限超级管理员访问
 	 */
 	@PostMapping("/manager/getManagers")
 	public PageResult<Manager> getManagers(String loginName, String password, Page page) {
@@ -167,6 +167,9 @@ public class ManagerController {
 		return managerService.getManagers(page);
 	}
 	
+	/**
+	 * 添加管理员
+	 */
 	@PostMapping("/manager/addManager")
 	public String addManager(String superAdminLoginName, String superAdminPassword, Manager newManager) {
 		Manager manager = managerService.getManagerByLoginNameAndPassword(superAdminLoginName, superAdminPassword);
@@ -174,6 +177,32 @@ public class ManagerController {
 			return "unauthorized";
 		}
 		managerService.addManager(newManager);
+		return "success";
+	}
+	
+	/**
+	 * 删除管理员
+	 */
+	@PostMapping("/manager/deleteManager")
+	public String deleteManager(String loginName, String password, Integer managerId) {
+		Manager manager = managerService.getManagerByLoginNameAndPassword(loginName, password);
+		if(manager == null || !(manager.getSuperAdmin() == Manager.SUPER_ADMIN)) {
+			return "unauthorized";
+		}
+		managerService.deleteManager(managerId);
+		return "success";
+	}
+	
+	/**
+	 * 重置管理员密码
+	 */
+	@PostMapping("/manager/resetManagerPassword")
+	public String resetManagerPassword(String loginName, String password, Integer managerId) {
+		Manager manager = managerService.getManagerByLoginNameAndPassword(loginName, password);
+		if(manager == null || !(manager.getSuperAdmin() == Manager.SUPER_ADMIN)) {
+			return "unauthorized";
+		}
+		managerService.resetManagerPassword(managerId);
 		return "success";
 	}
 }

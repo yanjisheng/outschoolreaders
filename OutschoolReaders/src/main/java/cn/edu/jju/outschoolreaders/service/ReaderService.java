@@ -51,8 +51,22 @@ public class ReaderService {
 		return new PageResult<>(count, list);
 	}
 
+	/**
+	 * 管理员修改读者信息
+	 */
 	public void modifyReader(Reader reader) {
 		log.info("修改读者["+reader.getId()+"]信息");
 		readerDao.modify(reader);
+	}
+	
+	/**
+	 * 读者修改自己的信息
+	 */
+	public void readerModify(Reader readerTemp) {
+		Reader reader = getReaderByCardNoAndName(readerTemp.getCardNo(), readerTemp.getName());
+		reader.setAddress(readerTemp.getAddress());
+		reader.setPhone(readerTemp.getPhone());
+		reader.setEmail(readerTemp.getEmail());
+		modifyReader(reader);
 	}
 }

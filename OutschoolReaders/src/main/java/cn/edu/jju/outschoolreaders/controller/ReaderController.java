@@ -56,4 +56,12 @@ public class ReaderController {
 	public Reader getReader(String cardNo, String name) {
 		return readerService.getReaderByCardNoAndName(cardNo, name);
 	}
+	
+	/**
+	 * 修改读者信息
+	 */
+	@PostMapping("/reader/modifyReader")
+	public void modifyReader(Reader readerTemp) {
+		readerService.readerModify(readerTemp);		
+	}
 }

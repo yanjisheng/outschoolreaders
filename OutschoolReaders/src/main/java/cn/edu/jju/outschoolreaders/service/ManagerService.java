@@ -58,4 +58,17 @@ public class ManagerService {
 		manager.setPassword(this.password);
 		managerDao.add(manager);
 	}
+	
+	public void deleteManager(Integer managerId) {
+		log.info("删除管理员["+managerId+"]");
+		managerDao.delete(managerId);
+	}
+	
+	public void resetManagerPassword(Integer managerId) {
+		log.info("重置管理员["+managerId+"]密码");
+		Manager manager = new Manager();
+		manager.setId(managerId);
+		manager.setPassword(this.password);
+		managerDao.modify(manager);
+	}
 }

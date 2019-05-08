@@ -14,12 +14,14 @@
 <div class="btn btn-blue"><a href="add-manager.html">添加管理员</a></div>
 <div id="managers">
 	<table>
-		<tr><td>序号</td><td>登录名</td><td>姓名</td><td>操作</td></tr>
+		<tr><td>序号</td><td>登录名</td><td>姓名</td><td>权限</td><td>操作</td></tr>
 		<tr v-for="(manager,index) in list">
 			<td>{{index+1}}</td>
 			<td>{{manager.loginName}}</td>
 			<td>{{manager.name}}</td>
-			<td>重置密码 删除</td>
+			<td>{{manager.superAdmin == 1 ? '超级管理员' : '管理员'}}</td>
+			<td><a class="small" :href="'javascript:resetPassword('+manager.id+')'">重置密码</a>
+					<a class="small" :href="'javascript:deleteManager('+manager.id+')'">删除</a></td>
 		</tr>
 	</table>
 	共{{count}}条数据 第<input type="number" style="width:50px" id="pageNum" value="1" min="1" onchange="query()">页
@@ -66,6 +68,61 @@ function add(){
 function sub(){
 	$("#pageNum").val($("#pageNum").val() - 1);
 	query();
+}
+function resetPassword(id){
+	var conf = confirm("您真的要重置该管理员账户的密码吗？");
+	if(!conf){
+		return;
+	}
+	$.ajax({
+		"url":"resetManagerPassword",
+		"method":"POST",
+		"data":{
+			"loginName": localStorage.getItem("loginName"),
+			"password": localStorage.getItem("password"),
+			"managerId": id,
+		},
+		"dataType":"text",
+		"success":function(data){
+			if(data == "unauthorized"){
+				alert("您尚未登录，请先登录！");
+				window.location = "login.html";
+			}else if(data == "success"){
+				alert("重置密码成功！");		
+			}
+		},
+		"error":function(){
+			alert("系统错误！");
+		}
+	});
+}
+function deleteManager(id){
+	var conf = confirm("您真的要删除该管理员账户吗？");
+	if(!conf){
+		return;
+	}
+	$.ajax({
+		"url":"deleteManager",
+		"method":"POST",
+		"data":{
+			"loginName": localStorage.getItem("loginName"),
+			"password": localStorage.getItem("password"),
+			"managerId": id,
+		},
+		"dataType":"text",
+		"success":function(data){
+			if(data == "unauthorized"){
+				alert("您尚未登录，请先登录！");
+				window.location = "login.html";
+			}else if(data == "success"){
+				alert("删除成功！");
+				window.location.reload();
+			}
+		},
+		"error":function(){
+			alert("系统错误！");
+		}
+	});
 }
 </script>
 </body>

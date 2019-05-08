@@ -8,34 +8,56 @@
 <link rel="stylesheet" type="text/css" href="/general.css">
 </head>
 <body>
-<h1>修改读者信息(未完成)</h1>
-<form method="post" action="modifyReader" onsubmit="return check()">
-	<label for="address">住址（或工作单位）：</label><input type="text" name="address" id="address"><br>
-	<label for="phone">联系电话：</label><input type="text" name="phone" id="phone"><br>
-	<label for="email">电子邮件：</label><input type="text" name="email" id="email"><br>
-	<input type="submit" value="修改">
-</form>
+<h1>修改读者信息</h1>
+<label for="address">住址（或工作单位）：</label><input type="text" name="address" id="address"><br>
+<label for="phone">联系电话：</label><input type="text" name="phone" id="phone"><br>
+<label for="email">电子邮件：</label><input type="text" name="email" id="email"><br>
+<input type="submit" value="修改" onclick="modify()">
+<div class="btn"><a href="main.html">返回</a></div>
 <script>
+var url = window.location.toString();
+var cardNoIndex = url.indexOf('cardNo=');
+var nameIndex = url.indexOf('name=');
+var cardNo;
+var name;
+if(cardNoIndex < nameIndex && cardNoIndex > 0){
+	cardNo = url.substring(cardNoIndex + 7, nameIndex - 1);
+	name = decodeURI(url.substring(nameIndex + 5, url.length));
+}
+var address;
+var phone;
+var email;
 function check(){
-	var address = document.getElementById('address').value;
-	console.log(address);
+	address = document.getElementById('address').value;
 	if(address.length > 60){
 		alert('住址（或工作单位）不能长于60个字！');
 		return false;
 	}
-	var phone = document.getElementById('phone').value;
-	console.log(phone);
+	phone = document.getElementById('phone').value;
 	if(phone.length > 16){
 		alert('联系电话不能长于16位！');
 		return false;
 	}
-	var email = document.getElementById('email').value;
-	console.log(email);
+	email = document.getElementById('email').value;
 	if(email.length > 30){
 		alert('电子邮件不能长于30位！');
 		return false;
 	}
 	return true;
+}
+function modify(){
+	if(check()){
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST","modifyReader?cardNo="+cardNo+"&name="+name
+				+"&address="+address+"&phone="+phone+"&email="+email,true);
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200 || xhr.status == 304){
+				alert("修改成功！");
+				window.location = "info.html?cardNo="+cardNo+"&name="+name;
+			}
+		}
+		xhr.send();
+	}
 }
 </script>
 </body>
