@@ -70,6 +70,9 @@
 			<if test="name != null and name != ''">
 				and name like concat('%',#{name},'%')
 			</if>
+			<if test="identityNo != null and identityNo != ''">
+				and identityNo like concat('%',#{identityNo},'%')
+			</if>
 			<if test="address != null and address != ''">
 				and address like concat('%',#{address},'%')
 			</if>
