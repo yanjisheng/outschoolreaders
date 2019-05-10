@@ -10,13 +10,32 @@
 	</parent>
 	<groupId>cn.edu.jju</groupId>
 	<artifactId>outschoolreaders</artifactId>
-	<version>2019.05.09</version>
+	<version>2019.05.10</version>
 	<name>OutschoolReaders</name>
 	<description>校外读者阅览（借阅）管理系统</description>
 
 	<properties>
 		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	
+	<profiles>
+		<profile>
+			<id>develop</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<environment>develop</environment>
+			</properties>
+		</profile>
+		<profile>
+			<id>produce</id>
+			<properties>
+				<environment>produce</environment>
+			</properties>
+		</profile>
+	</profiles>
 
 	<dependencies>
 		<dependency>
@@ -48,6 +67,12 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
