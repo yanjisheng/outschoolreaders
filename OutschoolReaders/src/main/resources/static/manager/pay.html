@@ -64,8 +64,8 @@ function init(){
 		"url": "getReaderById",
 		"method": "POST",
 		"data": {
-			"loginName": localStorage.getItem("loginName"),
-			"password": localStorage.getItem("password"),
+			"loginName": sessionStorage.getItem("loginName"),
+			"password": sessionStorage.getItem("password"),
 			"id": id
 		},
 		"dataType": "json",
@@ -89,8 +89,8 @@ function pay(){
 		"url": "pay",
 		"method": "POST",
 		"data": {
-			"loginName": localStorage.getItem("loginName"),
-			"password": localStorage.getItem("password"),
+			"loginName": sessionStorage.getItem("loginName"),
+			"password": sessionStorage.getItem("password"),
 			"readerId": id,
 			"cardNo": $("#cardNo").val(),
 			"category": $("#category").val(),
@@ -129,8 +129,8 @@ function countAmount(){
 			"url": "getDepositByReaderId",
 			"method": "POST",
 			"data": {
-				"loginName": localStorage.getItem("loginName"),
-				"password": localStorage.getItem("password"),
+				"loginName": sessionStorage.getItem("loginName"),
+				"password": sessionStorage.getItem("password"),
 				"id": id
 			},
 			"dataType": "text",

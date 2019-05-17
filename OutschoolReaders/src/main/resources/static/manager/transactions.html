@@ -28,28 +28,27 @@
 	<option value="3">王二麻子</option>
 	<option value="4">李云龙</option>
 </select>
-<input type="submit" value="查询">
-<div id="managers">
+<input type="submit" value="查询" onclick="query()">
+<div id="transactions">
 	<table>
 		<tr><td>序号</td><td>缴费人</td><td>缴费日期</td><td>金额</td><td>类型</td><td>经办人</td></tr>
-		<tr><td colspan="6">以下内容未完成</td></tr>
-		<tr v-for="(manager,index) in list">
+		<tr v-for="(transaction,index) in list">
 			<td>{{index+1}}</td>
-			<td>{{manager.loginName}}</td>
-			<td>{{manager.name}}</td>
-			<td>{{manager.superAdmin == 1 ? '超级管理员' : '管理员'}}</td>
-			<td><a class="small" :href="'javascript:resetPassword('+manager.id+')'">重置密码</a>
-					<a class="small" :href="'javascript:deleteManager('+manager.id+')'">删除</a></td>
+			<td>{{transaction.readerId}}</td>
+			<td>{{transaction.date}}</td>
+			<td>{{transaction.amount}}</td>
+			<td>{{transaction.type}}</td>
+			<td>{{transaction.managerId}}</td>
 		</tr>
 	</table>
 	共{{count}}条数据 第<input type="number" style="width:50px" id="pageNum" value="1" min="1" onchange="query()">页
 	<button onclick="sub()">上一页</button> <button onclick="add()">下一页</button>
 </div>
-<div class="btn btn-blue"><a href="change-password.html">修改密码</a></div>
+<input type="submit" value="导出" onclick="exportData()">
 <div class="btn"><a href="main.html">返回</a></div>
 <script>
 var vue = new Vue({
-	"el": "#managers",
+	"el": "#transactions",
 	"data": {
 		"count": 0,
 		"list": []
@@ -58,7 +57,7 @@ var vue = new Vue({
 $(document).ready(query);
 function query(){
 	$.ajax({
-		"url":"getManagers",
+		"url":"getPayments",
 		"method":"POST",
 		"data":{
 			"loginName": sessionStorage.getItem("loginName"),
@@ -67,9 +66,7 @@ function query(){
 		},
 		"dataType":"json",
 		"success":function(data){
-			if(data.count == -2){
-				window.location = "change-password.html";
-			}else if(data.count == -1){
+			if(data.count == -1){
 				window.location = "login.html";
 			}else{
 				vue.count = data.count;
@@ -89,60 +86,8 @@ function sub(){
 	$("#pageNum").val($("#pageNum").val() - 1);
 	query();
 }
-function resetPassword(id){
-	var conf = confirm("您真的要重置该管理员账户的密码吗？");
-	if(!conf){
-		return;
-	}
-	$.ajax({
-		"url":"resetManagerPassword",
-		"method":"POST",
-		"data":{
-			"loginName": sessionStorage.getItem("loginName"),
-			"password": sessionStorage.getItem("password"),
-			"managerId": id,
-		},
-		"dataType":"text",
-		"success":function(data){
-			if(data == "unauthorized"){
-				alert("您尚未登录，请先登录！");
-				window.location = "login.html";
-			}else if(data == "success"){
-				alert("重置密码成功！");		
-			}
-		},
-		"error":function(){
-			alert("系统错误！");
-		}
-	});
-}
-function deleteManager(id){
-	var conf = confirm("您真的要删除该管理员账户吗？");
-	if(!conf){
-		return;
-	}
-	$.ajax({
-		"url":"deleteManager",
-		"method":"POST",
-		"data":{
-			"loginName": sessionStorage.getItem("loginName"),
-			"password": sessionStorage.getItem("password"),
-			"managerId": id,
-		},
-		"dataType":"text",
-		"success":function(data){
-			if(data == "unauthorized"){
-				alert("您尚未登录，请先登录！");
-				window.location = "login.html";
-			}else if(data == "success"){
-				alert("删除成功！");
-				window.location.reload();
-			}
-		},
-		"error":function(){
-			alert("系统错误！");
-		}
-	});
+function exportData(){
+	//TODO
 }
 </script>
 </body>

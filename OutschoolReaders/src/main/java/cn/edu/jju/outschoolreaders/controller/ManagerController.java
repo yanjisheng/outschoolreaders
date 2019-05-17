@@ -207,4 +207,5 @@ public class ManagerController {
 		managerService.resetManagerPassword(managerId);
 		return "success";
 	}
+	
 }

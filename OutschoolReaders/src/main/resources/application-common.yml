@@ -20,7 +20,7 @@ logging:
   pattern:
     console: "[%p] %d %t -> %c.%M%n%m%n"
     file: "[%p] %d %t -> %c.%M%n%m%n"
-  file: OutschoolReaders.log 
+  file: OutschoolReaders.log
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: cn.edu.jju.outschoolreaders.model, cn.edu.jju.outschoolreaders.util
@@ -29,5 +29,5 @@ mybatis:
     jdbc-type-for-null: "NULL"
     lazy-loading-enabled: true
     aggressive-lazy-loading: false
-    cache-enabled: true 
+    cache-enabled: true
     map-underscore-to-camel-case: false
