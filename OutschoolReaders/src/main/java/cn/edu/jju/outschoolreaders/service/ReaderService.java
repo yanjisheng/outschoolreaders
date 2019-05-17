@@ -44,6 +44,18 @@ public class ReaderService {
 		return reader;
 	}
 	
+	public Reader getReaderByIdentityNoAndName(Integer id, String identityNo, String name) {
+		log.debug("按id["+id+"]、身份证号["+identityNo+"]和姓名["+name+"]查询读者信息");
+		if(id != null) {
+			Reader reader = readerDao.selectById(id);
+			if(reader != null && reader.getName().equalsIgnoreCase(name)) {
+				return reader;
+			}
+		}
+		Reader reader = readerDao.selectByIdentityNoAndName(identityNo, name);
+		return reader;
+	}
+	
 	public PageResult<Reader> queryReaders(ReaderQuery query) {
 		log.debug("按条件查询读者列表");
 		int count = readerDao.count(query);
@@ -63,7 +75,10 @@ public class ReaderService {
 	 * 读者修改自己的信息
 	 */
 	public void readerModify(Reader readerTemp) {
-		Reader reader = getReaderByCardNoAndName(readerTemp.getCardNo(), readerTemp.getName());
+		Reader reader = getReaderById(readerTemp.getId());
+		if(reader == null || !reader.getName().equalsIgnoreCase(readerTemp.getName())) {
+			return;
+		}
 		reader.setAddress(readerTemp.getAddress());
 		reader.setPhone(readerTemp.getPhone());
 		reader.setEmail(readerTemp.getEmail());

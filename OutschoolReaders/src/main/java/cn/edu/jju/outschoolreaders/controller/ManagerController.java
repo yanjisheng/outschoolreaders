@@ -161,8 +161,10 @@ public class ManagerController {
 	@PostMapping("/manager/getManagers")
 	public PageResult<Manager> getManagers(String loginName, String password, Page page) {
 		Manager manager = managerService.getManagerByLoginNameAndPassword(loginName, password);
-		if(manager == null || !(manager.getSuperAdmin() == Manager.SUPER_ADMIN)) {
+		if(manager == null) {
 			return new PageResult<>(PageResult.UNAUTHORIZED, new ArrayList<>());
+		}else if(!(manager.getSuperAdmin() == Manager.SUPER_ADMIN)) {
+			return new PageResult<>(PageResult.NOT_SUPER_ADMIN, new ArrayList<>());
 		}
 		return managerService.getManagers(page);
 	}

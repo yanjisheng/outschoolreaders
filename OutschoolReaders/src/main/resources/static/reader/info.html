@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="author" content="yanjisheng">
 <meta name="X-UA-compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>九江学院图书馆校外读者管理系统</title>
@@ -25,16 +26,28 @@
 <div class="btn"><a href="/">返回首页</a></div>
 <script>
 var url = window.location.toString();
-var cardNoIndex = url.indexOf('cardNo=');
+var identityNoIndex = url.indexOf('identityNo=');
 var nameIndex = url.indexOf('name=');
-var cardNo;
+var idIndex = url.indexOf('id=');
+var identityNo;
 var name;
-if(cardNoIndex < nameIndex && cardNoIndex > 0){
-	cardNo = url.substring(cardNoIndex + 7, nameIndex - 1);
+var id;
+if(idIndex < nameIndex && idIndex > 0){
+	id = url.substring(idIndex + 3, nameIndex - 1);
+	name = decodeURI(url.substring(nameIndex + 5, url.length));
+}else if(identityNoIndex < nameIndex && identityNoIndex > 0){
+	identityNo = url.substring(identityNoIndex + 11, nameIndex - 1);
 	name = decodeURI(url.substring(nameIndex + 5, url.length));
 }
 var xhr = new XMLHttpRequest();
-xhr.open("GET","getReader?cardNo="+cardNo+"&name="+name,true);
+var queryString = "";
+if(id != null){
+	queryString += "id="+id;
+}else if(identityNo != null){
+	queryString += "identityNo="+identityNo;
+}
+queryString += "&name="+name;
+xhr.open("GET","getReader?"+queryString,true);
 xhr.onreadystatechange = function(){
 	if(xhr.readyState == 4 && xhr.status == 200 || xhr.status == 304){
 		try{
@@ -43,20 +56,21 @@ xhr.onreadystatechange = function(){
 			alert('借阅证号或姓名输入错误！');
 			return;
 		}
-		document.getElementById("cardNo").innerText = data.cardNo;
+		id = data.id;
+		document.getElementById("cardNo").innerText = (data.cardNo==null)?"":data.cardNo;
 		document.getElementById("name").innerText = data.name;
 		document.getElementById("gender").innerText = data.gender;
 		document.getElementById("identityNo").innerText = data.identityNo;
 		document.getElementById("address").innerText = data.address;
 		document.getElementById("phone").innerText = data.phone;
 		document.getElementById("email").innerText = data.email;
-		document.getElementById("validThru").innerText = data.validThru;
+		document.getElementById("validThru").innerText = (data.validThru==null)?"":data.validThru;
 		document.getElementById("category").innerText = data.categoryName;
 	}
 }
 xhr.send();
 function modify(){
-	window.location = "modify.html?cardNo="+cardNo+"&name="+name;
+	window.location = "modify.html?id="+id+"&name="+name;
 }
 </script>
 </body>

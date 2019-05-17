@@ -39,13 +39,13 @@ public class ReaderController {
 	 */
 	@PostMapping("/reader/getReader")
 	public void turnGetReader(HttpServletRequest request, HttpServletResponse response, 
-			String cardNo, String name) throws IOException {
-		Reader reader = readerService.getReaderByCardNoAndName(cardNo, name);
+			String identityNo, String name) throws IOException {
+		Reader reader = readerService.getReaderByIdentityNoAndName(null, identityNo, name);
 		if(reader == null) {
 			response.sendRedirect("/reader/error.html");
 		} else {
 			String encodedName = URLEncoder.encode(name, "UTF-8");
-			response.sendRedirect("/reader/info.html?cardNo="+cardNo+"&name="+encodedName);
+			response.sendRedirect("/reader/info.html?identityNo="+identityNo+"&name="+encodedName);
 		}
 	}
 	
@@ -53,8 +53,8 @@ public class ReaderController {
 	 * 获取读者详细信息
 	 */
 	@GetMapping("/reader/getReader")
-	public Reader getReader(String cardNo, String name) {
-		return readerService.getReaderByCardNoAndName(cardNo, name);
+	public Reader getReader(Integer id, String identityNo, String name) {
+		return readerService.getReaderByIdentityNoAndName(id, identityNo, name);
 	}
 	
 	/**

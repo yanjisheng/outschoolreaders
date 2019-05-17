@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="author" content="yanjisheng">
 <meta name="X-UA-compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>九江学院图书馆校外读者管理系统</title>
@@ -31,8 +32,8 @@ function addManager(){
 		"url":"addManager",
 		"method":"POST",
 		"data":{
-			"superAdminLoginName": localStorage.getItem("loginName"),
-			"superAdminPassword": localStorage.getItem("password"),
+			"superAdminLoginName": sessionStorage.getItem("loginName"),
+			"superAdminPassword": sessionStorage.getItem("password"),
 			"loginName": loginName,
 			"name": name,
 			"superAdmin": $("#superAdmin").val()

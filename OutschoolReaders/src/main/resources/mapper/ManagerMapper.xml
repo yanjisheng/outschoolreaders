@@ -7,12 +7,14 @@
 	</insert>
 	<update id="modify" parameterType="Manager">
 		update manager set 
-		<if test="password != null and password != ''">
-			password = #{password}
-		</if>
-		<if test="name != null and name != ''">
-			, name = #{name} 
-		</if>
+		<trim suffixOverrides=",">
+			<if test="password != null and password != ''">
+				password = #{password}, 
+			</if>
+			<if test="name != null and name != ''">
+				name = #{name} 
+			</if>
+		</trim>
 		where id = #{id}
 	</update>
 	<select id="selectById" parameterType="Integer" resultType="Manager">

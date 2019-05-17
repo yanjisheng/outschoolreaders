@@ -3,6 +3,7 @@ package cn.edu.jju.outschoolreaders.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import cn.edu.jju.outschoolreaders.model.Reader;
 import cn.edu.jju.outschoolreaders.model.ReaderQuery;
@@ -25,7 +26,10 @@ public interface ReaderDao {
 	
 	public Reader selectByCardNo(String cardNo);
 	
+	public Reader selectByIdentityNoAndName(@Param("identityNo") String identityNo, @Param("name") String name);
+	
 	public int count(ReaderQuery query);
 	
 	public List<Reader> query(ReaderQuery query);
+
 }

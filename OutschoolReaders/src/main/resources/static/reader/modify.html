@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="author" content="yanjisheng">
 <meta name="X-UA-compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>九江学院图书馆校外读者管理系统</title>
@@ -16,12 +17,12 @@
 <div class="btn"><a href="main.html">返回</a></div>
 <script>
 var url = window.location.toString();
-var cardNoIndex = url.indexOf('cardNo=');
+var idIndex = url.indexOf('id=');
 var nameIndex = url.indexOf('name=');
-var cardNo;
+var id;
 var name;
-if(cardNoIndex < nameIndex && cardNoIndex > 0){
-	cardNo = url.substring(cardNoIndex + 7, nameIndex - 1);
+if(idIndex < nameIndex && idIndex > 0){
+	id = url.substring(idIndex + 3, nameIndex - 1);
 	name = decodeURI(url.substring(nameIndex + 5, url.length));
 }
 var address;
@@ -48,12 +49,12 @@ function check(){
 function modify(){
 	if(check()){
 		var xhr = new XMLHttpRequest();
-		xhr.open("POST","modifyReader?cardNo="+cardNo+"&name="+name
+		xhr.open("POST","modifyReader?id="+id+"&name="+name
 				+"&address="+address+"&phone="+phone+"&email="+email,true);
 		xhr.onreadystatechange = function(){
 			if(xhr.readyState == 4 && xhr.status == 200 || xhr.status == 304){
 				alert("修改成功！");
-				window.location = "info.html?cardNo="+cardNo+"&name="+name;
+				window.location = "info.html?id="+id+"&name="+name;
 			}
 		}
 		xhr.send();

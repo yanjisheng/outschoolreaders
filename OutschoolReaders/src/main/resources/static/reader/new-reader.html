@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="author" content="yanjisheng">
 <meta name="X-UA-compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>九江学院图书馆校外读者管理系统</title>
@@ -14,7 +15,7 @@
 	<label for="gender">性别：</label><input type="text" name="gender" id="gender"><br>
 	<label for="identityNo"><font color="red">*</font>身份证号：</label><input type="text" name="identityNo" id="identityNo"><br>
 	<label for="address">住址（或工作单位）：</label><input type="text" name="address" id="address"><br>
-	<label for="phone">联系电话：</label><input type="text" name="phone" id="phone"><br>
+	<label for="phone"><font color="red">*</font>联系电话：</label><input type="text" name="phone" id="phone"><br>
 	<label for="email">电子邮件：</label><input type="text" name="email" id="email"><br>
 	<label for="category">读者类型：</label>
 	<select name="category" id="category">
@@ -51,6 +52,10 @@ function check(){
 		return false;
 	}
 	var phone = document.getElementById('phone').value;
+	if(phone == null || phone.trim() == ''){
+		alert('联系电话不能为空！');
+		return false;
+	}
 	if(phone.length > 16){
 		alert('联系电话不能长于16位！');
 		return false;

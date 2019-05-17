@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="author" content="yanjisheng">
 <meta name="X-UA-compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>九江学院图书馆校外读者管理系统</title>
@@ -29,6 +30,13 @@
 	<option value="2">借阅服务费（原价150元/年）</option>
 	<option value="3">借阅押金（100元2本）</option>
 	<option value="4">退押金</option>
+</select><br>
+<label for="period">期限：</label>
+<select id="period" onchange="countAmount()" onblur="countAmount()">
+	<option value="0">自定义</option>
+	<option value="1">半年</option>
+	<option value="2">一年</option>
+	<option value="3">两年</option>
 </select><br>
 <label for="validThru">有效期至：</label><input type="date" id="validThru" onblur="countAmount()"><br>
 <label for="amount" title="此处系统计算金额如与实际收取金额不一致，请填写实际金额。">金额（元）：
@@ -107,10 +115,16 @@ function countAmount(){
 		$("#validThru").hide();
 		$("#validThru").prev().hide();
 		$("#validThru").next().hide();
+		$("#period").hide();
+		$("#period").prev().hide();
+		$("#period").next().hide();
 	}else if($("#type").val() == 4){//退押金没有有效期，默认获取押金余额作为计算金额
 		$("#validThru").hide();
 		$("#validThru").prev().hide();
 		$("#validThru").next().hide();
+		$("#period").hide();
+		$("#period").prev().hide();
+		$("#period").next().hide();
 		$.ajax({
 			"url": "getDepositByReaderId",
 			"method": "POST",
@@ -128,17 +142,36 @@ function countAmount(){
 		$("#validThru").show();
 		$("#validThru").prev().show();
 		$("#validThru").next().show();
+		$("#period").show();
+		$("#period").prev().show();
+		$("#period").next().show();
+		var validThru;
+		var originalValid = vue.reader.validThru;
+		if(originalValid == null){
+			originalValid = new Date();
+		}
+		if($("#period").val() == 0){//自定义期限
+			validThru = $("#validThru").val();
+			$("#validThru").removeAttr("readonly");
+		}else if($("#period").val() == 1){//半年
+			validThru = new Date(Date.parse(new Date(originalValid)) + 183*86400000);
+			$("#validThru").val(formatDate(validThru));
+			$("#validThru").attr("readonly", "readonly");
+		}else if($("#period").val() == 2){//一年
+			validThru = new Date(Date.parse(new Date(originalValid)) + 366*86400000);
+			$("#validThru").val(formatDate(validThru));
+			$("#validThru").attr("readonly", "readonly");
+		}else if($("#period").val() == 3){//两年
+			validThru = new Date(Date.parse(new Date(originalValid)) + 732*86400000);
+			$("#validThru").val(formatDate(validThru));
+			$("#validThru").attr("readonly", "readonly");
+		}
 		if($("#category").val() == 3){//免费读者不计算金额
 			$("#amount").val(0);
 			return;
 		}
-		var validThru = $("#validThru").val();
-		var originalValid = vue.reader.validThru;
 		if(validThru == ""){
 			return;
-		}
-		if(originalValid == null){
-			originalValid = new Date();
 		}
 		//先计算天数，再计算一年的费用，最后得到实际费用
 		var daysBetween = parseInt((Date.parse(new Date(validThru)) - Date.parse(new Date(originalValid)))/86400000);		
@@ -150,6 +183,19 @@ function countAmount(){
 		}
 		$("#amount").val(totalFee);
 	}
+}
+function formatDate(date){
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	if(month < 10){
+		month = "0"+month;
+	}
+	var dateOfMonth = date.getDate();
+	if(dateOfMonth < 10){
+		dateOfMonth = "0"+dateOfMonth;
+	}
+	var output = "" + year + "-" + month + "-" + dateOfMonth;
+	return output;
 }
 </script>
 </body>

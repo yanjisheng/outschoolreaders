@@ -10,6 +10,7 @@ import java.util.List;
 public class PageResult<T> {
 
 	public static final int UNAUTHORIZED = -1;
+	public static final int NOT_SUPER_ADMIN = -2;
 	
 	private int count;
 	private List<T> list;

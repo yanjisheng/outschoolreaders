@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="author" content="yanjisheng">
 <meta name="X-UA-compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>九江学院图书馆校外读者管理系统</title>
@@ -22,8 +23,8 @@ function login(){
 		alert("登录名和密码不能为空！");
 		return;
 	}
-	localStorage.setItem("loginName", loginName);
-	localStorage.setItem("password", password);
+	sessionStorage.setItem("loginName", loginName);
+	sessionStorage.setItem("password", password);
 	$.ajax({
 		"url":"login",
 		"method":"POST",

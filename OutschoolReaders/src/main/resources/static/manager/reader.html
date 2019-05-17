@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="author" content="yanjisheng">
 <meta name="X-UA-compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>九江学院图书馆校外读者管理系统</title>
@@ -69,8 +70,8 @@ function init(){
 		"url": "getReaderById",
 		"method": "POST",
 		"data": {
-			"loginName": localStorage.getItem("loginName"),
-			"password": localStorage.getItem("password"),
+			"loginName": sessionStorage.getItem("loginName"),
+			"password": sessionStorage.getItem("password"),
 			"id": id
 		},
 		"dataType": "json",
@@ -90,8 +91,8 @@ function init(){
 		"url": "getPaymentsByReaderId",
 		"method": "POST",
 		"data": {
-			"loginName": localStorage.getItem("loginName"),
-			"password": localStorage.getItem("password"),
+			"loginName": sessionStorage.getItem("loginName"),
+			"password": sessionStorage.getItem("password"),
 			"id": id
 		},
 		"dataType": "json",

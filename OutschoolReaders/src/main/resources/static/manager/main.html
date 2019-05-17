@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="author" content="yanjisheng">
 <meta name="X-UA-compatible" content="IE=edge">
 <title>九江学院图书馆校外读者管理系统</title>
 <link rel="stylesheet" type="text/css" href="/general.css">
@@ -35,6 +36,7 @@
 	共{{count}}条数据 第<input type="number" style="width:50px" id="pageNum" value="1" min="1" onchange="query()">页
 	<button onclick="sub()">上一页</button> <button onclick="add()">下一页</button> 
 </div>
+<div class="btn" style="width:150px"><a href="transactions.html">导出缴费记录</a></div>
 <div class="btn" style="width:150px"><a href="manage.html">管理员信息管理</a></div>
 <input type="submit" value="退出" onclick="logout()">
 <script>
@@ -51,8 +53,8 @@ function query(){
 		"url":"getReaders",
 		"method":"POST",
 		"data":{
-			"loginName": localStorage.getItem("loginName"),
-			"password": localStorage.getItem("password"),
+			"loginName": sessionStorage.getItem("loginName"),
+			"password": sessionStorage.getItem("password"),
 			"cardNo": $("#cardNo").val(),
 			"name": $("#name").val(),
 			"identityNo": $("#identityNo").val(),
@@ -78,8 +80,8 @@ function query(){
 	});
 }
 function logout(){
-	localStorage.removeItem("loginName");
-	localStorage.removeItem("password");
+	sessionStorage.removeItem("loginName");
+	sessionStorage.removeItem("password");
 	window.location = "login.html";
 }
 function add(){
