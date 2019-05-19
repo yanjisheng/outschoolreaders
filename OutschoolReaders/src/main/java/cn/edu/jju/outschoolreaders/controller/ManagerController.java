@@ -39,12 +39,14 @@ public class ManagerController {
 	 * 管理员登录
 	 */
 	@PostMapping("/manager/login")
-	public String login(String loginName, String password) {
+	public Manager login(String loginName, String password) {
 		Manager manager = managerService.getManagerByLoginNameAndPassword(loginName, password);
 		if(manager != null) {
-			return "success";
+			return manager;
 		}
-		return "fail";
+		Manager fail = new Manager();
+		fail.setId(-1);
+		return fail;
 	}
 	
 	/**
@@ -164,7 +166,7 @@ public class ManagerController {
 		if(manager == null) {
 			return new PageResult<>(PageResult.UNAUTHORIZED, new ArrayList<>());
 		}else if(!(manager.getSuperAdmin() == Manager.SUPER_ADMIN)) {
-			return new PageResult<>(PageResult.NOT_SUPER_ADMIN, new ArrayList<>());
+			return new PageResult<>(PageResult.NOT_SUPER_ADMIN, managerService.getManagers(page).getList());
 		}
 		return managerService.getManagers(page);
 	}

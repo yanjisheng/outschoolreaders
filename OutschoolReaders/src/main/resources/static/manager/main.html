@@ -11,6 +11,10 @@
 </head>
 <body>
 <h1>管理员主页</h1>
+欢迎您，<span id="managerName"></span>！<br>
+<div class="btn"><a href="change-password.html">修改密码</a></div>
+<div class="btn" style="width:150px" id="manage"><a href="manage.html">管理员信息管理</a></div>
+<input type="submit" value="退出" onclick="logout()">
 <h2>用户名单</h2>
 <label for="cardNo">借阅证号</label><input type="text" id="cardNo">
 <label for="name">姓名</label><input type="text" id="name">
@@ -36,9 +40,7 @@
 	共{{count}}条数据 第<input type="number" style="width:50px" id="pageNum" value="1" min="1" onchange="query()">页
 	<button onclick="sub()">上一页</button> <button onclick="add()">下一页</button> 
 </div>
-<div class="btn" style="width:150px"><a href="transactions.html">导出缴费记录</a></div>
-<div class="btn" style="width:150px"><a href="manage.html">管理员信息管理</a></div>
-<input type="submit" value="退出" onclick="logout()">
+<div class="btn" style="width:150px"><a href="transactions.html">查询缴费记录</a></div>
 <script>
 var vue = new Vue({
 	"el": "#readers",
@@ -46,8 +48,15 @@ var vue = new Vue({
 		"count": 0,
 		"list": []
 	}
-}); 
-$(document).ready(query);
+});
+$(document).ready(function(){
+	var manager = JSON.parse(sessionStorage.getItem("manager"));
+	$("#managerName").text(manager.name);
+	if(manager.superAdmin != 1){
+		$("#manage").hide();
+	}
+	query();
+});
 function query(){
 	$.ajax({
 		"url":"getReaders",
@@ -82,6 +91,7 @@ function query(){
 function logout(){
 	sessionStorage.removeItem("loginName");
 	sessionStorage.removeItem("password");
+	sessionStorage.removeItem("manager");
 	window.location = "login.html";
 }
 function add(){

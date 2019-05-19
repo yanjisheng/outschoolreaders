@@ -32,7 +32,7 @@ public class ReaderService {
 	
 	public Reader getReaderById(Integer readerId) {
 		log.debug("按id["+readerId+"]查询读者信息");
-		return readerDao.selectById(readerId);
+		return readerDao.selectDetailById(readerId);
 	}
 	
 	public Reader getReaderByCardNoAndName(String cardNo, String name) {

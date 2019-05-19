@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.edu.jju.outschoolreaders.dao.TransactionDao">
+	<resultMap type="Transaction" id="TransactionMap">
+		<id column="id" property="id"/>
+		<association column="readerId" property="reader" javaType="Reader" 
+				select="cn.edu.jju.outschoolreaders.dao.ReaderDao.selectById"/>
+		<association column="managerId" property="manager" javaType="Manager"
+				select="cn.edu.jju.outschoolreaders.dao.ManagerDao.selectById"/>
+	</resultMap>
 	<insert id="addOne" parameterType="Transaction">
 		insert into transaction(readerId, date, amount, type, validThru, managerId, createdAt)
 		values(#{readerId}, #{date}, #{amount}, #{type}, #{validThru}, #{managerId}, now())
@@ -11,7 +18,7 @@
 			(#{readerId}, #{date}, #{amount}, #{type}, #{validThru}, #{managerId}, now())
 		</foreach>
 	</insert>
-	<select id="selectById" parameterType="Integer" resultType="Transaction">
+	<select id="selectById" parameterType="Integer" resultMap="TransactionMap">
 		select id, readerId, date, amount, type, validThru, managerId, createdAt from transaction
 		where id = #{id}
 	</select>
@@ -30,10 +37,10 @@
 				and date &lt;= #{endDate}
 			</if>
 			<if test="amountMin != null">
-				and abs(amount) &gt; #{amountMin}
+				and abs(amount) &gt;= #{amountMin}
 			</if>
 			<if test="amountMax != null">
-				and abs(amount) &lt; #{amountMax}
+				and abs(amount) &lt;= #{amountMax}
 			</if>
 			<if test="types != null and types.size &gt; 0">
 				and type in 
@@ -54,7 +61,7 @@
 		<include refid="queryPart"/>
 		) t
 	</select>
-	<select id="query" parameterType="TransactionQuery" resultType="Transaction">
+	<select id="query" parameterType="TransactionQuery" resultMap="TransactionMap">
 		select id, readerId, date, amount, type, validThru, managerId, createdAt from transaction
 		<include refid="queryPart"/>
 		order by date desc 

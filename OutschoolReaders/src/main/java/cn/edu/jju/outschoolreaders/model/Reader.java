@@ -21,11 +21,13 @@ public class Reader {
 	
 	private Date validThru;//有效期至
 	private Byte category;//读者类型（1A类原价，2B类半价，3C类免费）
-	private Integer managerId;//经办人
+	private Integer managerId;//经办人id
 	
 	private String remark;//备注
 	private Date createdAt;//创建时间
 	private Date modifiedAt;//修改时间
+	
+	private Manager manager;//经办人（关联查询）
 	
 	public Integer getId() {
 		return id;
@@ -130,4 +132,12 @@ public class Reader {
 		}
 		return categoryName;
 	}
+	
+	public Manager getManager() {
+		return manager;
+	}
+	public void setManager(Manager manager) {
+		this.manager = manager;
+	}
+		
 }

@@ -16,6 +16,7 @@
 <label for="amountMin">缴费金额</label><input type="number" id="amountMin">-<input type="number" id="amountMax"><br>
 <label for="types">类型</label>
 <select id="types">
+	<option value="">全部</option>
 	<option value="1">阅览服务费</option>
 	<option value="2">借阅服务费</option>
 	<option value="3">借阅押金</option>
@@ -23,10 +24,8 @@
 </select>
 <label for="managerIds">经办人</label>
 <select id="managerIds">
-	<option value="1">张三</option>
-	<option value="2">李四</option>
-	<option value="3">王二麻子</option>
-	<option value="4">李云龙</option>
+	<option value="">全部</option>
+	<option v-for="manager in list" :value="manager.id">{{manager.name}}</option>
 </select>
 <input type="submit" value="查询" onclick="query()">
 <div id="transactions">
@@ -34,11 +33,11 @@
 		<tr><td>序号</td><td>缴费人</td><td>缴费日期</td><td>金额</td><td>类型</td><td>经办人</td></tr>
 		<tr v-for="(transaction,index) in list">
 			<td>{{index+1}}</td>
-			<td>{{transaction.readerId}}</td>
+			<td>{{transaction.reader.name}}</td>
 			<td>{{transaction.date}}</td>
-			<td>{{transaction.amount}}</td>
-			<td>{{transaction.type}}</td>
-			<td>{{transaction.managerId}}</td>
+			<td>{{transaction.amount}}元</td>
+			<td>{{transaction.typeName}}</td>
+			<td>{{transaction.manager.name}}</td>
 		</tr>
 	</table>
 	共{{count}}条数据 第<input type="number" style="width:50px" id="pageNum" value="1" min="1" onchange="query()">页
@@ -54,7 +53,17 @@ var vue = new Vue({
 		"list": []
 	}
 });
-$(document).ready(query);
+var vueManager = new Vue({
+	"el": "#managerIds",
+	"data": {
+		"count": 0,
+		"list": []
+	}
+});
+$(document).ready(function(){
+	getManagers();
+	query();
+});
 function query(){
 	$.ajax({
 		"url":"getPayments",
@@ -62,7 +71,13 @@ function query(){
 		"data":{
 			"loginName": sessionStorage.getItem("loginName"),
 			"password": sessionStorage.getItem("password"),
-			"pageNum": $("#pageNum").val(),
+			"page.pageNum": $("#pageNum").val(),
+			"startDate": $("#startDate").val(),
+			"endDate": $("#endDate").val(),
+			"amountMin": $("#amountMin").val(),
+			"amountMax": $("#amountMax").val(),
+			"type": $("#types").val(),
+			"managerId": $("#managerIds").val(),
 		},
 		"dataType":"json",
 		"success":function(data){
@@ -79,6 +94,29 @@ function query(){
 		}
 	});
 }
+function getManagers(){
+	$.ajax({
+		"url":"getManagers",
+		"method":"POST",
+		"data":{
+			"loginName": sessionStorage.getItem("loginName"),
+			"password": sessionStorage.getItem("password")
+		},
+		"dataType":"json",
+		"success":function(data){
+			if(data.count == -1){
+				alert("您尚未登录，请先登录！");
+				window.location = "login.html";
+			}else{
+				vueManager.count = data.count;
+				vueManager.list = data.list;			
+			}
+		},
+		"error":function(){
+			alert("系统错误！");
+		}
+	});
+}
 function add(){
 	$("#pageNum").val(1 + parseInt($("#pageNum").val()));
 	query();
@@ -88,7 +126,7 @@ function sub(){
 	query();
 }
 function exportData(){
-	//TODO
+	alert("导出功能暂未完成");
 }
 </script>
 </body>

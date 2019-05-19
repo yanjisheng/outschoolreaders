@@ -32,11 +32,12 @@ function login(){
 			"loginName":loginName,
 			"password":password
 		},
-		"dataType":"text",
-		"success":function(data){
-			if(data == "success"){
+		"dataType":"json",
+		"success":function(manager){
+			if(manager.id > 0){
+				sessionStorage.setItem("manager", JSON.stringify(manager));
 				window.location = "main.html";
-			}else if(data == "fail"){
+			}else if(manager.id == -1){
 				alert("登录名或密码错误！");
 			}
 		}

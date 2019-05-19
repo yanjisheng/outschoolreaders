@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.edu.jju.outschoolreaders.dao.ReaderDao">
+	<resultMap type="Reader" id="ReaderMap">
+		<id column="id" property="id"/>
+		<association column="managerId" property="manager" javaType="Manager"
+				select="cn.edu.jju.outschoolreaders.dao.ManagerDao.selectById"/>
+	</resultMap>
 	<insert id="addOne" parameterType="Reader">
 		insert into reader(cardNo, name, gender, identityNo, address, phone, email, 
 		validThru, category, managerId, remark, createdAt) 
@@ -53,6 +58,11 @@
 		modifiedAt = now() where id = #{id}
 	</update>
 	<select id="selectById" parameterType="Integer" resultType="Reader">
+		select id, cardNo, name, gender, identityNo, address, phone, email, 
+		validThru, category, managerId, remark, createdAt, modifiedAt 
+		from reader	where id = #{id}
+	</select>
+	<select id="selectDetailById" parameterType="Integer" resultMap="ReaderMap">
 		select id, cardNo, name, gender, identityNo, address, phone, email, 
 		validThru, category, managerId, remark, createdAt, modifiedAt 
 		from reader	where id = #{id}

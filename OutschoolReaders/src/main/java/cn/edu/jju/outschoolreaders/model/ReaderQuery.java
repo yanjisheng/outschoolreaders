@@ -93,7 +93,9 @@ public class ReaderQuery extends Reader {
 		if(this.managerIds == null) {
 			this.managerIds = new ArrayList<>();
 		}
-		this.managerIds.add(managerId);
+		if(managerId != null) {
+			this.managerIds.add(managerId);
+		}
 	}
 	
 	@Override

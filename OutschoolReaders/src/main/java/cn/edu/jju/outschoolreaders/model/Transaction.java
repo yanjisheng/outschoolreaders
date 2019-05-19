@@ -12,13 +12,16 @@ public class Transaction {
 
 	private Integer id;
 	
-	private Integer readerId;//缴费人
+	private Integer readerId;//缴费人id
 	private Date date;//缴费日期
 	private BigDecimal amount;//金额
 	private Byte type;//类型（1阅览服务费，2借阅服务费，3借阅押金，4退押金）
 	private Date validThru;//有效期至
-	private Integer managerId;//经办人
+	private Integer managerId;//经办人id
 	private Date createdAt;//创建时间
+	
+	private Reader reader;//缴费人（关联查询）
+	private Manager manager;//经办人（关联查询）
 	
 	public Integer getId() {
 		return id;
@@ -90,4 +93,18 @@ public class Transaction {
 		}
 		return typeName;
 	}
+	
+	public Reader getReader() {
+		return reader;
+	}
+	public void setReader(Reader reader) {
+		this.reader = reader;
+	}
+	public Manager getManager() {
+		return manager;
+	}
+	public void setManager(Manager manager) {
+		this.manager = manager;
+	}
+	
 }

@@ -24,6 +24,8 @@ public interface ReaderDao {
 	
 	public Reader selectById(Integer readerId);
 	
+	public Reader selectDetailById(Integer readerId);
+	
 	public Reader selectByCardNo(String cardNo);
 	
 	public Reader selectByIdentityNoAndName(@Param("identityNo") String identityNo, @Param("name") String name);

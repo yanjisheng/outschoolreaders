@@ -73,7 +73,9 @@ public class TransactionQuery extends Transaction{
 		if(this.readerIds == null) {
 			this.readerIds = new ArrayList<>();
 		}
-		this.readerIds.add(readerId);
+		if(readerId != null) {
+			this.readerIds.add(readerId);
+		}
 	}
 	@Override
 	public void setDate(Date date) {
@@ -105,7 +107,9 @@ public class TransactionQuery extends Transaction{
 		if(this.types == null) {
 			this.types = new ArrayList<>();
 		}
-		this.types.add(type);
+		if(type != null) {
+			this.types.add(type);
+		}
 	}
 	@Override
 	public void setManagerId(Integer managerId) {
@@ -113,7 +117,9 @@ public class TransactionQuery extends Transaction{
 		if(this.managerIds == null) {
 			this.managerIds = new ArrayList<>();
 		}
-		this.managerIds.add(managerId);
+		if(managerId != null) {
+			this.managerIds.add(managerId);
+		}
 	}
 	
 	public Page getPage() {

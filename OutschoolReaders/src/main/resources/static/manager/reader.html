@@ -23,7 +23,7 @@
 	<tr><td>电子邮件：</td><td>{{reader.email}}</td></tr>
 	<tr><td>有效期至：</td><td>{{reader.validThru}}</td></tr>
 	<tr><td>读者类型：</td><td>{{reader.categoryName}}</td></tr>
-	<tr><td>经办人：</td><td>{{reader.managerId}}</td></tr>
+	<tr><td>经办人：</td><td>{{reader.manager.name}}</td></tr>
 	<tr><td>备注：</td><td>{{reader.remark}}</td></tr>
 	<tr><td>注册时间：</td><td>{{reader.createdAt}}</td></tr>
 </table>
@@ -36,7 +36,7 @@
 		<td>{{transaction.amount}}元</td>
 		<td>{{transaction.typeName}}</td>
 		<td>{{transaction.validThru}}</td>
-		<td>{{transaction.managerId}}</td>
+		<td>{{transaction.manager.name}}</td>
 	</tr>
 </table>
 <input type="submit" value="修改" onclick="modify()">
