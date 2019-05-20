@@ -75,7 +75,8 @@
 	<select id="selectByIdentityNoAndName" resultType="Reader">
 		select id, cardNo, name, gender, identityNo, address, phone, email, 
 		validThru, category, managerId, remark, createdAt, modifiedAt
-		from reader where identityNo = #{identityNo} and name = #{name} limit 1
+		from reader where identityNo = #{identityNo} and name = #{name} 
+		order by validThru desc limit 1
 	</select>
 	<sql id="queryPart">
 		<where>
@@ -100,8 +101,8 @@
 			<if test="startValid != null">
 				and validThru &gt;= #{startValid}
 			</if>
-			<if test="endValid != null">
-				and validThru &lt; #{endValid}
+			<if test="endValidNext != null">
+				and validThru &lt; #{endValidNext}
 			</if>
 			<if test="managerIds != null and managerIds.size &gt; 0">
 				and managerId in 
@@ -112,14 +113,14 @@
 			<if test="startCreate != null">
 				and createdAt &gt;= #{startCreate}
 			</if>
-			<if test="endCreate != null">
-				and createdAt &lt; #{endCreate}
+			<if test="endCreateNext != null">
+				and createdAt &lt; #{endCreateNext}
 			</if>
 			<if test="startModify != null">
 				and modifiedAt &gt;= #{startModify}
 			</if>
-			<if test="endModify != null">
-				and modifiedAt &lt; #{endModify}
+			<if test="endModifyNext != null">
+				and modifiedAt &lt; #{endModifyNext}
 			</if>
 		</where>
 	</sql>

@@ -127,6 +127,16 @@ public class TransactionQuery extends Transaction{
 	}
 	public void setPage(Page page) {
 		this.page = page;
-	}	
+	}
+	
+	/**
+	 * 获取缴费日期截止的后一天
+	 */
+	public Date getEndDateNext() {
+		if(endDate == null) {
+			return null;
+		}
+		return new Date(endDate.getTime() + 86400000);
+	}
 	
 }

@@ -33,8 +33,8 @@
 			<if test="startDate != null">
 				and date &gt;= #{startDate}
 			</if>
-			<if test="endDate != null">
-				and date &lt;= #{endDate}
+			<if test="endDateNext != null">
+				and date &lt;= #{endDateNext}
 			</if>
 			<if test="amountMin != null">
 				and abs(amount) &gt;= #{amountMin}

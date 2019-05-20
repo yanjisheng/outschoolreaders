@@ -110,4 +110,25 @@ public class ReaderQuery extends Reader {
 			endValid = validThru;
 		}
 	}
+	
+	public Date getEndValidNext() {
+		if(endValid == null) {
+			return null;
+		}
+		return new Date(endValid.getTime() + 86400000);
+	}
+	
+	public Date getEndCreateNext() {
+		if(endCreate == null) {
+			return null;
+		}
+		return new Date(endCreate.getTime() + 86400000);
+	}
+	
+	public Date getEndModifyNext() {
+		if(endModify == null) {
+			return null;
+		}
+		return new Date(endModify.getTime() + 86400000);
+	}
 }
