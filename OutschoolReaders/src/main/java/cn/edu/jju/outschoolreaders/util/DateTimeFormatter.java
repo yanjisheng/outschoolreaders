@@ -15,53 +15,50 @@ import org.springframework.stereotype.Component;
 @Component
 public class DateTimeFormatter implements Converter<String, Date>{
 	
-	private static SimpleDateFormat onlyDate = new SimpleDateFormat("yyyy-MM-dd");
-	private static SimpleDateFormat onlyTime = new SimpleDateFormat("HH:mm:ss");
-	private static SimpleDateFormat dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private SimpleDateFormat onlyDate = new SimpleDateFormat("yyyy-MM-dd");
+	private SimpleDateFormat onlyTime = new SimpleDateFormat("HH:mm:ss");
+	private SimpleDateFormat dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
-	public static String toDate(Date date){
+	public synchronized String toDate(Date date){
 		return onlyDate.format(date);
 	}
 	
-	public static String toTime(Date date){
+	public synchronized String toTime(Date date){
 		return onlyTime.format(date);
 	}
 	
-	public static String toDateTime(Date date){
+	public synchronized String toDateTime(Date date){
 		return dateTime.format(date);
 	}
 	
-	public static Date fromDateString(String dateString) throws ParseException{
+	public synchronized Date fromDateString(String dateString) throws ParseException{
 		return onlyDate.parse(dateString);
 	}
 	
-	public static Date fromTimeString(String timeString) throws ParseException{
+	public synchronized Date fromTimeString(String timeString) throws ParseException{
 		return onlyTime.parse(timeString);
 	}
 	
-	public static Date fromDateTimeString(String dateTimeString) throws ParseException{
+	public synchronized Date fromDateTimeString(String dateTimeString) throws ParseException{
 		return dateTime.parse(dateTimeString);
 	}
 
 	@Override
-	public Date convert(String source) {
+	public synchronized Date convert(String source) {
 		Date date = null;
 		try {
 			date = dateTime.parse(source);
 			return date;
 		} catch (ParseException e) {
-			//e.printStackTrace();
 		}
 		try {
 			date = onlyDate.parse(source);
 			return date;
 		} catch (ParseException e) {
-			//e.printStackTrace();
 		}
 		try {
 			date = onlyTime.parse(source);
 		} catch (ParseException e) {
-			//e.printStackTrace();
 		}
 		return date;
 	}

@@ -1,5 +1,7 @@
 package cn.edu.jju.outschoolreaders.service;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +18,8 @@ import cn.edu.jju.outschoolreaders.model.Reader;
 import cn.edu.jju.outschoolreaders.model.Transaction;
 import cn.edu.jju.outschoolreaders.model.TransactionExtend;
 import cn.edu.jju.outschoolreaders.model.TransactionQuery;
+import cn.edu.jju.outschoolreaders.util.CSVException;
+import cn.edu.jju.outschoolreaders.util.CSVExporter;
 import cn.edu.jju.outschoolreaders.util.PageResult;
 
 /**
@@ -33,6 +37,9 @@ public class TransactionService {
 	
 	@Autowired
 	private ReaderDao readerDao;
+	
+	@Autowired
+	private CSVExporter csvExporter;
 	
 	@Transactional
 	public void addTransaction(TransactionExtend transaction) {
@@ -82,5 +89,22 @@ public class TransactionService {
 			deposit = deposit.add(transaction.getAmount());
 		}
 		return deposit;
+	}
+	
+	public void exportTransactions(TransactionQuery query, OutputStream os) {
+		log.debug("导出缴费记录");
+		query.setPage(null);
+		List<Transaction> list = transactionDao.query(query);
+		try {
+			csvExporter.export(Transaction.class, list, os);
+		} catch (CSVException e) {
+			e.printStackTrace();
+			log.warn("导出缴费记录失败", e);
+			try {
+				os.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
 	}
 }

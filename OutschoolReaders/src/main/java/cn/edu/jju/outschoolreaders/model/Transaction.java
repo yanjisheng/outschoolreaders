@@ -1,6 +1,7 @@
 package cn.edu.jju.outschoolreaders.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 
 /**
@@ -45,7 +46,7 @@ public class Transaction {
 		return amount;
 	}
 	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+		this.amount = amount.setScale(2, RoundingMode.DOWN);
 	}
 	public Byte getType() {
 		return type;
