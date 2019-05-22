@@ -1,10 +1,11 @@
 package cn.edu.jju.outschoolreaders.service;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +19,7 @@ import cn.edu.jju.outschoolreaders.model.Reader;
 import cn.edu.jju.outschoolreaders.model.Transaction;
 import cn.edu.jju.outschoolreaders.model.TransactionExtend;
 import cn.edu.jju.outschoolreaders.model.TransactionQuery;
-import cn.edu.jju.outschoolreaders.util.CSVException;
-import cn.edu.jju.outschoolreaders.util.CSVExporter;
+import cn.edu.jju.outschoolreaders.util.ExcelExporter;
 import cn.edu.jju.outschoolreaders.util.PageResult;
 
 /**
@@ -39,7 +39,7 @@ public class TransactionService {
 	private ReaderDao readerDao;
 	
 	@Autowired
-	private CSVExporter csvExporter;
+	private ExcelExporter excelExporter;
 	
 	@Transactional
 	public void addTransaction(TransactionExtend transaction) {
@@ -91,20 +91,14 @@ public class TransactionService {
 		return deposit;
 	}
 	
-	public void exportTransactions(TransactionQuery query, OutputStream os) {
+	public void exportTransactions(TransactionQuery query, HttpServletResponse response) {
 		log.debug("导出缴费记录");
 		query.setPage(null);
 		List<Transaction> list = transactionDao.query(query);
 		try {
-			csvExporter.export(Transaction.class, list, os);
-		} catch (CSVException e) {
+			excelExporter.export(Transaction.class, list, response);
+		} catch (IOException e) {
 			e.printStackTrace();
-			log.warn("导出缴费记录失败", e);
-			try {
-				os.close();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
 		}
 	}
 }

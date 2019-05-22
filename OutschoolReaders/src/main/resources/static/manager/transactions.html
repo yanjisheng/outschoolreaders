@@ -35,7 +35,7 @@
 			<td>{{index+1}}</td>
 			<td>{{transaction.reader.name}}</td>
 			<td>{{transaction.date}}</td>
-			<td>{{transaction.amount}}元</td>
+			<td align="right">{{transaction.amount}}元</td>
 			<td>{{transaction.typeName}}</td>
 			<td>{{transaction.manager.name}}</td>
 		</tr>
@@ -126,7 +126,14 @@ function sub(){
 	query();
 }
 function exportData(){
-	alert("导出功能暂未完成");
+	window.open("exportPayments.xls?loginName="+sessionStorage.getItem("loginName")
+			+"&password="+sessionStorage.getItem("password")
+			+"&startDate="+$("#startDate").val()
+			+"&endDate="+$("#endDate").val()
+			+"&amountMin="+$("#amountMin").val()
+			+"&amountMax="+$("#amountMax").val()
+			+"&type="+$("#types").val()
+			+"&managerId="+$("#managerIds").val());
 }
 </script>
 </body>

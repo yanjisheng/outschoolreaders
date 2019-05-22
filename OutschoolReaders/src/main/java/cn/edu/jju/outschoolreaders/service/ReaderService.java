@@ -1,6 +1,9 @@
 package cn.edu.jju.outschoolreaders.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Service;
 import cn.edu.jju.outschoolreaders.dao.ReaderDao;
 import cn.edu.jju.outschoolreaders.model.Reader;
 import cn.edu.jju.outschoolreaders.model.ReaderQuery;
+import cn.edu.jju.outschoolreaders.util.ExcelExporter;
 import cn.edu.jju.outschoolreaders.util.PageResult;
 
 /**
@@ -24,6 +28,9 @@ public class ReaderService {
 	
 	@Autowired
 	private ReaderDao readerDao;
+	
+	@Autowired
+	private ExcelExporter excelExporter;
 	
 	public void addReader(Reader reader) {
 		log.info("新读者["+reader.getName()+"]注册");
@@ -83,5 +90,16 @@ public class ReaderService {
 		reader.setPhone(readerTemp.getPhone());
 		reader.setEmail(readerTemp.getEmail());
 		modifyReader(reader);
+	}
+
+	public void exportReaders(ReaderQuery query, HttpServletResponse response) {
+		log.debug("导出读者信息");
+		query.setPage(null);
+		List<Reader> list = readerDao.query(query);
+		try {
+			excelExporter.export(Reader.class, list, response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -2,7 +2,11 @@ package cn.edu.jju.outschoolreaders.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -75,6 +79,18 @@ public class ManagerController {
 	}
 	
 	/**
+	 * 导出读者列表
+	 */
+	@GetMapping("/manager/exportReaders.xls")
+	public void exportReaders(HttpServletResponse response, String loginName, String password, ReaderQuery query) {
+		Manager manager = managerService.getManagerByLoginNameAndPassword(loginName, password);
+		if(manager == null) {
+			return;
+		}
+		readerService.exportReaders(query, response);
+	}
+	
+	/**
 	 * 管理员查询读者详细信息
 	 */
 	@PostMapping("/manager/getReaderById")
@@ -131,6 +147,18 @@ public class ManagerController {
 		}
 		return transactionService.queryTransactions(query);
 	}
+	
+	/**
+	 * 导出缴费记录
+	 */
+	@GetMapping("/manager/exportPayments.xls")
+	public void exportPayments(HttpServletResponse response, String loginName, String password, TransactionQuery query) {
+		Manager manager = managerService.getManagerByLoginNameAndPassword(loginName, password);
+		if(manager == null) {
+			return;
+		}
+		transactionService.exportTransactions(query, response);
+		}
 	
 	/**
 	 * 查询某读者的缴费记录
