@@ -199,6 +199,15 @@ public class ManagerController {
 		return managerService.getManagers(page);
 	}
 	
+	@GetMapping("/manager/exportManagers.xls")
+	public void exportManagers(HttpServletResponse response, String loginName, String password) {
+		Manager manager = managerService.getManagerByLoginNameAndPassword(loginName, password);
+		if(manager == null) {
+			return;
+		}
+		managerService.exportManagers(response);
+	}
+	
 	/**
 	 * 添加管理员
 	 */

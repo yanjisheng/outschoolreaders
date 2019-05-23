@@ -1,6 +1,9 @@
 package cn.edu.jju.outschoolreaders.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import cn.edu.jju.outschoolreaders.dao.ManagerDao;
 import cn.edu.jju.outschoolreaders.model.Manager;
+import cn.edu.jju.outschoolreaders.util.ExcelExporter;
 import cn.edu.jju.outschoolreaders.util.Page;
 import cn.edu.jju.outschoolreaders.util.PageResult;
 
@@ -28,6 +32,9 @@ public class ManagerService {
 	
 	@Value("${default-password}")
 	private String password;
+	
+	@Autowired
+	private ExcelExporter excelExporter;
 	
 	public Manager getManagerByLoginNameAndPassword(String loginName, String password) {
 		log.info("管理员["+loginName+"]登录");
@@ -70,5 +77,15 @@ public class ManagerService {
 		manager.setId(managerId);
 		manager.setPassword(this.password);
 		managerDao.modify(manager);
+	}
+	
+	public void exportManagers(HttpServletResponse response) {
+		log.debug("导出管理员列表");
+		List<Manager> list = managerDao.query(new Page(0, 0));
+		try {
+			excelExporter.export(Manager.class, list, response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

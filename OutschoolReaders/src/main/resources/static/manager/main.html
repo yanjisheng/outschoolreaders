@@ -20,8 +20,9 @@
 <label for="name">姓名</label><input type="text" id="name">
 <label for="identityNo">身份证号</label><input type="text" id="identityNo"><br>
 <label for="startCreate">注册日期</label><input type="date" id="startCreate">-<input type="date" id="endCreate">
-<label for="startValid">有效期至</label><input type="date" id="startValid">-<input type="date" id="endValid">
+<label for="startValid">有效期至</label><input type="date" id="startValid">-<input type="date" id="endValid"><br>
 <input type="submit" value="查询" onclick="query()">
+<input type="submit" value="导出" onclick="exportData()">
 <div id="readers">
 	<table id="readers">
 		<tr><td>序号</td><td>借阅证号</td><td>姓名</td><td>身份证号</td><td>读者类型</td><td>注册日期</td><td>有效期至</td><td>操作</td></tr>
@@ -101,6 +102,17 @@ function add(){
 function sub(){
 	$("#pageNum").val($("#pageNum").val() - 1);
 	query();
+}
+function exportData(){
+	window.open("exportReaders.xls?loginName="+sessionStorage.getItem("loginName")
+			+"&password="+sessionStorage.getItem("password")
+			+"&cardNo="+$("#cardNo").val()
+			+"&name="+$("#name").val()
+			+"&identityNo="+$("#identityNo").val()
+			+"&startCreate="+$("#startCreate").val()
+			+"&endCreate="+$("#endCreate").val()
+			+"&startValid="+$("#startValid").val()
+			+"&endValid="+$("#endValid").val());
 }
 </script>
 </body>

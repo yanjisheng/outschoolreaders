@@ -12,7 +12,8 @@
 </head>
 <body>
 <h1>管理员信息管理</h1>
-<div class="btn btn-blue"><a href="add-manager.html">添加管理员</a></div>
+<div class="btn"><a href="add-manager.html">添加管理员</a></div>
+<input type="submit" value="导出" onclick="exportData()">
 <div id="managers">
 	<table>
 		<tr><td>序号</td><td>登录名</td><td>姓名</td><td>权限</td><td>操作</td></tr>
@@ -126,6 +127,10 @@ function deleteManager(id){
 			alert("系统错误！");
 		}
 	});
+}
+function exportData(){
+	window.open("exportManagers.xls?loginName="+sessionStorage.getItem("loginName")
+			+"&password="+sessionStorage.getItem("password"));
 }
 </script>
 </body>

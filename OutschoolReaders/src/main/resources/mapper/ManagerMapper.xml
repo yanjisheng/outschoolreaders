@@ -34,6 +34,9 @@
 	</select>
 	<select id="query" parameterType="Page" resultType="Manager">
 		select id, loginName, name, superAdmin from manager where superAdmin != -1
-		order by id limit #{offset}, #{pageSize}
+		order by id
+		<if test="pageSize &gt; 0">
+			limit #{offset}, #{pageSize}
+		</if>
 	</select>
 </mapper>
