@@ -24,6 +24,11 @@ a.small{
 }
 div.center{
 	margin: 0px auto;
+	max-width: 800px;
+}
+div.center-small{
+	margin: 0px auto;
+	max-width: 320px;
 }
 label{
 	display: inline-block;
@@ -87,6 +92,7 @@ table td{
 	border: 1px solid #333333;
 	margin: 0px;
 	padding: 5px 2px;
+	word-break: break-all;
 }
 tr>td:first-of-type{
 	text-align: right;

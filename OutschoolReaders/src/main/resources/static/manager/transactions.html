@@ -11,7 +11,7 @@
 <script src="/dependencies/vue.js"></script>
 </head>
 <body>
-<div class="center" style="width: 800px">
+<div class="center">
 	<h1>缴（退）费记录</h1>
 	<label for="startDate">缴费日期</label> <input type="date" id="startDate" class="small">-<input type="date" id="endDate" class="small">
 	<label for="amountMin">缴费金额</label> <input type="number" id="amountMin" class="small">-<input type="number" id="amountMax" class="small"><br>
@@ -47,7 +47,6 @@
 	</div>
 	<div class="btn"><a href="main.html">返回</a></div>
 </div><!-- end of center -->
-<script src="/center.js"></script>
 <script>
 var vue = new Vue({
 	"el": "#transactions",

@@ -9,23 +9,25 @@
 <link rel="stylesheet" type="text/css" href="/general.css">
 </head>
 <body>
-<h1>新读者注册</h1>
-<form method="post" action="addReader" onsubmit="return check()">
-	<label for="name"><font color="red">*</font>姓名：</label> <input type="text" name="name" id="name"><br>
-	<label for="gender">性别：</label> <input type="text" name="gender" id="gender"><br>
-	<label for="identityNo"><font color="red">*</font>身份证号：</label> <input type="text" name="identityNo" id="identityNo"><br>
-	<label for="address">住址（或工作单位）：</label> <input type="text" name="address" id="address"><br>
-	<label for="phone"><font color="red">*</font>联系电话：</label> <input type="text" name="phone" id="phone"><br>
-	<label for="email">电子邮件：</label> <input type="text" name="email" id="email"><br>
-	<label for="category">读者类型：</label>
-	<select name="category" id="category">
-		<option value="1">A类（九江市民，原价）</option>
-		<option value="2">B类（九江学院毕业生及职工家属，服务费半价）</option>
-		<option value="3">C类（单位用户，免服务费）</option>
-	</select><br>
-	<input type="submit" value="注册">
-	<div class="btn"><a href="main.html">返回</a></div>
-</form>
+<div class="center-small">
+	<h1>新读者注册</h1>
+	<form method="post" action="addReader" onsubmit="return check()">
+		<label for="name"><font color="red">*</font>姓名：</label> <input type="text" name="name" id="name"><br>
+		<label for="gender">性别：</label> <input type="text" name="gender" id="gender"><br>
+		<label for="identityNo"><font color="red">*</font>身份证号：</label> <input type="text" name="identityNo" id="identityNo"><br>
+		<label for="address">住址（或工作单位）：</label> <input type="text" name="address" id="address"><br>
+		<label for="phone"><font color="red">*</font>联系电话：</label> <input type="text" name="phone" id="phone"><br>
+		<label for="email">电子邮件：</label> <input type="text" name="email" id="email"><br>
+		<label for="category">读者类型：</label>
+		<select name="category" id="category">
+			<option value="1">A类（九江市民，原价）</option>
+			<option value="2">B类（九江学院毕业生及职工家属，服务费半价）</option>
+			<option value="3">C类（单位用户，免服务费）</option>
+		</select><br>
+		<input type="submit" value="注册">
+		<div class="btn"><a href="main.html">返回</a></div>
+	</form>
+</div>
 <script>
 function check(){
 	var name = document.getElementById('name').value;

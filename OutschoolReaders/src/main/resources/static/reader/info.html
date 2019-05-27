@@ -9,21 +9,23 @@
 <link rel="stylesheet" type="text/css" href="/general.css">
 </head>
 <body>
-<h1>读者信息</h1>
-<table>
-	<tr><td style="width:100px">借阅证号：</td><td><span id="cardNo"></span></td></tr>
-	<tr><td>姓名：</td><td><span id="name"></span></td></tr>
-	<tr><td>性别：</td><td><span id="gender"></span></td></tr>
-	<tr><td>身份证号：</td><td><span id="identityNo"></span></td></tr>
-	<tr><td>住址（或工作单位）：</td><td><span id="address"></span></td></tr>
-	<tr><td>联系电话：</td><td><span id="phone"></span></td></tr>
-	<tr><td>电子邮件：</td><td><span id="email"></span></td></tr>
-	<tr><td>有效期至：</td><td><span id="validThru"></span></td></tr>
-	<tr><td>读者类型：</td><td><span id="category"></span></td></tr>
-</table>
-<!-- <div class="btn btn-blue"><a href="modify.html">修改</a></div> -->
-<button onclick="modify()">修改</button>
-<div class="btn"><a href="/">返回首页</a></div>
+<div class="center-small">
+	<h1>读者信息</h1>
+	<table>
+		<tr><td style="width:100px">借阅证号：</td><td><span id="cardNo"></span></td></tr>
+		<tr><td>姓名：</td><td><span id="name"></span></td></tr>
+		<tr><td>性别：</td><td><span id="gender"></span></td></tr>
+		<tr><td>身份证号：</td><td><span id="identityNo"></span></td></tr>
+		<tr><td>住址（或工作单位）：</td><td><span id="address"></span></td></tr>
+		<tr><td>联系电话：</td><td><span id="phone"></span></td></tr>
+		<tr><td>电子邮件：</td><td><span id="email"></span></td></tr>
+		<tr><td>有效期至：</td><td><span id="validThru"></span></td></tr>
+		<tr><td>读者类型：</td><td><span id="category"></span></td></tr>
+	</table>
+	<!-- <div class="btn btn-blue"><a href="modify.html">修改</a></div> -->
+	<button onclick="modify()">修改</button>
+	<div class="btn"><a href="main.html">返回首页</a></div>
+</div>
 <script>
 var url = window.location.toString();
 var identityNoIndex = url.indexOf('identityNo=');
