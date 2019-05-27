@@ -10,12 +10,16 @@
 <script src="/dependencies/jquery.js"></script>
 </head>
 <body>
-<h1>管理员入口</h1>
-<label for="loginName">登录名：</label><input type="text" name="loginName" id="loginName"><br>
-<label for="password">密码：</label><input type="password" name="password" id="password"><br>
-<input type="submit" value="登录" onclick="login()">
-<div class="btn"><a href="/">返回主页</a></div>
+<div class="center" style="width:320px">
+	<h1>管理员入口</h1>
+	<label for="loginName">登录名：</label><input type="text" name="loginName" id="loginName"><br>
+	<label for="password">密码：</label><input type="password" name="password" id="password"><br>
+	<input type="submit" value="登录" onclick="login()">
+	<div class="btn"><a href="/">返回主页</a></div>
+</div><!-- end of center -->
 <script>
+// alert("窗口高度："+window.innerHeight);
+// alert("窗口宽度："+document.body.clientWidth);
 function login(){
 	var loginName = $("#loginName").val();
 	var password = $("#password").val();

@@ -11,37 +11,40 @@
 <script src="/dependencies/vue.js"></script>
 </head>
 <body>
-<h1>读者详细信息</h1>
-<h2>读者基本信息</h2>
-<table id="container">
-	<tr><td style="width:100px">借阅证号：</td><td>{{reader.cardNo}}</td></tr>
-	<tr><td>姓名：</td><td>{{reader.name}}</td></tr>
-	<tr><td>性别：</td><td>{{reader.gender}}</td></tr>
-	<tr><td>身份证号：</td><td>{{reader.identityNo}}</td></tr>
-	<tr><td>住址（或工作单位）：</td><td>{{reader.address}}</td></tr>
-	<tr><td>联系电话：</td><td>{{reader.phone}}</td></tr>
-	<tr><td>电子邮件：</td><td>{{reader.email}}</td></tr>
-	<tr><td>有效期至：</td><td>{{reader.validThru}}</td></tr>
-	<tr><td>读者类型：</td><td>{{reader.categoryName}}</td></tr>
-	<tr><td>经办人：</td><td>{{reader.manager == null ? '' : reader.manager.name}}</td></tr>
-	<tr><td>备注：</td><td>{{reader.remark}}</td></tr>
-	<tr><td>注册时间：</td><td>{{reader.createdAt}}</td></tr>
-</table>
-<h2>读者缴费记录</h2>
-<table id="payRecords">
-	<tr><td>序号</td><td>缴费日期</td><td>金额</td><td>类型</td><td>有效期至</td><td>经办人</td></tr>
-	<tr v-for="(transaction,index) in list">
-		<td>{{index+1}}</td>
-		<td>{{transaction.date}}</td>
-		<td>{{transaction.amount}}元</td>
-		<td>{{transaction.typeName}}</td>
-		<td>{{transaction.validThru}}</td>
-		<td>{{transaction.manager.name}}</td>
-	</tr>
-</table>
-<input type="submit" value="修改" onclick="modify()">
-<input type="submit" value="缴费" onclick="pay()">
-<div class="btn"><a href="main.html">返回</a></div>
+<div class="center" style="width: 800px">
+	<h1>读者详细信息</h1>
+	<h2>读者基本信息</h2>
+	<table id="container">
+		<tr><td style="width:100px">借阅证号：</td><td>{{reader.cardNo}}</td></tr>
+		<tr><td>姓名：</td><td>{{reader.name}}</td></tr>
+		<tr><td>性别：</td><td>{{reader.gender}}</td></tr>
+		<tr><td>身份证号：</td><td>{{reader.identityNo}}</td></tr>
+		<tr><td>住址（或工作单位）：</td><td>{{reader.address}}</td></tr>
+		<tr><td>联系电话：</td><td>{{reader.phone}}</td></tr>
+		<tr><td>电子邮件：</td><td>{{reader.email}}</td></tr>
+		<tr><td>有效期至：</td><td>{{reader.validThru}}</td></tr>
+		<tr><td>读者类型：</td><td>{{reader.categoryName}}</td></tr>
+		<tr><td>经办人：</td><td>{{reader.manager == null ? '' : reader.manager.name}}</td></tr>
+		<tr><td>备注：</td><td>{{reader.remark}}</td></tr>
+		<tr><td>注册时间：</td><td>{{reader.createdAt}}</td></tr>
+	</table>
+	<h2>读者缴费记录</h2>
+	<table id="payRecords">
+		<tr><td>序号</td><td>缴费日期</td><td>金额</td><td>类型</td><td>有效期至</td><td>经办人</td></tr>
+		<tr v-for="(transaction,index) in list">
+			<td>{{index+1}}</td>
+			<td>{{transaction.date}}</td>
+			<td>{{transaction.amount}}元</td>
+			<td>{{transaction.typeName}}</td>
+			<td>{{transaction.validThru}}</td>
+			<td>{{transaction.manager.name}}</td>
+		</tr>
+	</table>
+	<input type="submit" value="修改" onclick="modify()">
+	<input type="submit" value="缴费" onclick="pay()">
+	<div class="btn"><a href="main.html">返回</a></div>
+</div><!-- end of center -->
+<script src="/center.js"></script>
 <script>
 var url = window.location.toString();
 var index = url.indexOf('id=');

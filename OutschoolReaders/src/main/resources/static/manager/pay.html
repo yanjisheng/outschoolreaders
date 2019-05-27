@@ -11,38 +11,40 @@
 <script src="/dependencies/vue.js"></script>
 </head>
 <body>
-<h1>读者缴（退）费</h1>
-<div id="container">
-	<label for="cardNo">借阅证号：</label><input type="text" id="cardNo" :value="reader.cardNo"><br>
-	<label for="name">姓名：</label><span id="name">{{reader.name}}</span><br>
-	<label for="identityNo">身份证号：</label><span id="identityNo">{{reader.identityNo}}</span><br>
-	<label for="originalValid">原有效期：</label><span id="originalValid">{{reader.validThru}}</span><br>
-</div>
-<label for="category">读者类型：</label>
-<select id="category" onchange="countAmount()" onblur="countAmount()">
-	<option value="1">A类（九江市民，原价）</option>
-	<option value="2">B类（九江学院毕业生及职工家属，服务费半价）</option>
-	<option value="3">C类（单位用户，免服务费）</option>
-</select><br>
-<label for="type">缴费类型：</label>
-<select id="type" onchange="countAmount()" onblur="countAmount()">
-	<option value="1">阅览服务费（原价100元/年）</option>
-	<option value="2">借阅服务费（原价150元/年）</option>
-	<option value="3">借阅押金（100元2本）</option>
-	<option value="4">退押金</option>
-</select><br>
-<label for="period">期限：</label>
-<select id="period" onchange="countAmount()" onblur="countAmount()">
-	<option value="0">自定义</option>
-	<option value="1">半年</option>
-	<option value="2">一年</option>
-	<option value="3">两年</option>
-</select><br>
-<label for="validThru">有效期至：</label><input type="date" id="validThru" onblur="countAmount()"><br>
-<label for="amount" title="此处系统计算金额如与实际收取金额不一致，请填写实际金额。">金额（元）：
-</label><input type="number" id="amount" step="0.01"><br>
-<input type="submit" value="确定" onclick="pay()">
-<div class="btn"><a href="main.html">返回</a></div>
+<div class="center" style="width:320px">
+	<h1>读者缴（退）费</h1>
+	<div id="container">
+		<label for="cardNo">借阅证号：</label> <input type="text" id="cardNo" :value="reader.cardNo"><br>
+		<label for="name">姓名：</label> <span id="name">{{reader.name}}</span><br>
+		<label for="identityNo">身份证号：</label> <span id="identityNo">{{reader.identityNo}}</span><br>
+		<label for="originalValid">原有效期：</label> <span id="originalValid">{{reader.validThru}}</span><br>
+	</div>
+	<label for="category">读者类型：</label>
+	<select id="category" onchange="countAmount()" onblur="countAmount()">
+		<option value="1">A类（九江市民，原价）</option>
+		<option value="2">B类（九江学院毕业生及职工家属，服务费半价）</option>
+		<option value="3">C类（单位用户，免服务费）</option>
+	</select><br>
+	<label for="type">缴费类型：</label>
+	<select id="type" onchange="countAmount()" onblur="countAmount()">
+		<option value="1">阅览服务费（原价100元/年）</option>
+		<option value="2">借阅服务费（原价150元/年）</option>
+		<option value="3">借阅押金（100元2本）</option>
+		<option value="4">退押金</option>
+	</select><br>
+	<label for="period">期限：</label>
+	<select id="period" onchange="countAmount()" onblur="countAmount()">
+		<option value="0">自定义</option>
+		<option value="1">半年</option>
+		<option value="2">一年</option>
+		<option value="3">两年</option>
+	</select><br>
+	<label for="validThru">有效期至：</label> <input type="date" id="validThru" onblur="countAmount()"><br>
+	<label for="amount" title="此处系统计算金额如与实际收取金额不一致，请填写实际金额。">金额（元）：</label>
+	<input type="number" id="amount" step="0.01"><br>
+	<input type="submit" value="确定" onclick="pay()">
+	<div class="btn"><a href="main.html">返回</a></div>
+</div><!-- end of center -->
 <script>
 var url = window.location.toString();
 var index = url.indexOf('id=');

@@ -11,40 +11,43 @@
 <script src="/dependencies/vue.js"></script>
 </head>
 <body>
-<h1>缴（退）费记录</h1>
-<label for="startDate">缴费日期</label><input type="date" id="startDate">-<input type="date" id="endDate">
-<label for="amountMin">缴费金额</label><input type="number" id="amountMin">-<input type="number" id="amountMax"><br>
-<label for="types">类型</label>
-<select id="types">
-	<option value="">全部</option>
-	<option value="1">阅览服务费</option>
-	<option value="2">借阅服务费</option>
-	<option value="3">借阅押金</option>
-	<option value="4">退押金</option>
-</select>
-<label for="managerIds">经办人</label>
-<select id="managerIds">
-	<option value="">全部</option>
-	<option v-for="manager in list" :value="manager.id">{{manager.name}}</option>
-</select>
-<input type="submit" value="查询" onclick="query()">
-<input type="submit" value="导出" onclick="exportData()">
-<div id="transactions">
-	<table>
-		<tr><td>序号</td><td>缴费人</td><td>缴费日期</td><td>金额</td><td>类型</td><td>经办人</td></tr>
-		<tr v-for="(transaction,index) in list">
-			<td>{{index+1}}</td>
-			<td>{{transaction.reader.name}}</td>
-			<td>{{transaction.date}}</td>
-			<td align="right">{{transaction.amount}}元</td>
-			<td>{{transaction.typeName}}</td>
-			<td>{{transaction.manager.name}}</td>
-		</tr>
-	</table>
-	共{{count}}条数据 第<input type="number" style="width:50px" id="pageNum" value="1" min="1" onchange="query()">页
-	<button onclick="sub()">上一页</button> <button onclick="add()">下一页</button>
-</div>
-<div class="btn"><a href="main.html">返回</a></div>
+<div class="center" style="width: 800px">
+	<h1>缴（退）费记录</h1>
+	<label for="startDate">缴费日期</label> <input type="date" id="startDate" class="small">-<input type="date" id="endDate" class="small">
+	<label for="amountMin">缴费金额</label> <input type="number" id="amountMin" class="small">-<input type="number" id="amountMax" class="small"><br>
+	<label for="types">类型</label>
+	<select id="types">
+		<option value="">全部</option>
+		<option value="1">阅览服务费</option>
+		<option value="2">借阅服务费</option>
+		<option value="3">借阅押金</option>
+		<option value="4">退押金</option>
+	</select>
+	<label for="managerIds">经办人</label>
+	<select id="managerIds">
+		<option value="">全部</option>
+		<option v-for="manager in list" :value="manager.id">{{manager.name}}</option>
+	</select><br>
+	<input type="submit" value="查询" onclick="query()">
+	<input type="submit" value="导出" onclick="exportData()">
+	<div id="transactions">
+		<table>
+			<tr><td>序号</td><td>缴费人</td><td>缴费日期</td><td>金额</td><td>类型</td><td>经办人</td></tr>
+			<tr v-for="(transaction,index) in list">
+				<td>{{index+1}}</td>
+				<td>{{transaction.reader.name}}</td>
+				<td>{{transaction.date}}</td>
+				<td align="right">{{transaction.amount}}元</td>
+				<td>{{transaction.typeName}}</td>
+				<td>{{transaction.manager.name}}</td>
+			</tr>
+		</table>
+		共{{count}}条数据 第<input type="number" style="width:50px" id="pageNum" value="1" min="1" onchange="query()">页
+		<button onclick="sub()">上一页</button> <button onclick="add()">下一页</button>
+	</div>
+	<div class="btn"><a href="main.html">返回</a></div>
+</div><!-- end of center -->
+<script src="/center.js"></script>
 <script>
 var vue = new Vue({
 	"el": "#transactions",

@@ -22,6 +22,9 @@ a{
 a.small{
 	color: #1c5be8;
 }
+div.center{
+	margin: 0px auto;
+}
 label{
 	display: inline-block;
 	text-align: right;
@@ -29,10 +32,15 @@ label{
 	height: 30px;
 }
 input[type=text], input[type=password], input[type=date], input[type=number]{
-	width: 200px;
+	width: 190px;
 	height: 30px;
 	border: 1px solid #000000;
+	border-radius: 5px;
 	margin: 5px 0px;
+	padding: 0px 5px;
+}
+input.small{
+	width: 120px;
 }
 input[type=submit], input[type=button], button{
 	width: 100px;
@@ -46,13 +54,14 @@ input[type=submit], input[type=button], button{
 	margin: 5px 0px;
 }
 select{
-	width: 203.53px;
-	height: 33.53px;
+	width: 202px;
+	height: 32px;
 	border: 1px solid #000000;
+	border-radius: 5px;
 	margin: 5px 0px;
 	padding: 1px;
 	position: relative;
-	left: -3.53px;
+	left: 0px;
 }
 div.btn{
 	display: inline-block;
@@ -72,11 +81,16 @@ div.btn-blue{
 table{
 	border-collapse: collapse;
 	margin: 5px 0px;
+	width: 100%;
 }
 table td{
 	border: 1px solid #333333;
 	margin: 0px;
+	padding: 5px 2px;
 }
 tr>td:first-of-type{
 	text-align: right;
+}
+tr:hover{
+	background-color: #e5e5e5;
 }

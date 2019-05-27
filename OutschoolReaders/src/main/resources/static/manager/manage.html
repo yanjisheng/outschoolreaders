@@ -11,26 +11,29 @@
 <script src="/dependencies/vue.js"></script>
 </head>
 <body>
-<h1>管理员信息管理</h1>
-<div class="btn"><a href="add-manager.html">添加管理员</a></div>
-<input type="submit" value="导出" onclick="exportData()">
-<div id="managers">
-	<table>
-		<tr><td>序号</td><td>登录名</td><td>姓名</td><td>权限</td><td>操作</td></tr>
-		<tr v-for="(manager,index) in list">
-			<td>{{index+1}}</td>
-			<td>{{manager.loginName}}</td>
-			<td>{{manager.name}}</td>
-			<td>{{manager.superAdmin == 1 ? '超级管理员' : '管理员'}}</td>
-			<td><a class="small" :href="'javascript:resetPassword('+manager.id+')'">重置密码</a>
-					<a class="small" :href="'javascript:deleteManager('+manager.id+')'">删除</a></td>
-		</tr>
-	</table>
-	共{{count}}条数据 第<input type="number" style="width:50px" id="pageNum" value="1" min="1" onchange="query()">页
-	<button onclick="sub()">上一页</button> <button onclick="add()">下一页</button>
-</div>
-<div class="btn btn-blue"><a href="change-password.html">修改密码</a></div>
-<div class="btn"><a href="main.html">返回</a></div>
+<div class="center" style="width:800px">
+	<h1>管理员信息管理</h1>
+	<div class="btn"><a href="add-manager.html">添加管理员</a></div>
+	<input type="submit" value="导出" onclick="exportData()">
+	<div id="managers">
+		<table>
+			<tr><td>序号</td><td>登录名</td><td>姓名</td><td>权限</td><td>操作</td></tr>
+			<tr v-for="(manager,index) in list">
+				<td>{{index+1}}</td>
+				<td>{{manager.loginName}}</td>
+				<td>{{manager.name}}</td>
+				<td>{{manager.superAdmin == 1 ? '超级管理员' : '管理员'}}</td>
+				<td><a class="small" :href="'javascript:resetPassword('+manager.id+')'">重置密码</a>
+						<a class="small" :href="'javascript:deleteManager('+manager.id+')'">删除</a></td>
+			</tr>
+		</table>
+		共{{count}}条数据 第<input type="number" style="width:50px" id="pageNum" value="1" min="1" onchange="query()">页
+		<button onclick="sub()">上一页</button> <button onclick="add()">下一页</button>
+	</div>
+	<div class="btn btn-blue"><a href="change-password.html">修改密码</a></div>
+	<div class="btn"><a href="main.html">返回</a></div>
+</div><!-- end of center -->
+<script src="/center.js"></script>
 <script>
 var vue = new Vue({
 	"el": "#managers",

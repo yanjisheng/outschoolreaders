@@ -10,38 +10,41 @@
 <script src="/dependencies/vue.js"></script>
 </head>
 <body>
-<h1>管理员主页</h1>
-欢迎您，<span id="managerName"></span>！<br>
-<div class="btn"><a href="change-password.html">修改密码</a></div>
-<div class="btn" style="width:150px" id="manage"><a href="manage.html">管理员信息管理</a></div>
-<input type="submit" value="退出" onclick="logout()">
-<h2>用户名单</h2>
-<label for="cardNo">借阅证号</label><input type="text" id="cardNo">
-<label for="name">姓名</label><input type="text" id="name">
-<label for="identityNo">身份证号</label><input type="text" id="identityNo"><br>
-<label for="startCreate">注册日期</label><input type="date" id="startCreate">-<input type="date" id="endCreate">
-<label for="startValid">有效期至</label><input type="date" id="startValid">-<input type="date" id="endValid"><br>
-<input type="submit" value="查询" onclick="query()">
-<input type="submit" value="导出" onclick="exportData()">
-<div id="readers">
-	<table id="readers">
-		<tr><td>序号</td><td>借阅证号</td><td>姓名</td><td>身份证号</td><td>读者类型</td><td>注册日期</td><td>有效期至</td><td>操作</td></tr>
-		<tr v-for="(reader,index) in list">
-			<td>{{index+1}}</td>
-			<td>{{reader.cardNo}}</td>
-			<td>{{reader.name}}</td>
-			<td>{{reader.identityNo}}</td>
-			<td>{{reader.categoryName == null ? "" : reader.categoryName.substring(0,2)}}</td>
-			<td>{{reader.createdAt.substring(0,10)}}</td>
-			<td>{{reader.validThru == null ? "" : reader.validThru.substring(0,10)}}</td>
-			<td><a class="small" :href="'reader.html?id=' + reader.id">详情</a> 
-					<a class="small" :href="'pay.html?id=' + reader.id">缴费</a></td>
-		</tr>
-	</table>
-	共{{count}}条数据 第<input type="number" style="width:50px" id="pageNum" value="1" min="1" onchange="query()">页
-	<button onclick="sub()">上一页</button> <button onclick="add()">下一页</button> 
+<div class="center" style="width:1000px">
+	<h1>管理员主页</h1>
+	欢迎您，<span id="managerName"></span>！<br>
+	<div class="btn"><a href="change-password.html">修改密码</a></div>
+	<div class="btn" style="width:150px" id="manage"><a href="manage.html">管理员信息管理</a></div>
+	<input type="submit" value="退出" onclick="logout()">
+	<h2>用户名单</h2>
+	<label for="cardNo">借阅证号</label><input type="text" id="cardNo">
+	<label for="name">姓名</label><input type="text" id="name">
+	<label for="identityNo">身份证号</label><input type="text" id="identityNo"><br>
+	<label for="startCreate">注册日期</label><input type="date" id="startCreate" class="small">-<input type="date" id="endCreate" class="small">
+	<label for="startValid">有效期至</label><input type="date" id="startValid" class="small">-<input type="date" id="endValid" class="small"><br>
+	<input type="submit" value="查询" onclick="query()">
+	<input type="submit" value="导出" onclick="exportData()">
+	<div id="readers">
+		<table id="readers">
+			<tr><td>序号</td><td>借阅证号</td><td>姓名</td><td>身份证号</td><td>读者类型</td><td>注册日期</td><td>有效期至</td><td>操作</td></tr>
+			<tr v-for="(reader,index) in list">
+				<td>{{index+1}}</td>
+				<td>{{reader.cardNo}}</td>
+				<td>{{reader.name}}</td>
+				<td>{{reader.identityNo}}</td>
+				<td>{{reader.categoryName == null ? "" : reader.categoryName.substring(0,2)}}</td>
+				<td>{{reader.createdAt.substring(0,10)}}</td>
+				<td>{{reader.validThru == null ? "" : reader.validThru.substring(0,10)}}</td>
+				<td><a class="small" :href="'reader.html?id=' + reader.id">详情</a> 
+						<a class="small" :href="'pay.html?id=' + reader.id">缴费</a></td>
+			</tr>
+		</table>
+		共{{count}}条数据 第<input type="number" style="width:50px" id="pageNum" value="1" min="1" onchange="query()">页
+		<button onclick="sub()">上一页</button> <button onclick="add()">下一页</button> 
+	</div>
+	<div class="btn" style="width:150px"><a href="transactions.html">查询缴费记录</a></div>
 </div>
-<div class="btn" style="width:150px"><a href="transactions.html">查询缴费记录</a></div>
+<script src="/center.js"></script>
 <script>
 var vue = new Vue({
 	"el": "#readers",

@@ -10,16 +10,18 @@
 <script src="/dependencies/jquery.js"></script>
 </head>
 <body>
-<h1>添加管理员</h1>
-<label for="loginName">登录名：</label><input type="text" id="loginName"><br>
-<label for="name">姓名：</label><input type="text" id="name"><br>
-<label for="superAdmin">权限：</label>
-<select id="superAdmin">
-	<option value="0">管理员</option>
-	<option value="1">超级管理员</option>
-</select><br>
-<input type="submit" value="确定" onclick="addManager()">
-<div class="btn"><a href="manage.html">返回</a></div>
+<div class="center" style="width:320px">
+	<h1>添加管理员</h1>
+	<label for="loginName">登录名：</label> <input type="text" id="loginName"><br>
+	<label for="name">姓名：</label> <input type="text" id="name"><br>
+	<label for="superAdmin">权限：</label>
+	<select id="superAdmin">
+		<option value="0">管理员</option>
+		<option value="1">超级管理员</option>
+	</select><br>
+	<input type="submit" value="确定" onclick="addManager()">
+	<div class="btn"><a href="manage.html">返回</a></div>
+</div><!-- end of center -->
 <script>
 function addManager(){
 	var loginName = $("#loginName").val();
