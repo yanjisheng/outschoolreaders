@@ -24,10 +24,14 @@
 </div><!-- end of center -->
 <script>
 function addManager(){
-	var loginName = $("#loginName").val();
-	var name = $("#name").val();
+	var loginName = $("#loginName").val().trim();
+	var name = $("#name").val().trim();
 	if(loginName == ""){
 		alert("登录名不能为空！");
+		return;
+	}
+	if(name == ""){
+		alert("姓名不能为空！");
 		return;
 	}
 	$.ajax({

@@ -42,6 +42,8 @@
 	<label for="validThru">有效期至：</label> <input type="date" id="validThru" onblur="countAmount()"><br>
 	<label for="amount" title="此处系统计算金额如与实际收取金额不一致，请填写实际金额。">金额（元）：</label>
 	<input type="number" id="amount" step="0.01"><br>
+	<label for="amount2">押金（元）：</label>
+	<input type="number" id="amount2" step="0.01"><br>
 	<input type="submit" value="确定" onclick="pay()">
 	<div class="btn"><a href="main.html">返回</a></div>
 </div><!-- end of center -->
@@ -85,7 +87,12 @@ function init(){
 		}
 	});
 }
-$("document").ready(init);
+$("document").ready(function(){
+	init();
+	$("#amount2").hide();
+	$("#amount2").prev().hide();
+	$("#amount2").next().hide();
+});
 function pay(){
 	$.ajax({
 		"url": "pay",
@@ -97,6 +104,7 @@ function pay(){
 			"cardNo": $("#cardNo").val(),
 			"category": $("#category").val(),
 			"amount": $("#amount").val(),
+			"amount2": $("#amount2").val(),
 			"type": $("#type").val(),
 			"validThru": $("#validThru").val(),
 		},
@@ -117,6 +125,15 @@ function pay(){
 	});
 }
 function countAmount(){
+	if($("#type").val() == 2){//交纳借阅服务费时同时交纳借阅押金
+		$("#amount2").show();
+		$("#amount2").prev().show();
+		$("#amount2").next().show();
+	}else{
+		$("#amount2").hide();
+		$("#amount2").prev().hide();
+		$("#amount2").next().hide();
+	}
 	if($("#type").val() == 3){//借书押金没有有效期，也不计算金额
 		$("#validThru").hide();
 		$("#validThru").prev().hide();

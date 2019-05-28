@@ -14,6 +14,8 @@ import cn.edu.jju.outschoolreaders.util.Page;
  */
 public class TransactionQuery extends Transaction{
 
+	private static final long serialVersionUID = 5606084603194772254L;
+	
 	private List<Integer> readerIds;//缴费人
 	private Date startDate;//缴费日期开始
 	private Date endDate;//缴费日期截止

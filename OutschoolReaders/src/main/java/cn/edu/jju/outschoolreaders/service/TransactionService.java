@@ -59,6 +59,13 @@ public class TransactionService {
 		reader.setCardNo(transaction.getCardNo());
 		reader.setCategory(transaction.getCategory());
 		readerDao.modify(reader);
+		if(transaction.getType() == 2) {//交纳借阅服务费时同时交纳借阅押金
+			transaction.setType((byte) 3);
+			transaction.setAmount(transaction.getAmount2());
+			if(transaction.getAmount() != null) {
+				transactionDao.addOne(transaction);
+			}
+		}
 	}
 	
 	public PageResult<Transaction> queryTransactions(TransactionQuery query) {

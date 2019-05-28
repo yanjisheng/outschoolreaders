@@ -1,12 +1,16 @@
 package cn.edu.jju.outschoolreaders.model;
 
+import java.io.Serializable;
+
 /**
  * 管理员
  * @author yanjisheng
  *
  */
-public class Manager {
+public class Manager implements Serializable {
 
+	private static final long serialVersionUID = -7795623276287544603L;
+	
 	public static final int ADMIN = 0;//普通管理员
 	public static final int SUPER_ADMIN = 1;//超级管理员
 	public static final int DELETED = -1;//已删除

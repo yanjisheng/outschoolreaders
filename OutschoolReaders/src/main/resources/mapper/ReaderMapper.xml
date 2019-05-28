@@ -8,16 +8,16 @@
 	</resultMap>
 	<insert id="addOne" parameterType="Reader">
 		insert into reader(cardNo, name, gender, identityNo, address, phone, email, 
-		validThru, category, managerId, remark, createdAt) 
+		validThru, category, managerId, image, remark, createdAt) 
 		values(#{cardNo}, #{name}, #{gender}, #{identityNo}, #{address}, #{phone}, #{email}, 
-		#{validThru}, #{category}, #{managerId}, #{remark}, now())
+		#{validThru}, #{category}, #{managerId}, #{image}, #{remark}, now())
 	</insert>
 	<insert id="addList" parameterType="Reader">
 		insert into reader(cardNo, name, gender, identityNo, address, phone, email, 
-		validThru, category, managerId, remark, createdAt) values
+		validThru, category, managerId, image, remark, createdAt) values
 		<foreach collection="list" item="item" separator=",">
 			(#{cardNo}, #{name}, #{gender}, #{identityNo}, #{address}, #{phone}, #{email}, 
-			#{validThru}, #{category}, #{managerId}, #{remark}, now())
+			#{validThru}, #{category}, #{managerId}, #{image}, #{remark}, now())
 		</foreach>
 	</insert>
 	<update id="modify" parameterType="Reader">
@@ -52,6 +52,9 @@
 		<if test="managerId != null">
 			managerId = #{managerId}, 
 		</if>
+		<if test="image != null and image != ''">
+			image = #{image}, 
+		</if>
 		<if test="remark != null and remark != ''">
 			remark = #{remark}, 
 		</if>
@@ -59,22 +62,22 @@
 	</update>
 	<select id="selectById" parameterType="Integer" resultType="Reader">
 		select id, cardNo, name, gender, identityNo, address, phone, email, 
-		validThru, category, managerId, remark, createdAt, modifiedAt 
+		validThru, category, managerId, image, remark, createdAt, modifiedAt 
 		from reader	where id = #{id}
 	</select>
 	<select id="selectDetailById" parameterType="Integer" resultMap="ReaderMap">
 		select id, cardNo, name, gender, identityNo, address, phone, email, 
-		validThru, category, managerId, remark, createdAt, modifiedAt 
+		validThru, category, managerId, image, remark, createdAt, modifiedAt 
 		from reader	where id = #{id}
 	</select>
 	<select id="selectByCardNo" parameterType="String" resultType="Reader">
 		select id, cardNo, name, gender, identityNo, address, phone, email, 
-		validThru, category, managerId, remark, createdAt, modifiedAt
+		validThru, category, managerId, image, remark, createdAt, modifiedAt
 		from reader where cardNo = #{cardNo}
 	</select>
 	<select id="selectByIdentityNoAndName" resultType="Reader">
 		select id, cardNo, name, gender, identityNo, address, phone, email, 
-		validThru, category, managerId, remark, createdAt, modifiedAt
+		validThru, category, managerId, image, remark, createdAt, modifiedAt
 		from reader where identityNo = #{identityNo} and name = #{name} 
 		order by validThru desc limit 1
 	</select>
@@ -131,7 +134,7 @@
 	</select>
 	<select id="query" parameterType="ReaderQuery" resultType="Reader">
 		select id, cardNo, name, gender, identityNo, address, phone, email, 
-		validThru, category, managerId, remark, createdAt, modifiedAt
+		validThru, category, managerId, image, remark, createdAt, modifiedAt
 		from reader 
 		<include refid="queryPart"></include>
 		order by modifiedAt desc 

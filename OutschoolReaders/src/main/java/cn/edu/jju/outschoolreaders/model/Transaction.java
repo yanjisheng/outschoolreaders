@@ -1,5 +1,6 @@
 package cn.edu.jju.outschoolreaders.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Date;
@@ -9,7 +10,9 @@ import java.util.Date;
  * @author yanjisheng
  *
  */
-public class Transaction {
+public class Transaction implements Serializable {
+
+	private static final long serialVersionUID = 171616095950141416L;
 
 	private Integer id;
 	
@@ -46,7 +49,11 @@ public class Transaction {
 		return amount;
 	}
 	public void setAmount(BigDecimal amount) {
-		this.amount = amount.setScale(2, RoundingMode.DOWN);
+		if(amount != null) {
+			this.amount = amount.setScale(2, RoundingMode.DOWN);
+		} else {
+			this.amount = null;
+		}
 	}
 	public Byte getType() {
 		return type;

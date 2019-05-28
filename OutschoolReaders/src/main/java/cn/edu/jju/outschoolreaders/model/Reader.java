@@ -1,5 +1,6 @@
 package cn.edu.jju.outschoolreaders.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,9 @@ import java.util.Date;
  * @author yanjisheng
  *
  */
-public class Reader {
+public class Reader implements Serializable {
+
+	private static final long serialVersionUID = 1010307227000440302L;
 
 	private Integer id;
 	
@@ -23,6 +26,7 @@ public class Reader {
 	private Byte category;//读者类型（1A类原价，2B类半价，3C类免费）
 	private Integer managerId;//经办人id
 	
+	private String image;//图片路径
 	private String remark;//备注
 	private Date createdAt;//创建时间
 	private Date modifiedAt;//修改时间
@@ -94,6 +98,12 @@ public class Reader {
 	}
 	public void setManagerId(Integer managerId) {
 		this.managerId = managerId;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	public String getRemark() {
 		return remark;

@@ -76,7 +76,7 @@ function sub(){
 	query();
 }
 function resetPassword(id){
-	var conf = confirm("您真的要重置该管理员账户的密码吗？");
+	var conf = confirm("您真的要重置账户“"+getNameById(id)+"”的密码吗？");
 	if(!conf){
 		return;
 	}
@@ -103,7 +103,7 @@ function resetPassword(id){
 	});
 }
 function deleteManager(id){
-	var conf = confirm("您真的要删除该管理员账户吗？");
+	var conf = confirm("您真的要删除账户“"+getNameById(id)+"”吗？");
 	if(!conf){
 		return;
 	}
@@ -133,6 +133,13 @@ function deleteManager(id){
 function exportData(){
 	window.open("exportManagers.xls?loginName="+sessionStorage.getItem("loginName")
 			+"&password="+sessionStorage.getItem("password"));
+}
+function getNameById(id){
+	for(var i in vue.list){
+		if(vue.list[i].id == id){
+			return vue.list[i].name;
+		}
+	}
 }
 </script>
 </body>

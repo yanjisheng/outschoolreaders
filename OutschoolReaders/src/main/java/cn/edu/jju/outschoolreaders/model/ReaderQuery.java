@@ -13,6 +13,8 @@ import cn.edu.jju.outschoolreaders.util.Page;
  */
 public class ReaderQuery extends Reader {
 
+	private static final long serialVersionUID = 5403234837620887714L;
+	
 	private Date startValid;//有效期查询开始
 	private Date endValid;//有效期查询截止
 	private List<Integer> managerIds;//经办人查询列表
