@@ -76,8 +76,16 @@
 	<build>
 		<resources>
 			<resource>
-				<directory>${project.basedir}/src/main/resources</directory>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
+				<!-- 请把图片、图标等二进制资源文件放在下面，避免出现乱码 -->
+				<excludes>
+					<exclude>/static/favicon.ico</exclude>
+				</excludes>
 			</resource>
 		</resources>
 		<plugins>
