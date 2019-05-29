@@ -12,7 +12,8 @@ spring:
   datasource:
     continue-on-error: true
     initialization-mode: always    schema: classpath:sql/CreateTable.sql
-    sql-script-encoding: UTF-8
+    sql-script-encoding: UTF-8  servlet:
+    multipart:      max-request-size: 10MB      max-file-size: 10MB
 logging:
   level:
     root: info

@@ -35,7 +35,13 @@ public class ExcelExporter {
 	 * 输出Excel表格
 	 */
 	public Workbook export(List<Map<String, Object>> dataList) {
-		Set<String> titles = dataList.get(0).keySet();
+		Set<String> titles = null;
+		try {
+			titles = dataList.get(0).keySet();
+		} catch (IndexOutOfBoundsException | NullPointerException e) {
+			e.printStackTrace();
+			return new HSSFWorkbook();
+		}
 		Workbook workbook = new HSSFWorkbook();
 		Sheet sheet = workbook.createSheet();
 		CellStyle dateStyle = workbook.createCellStyle();

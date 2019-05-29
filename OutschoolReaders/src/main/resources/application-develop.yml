@@ -7,3 +7,4 @@ spring:
 server:
   port: 9301
 default-password: abc123
+upload-file-path: E:\outschoolreaders

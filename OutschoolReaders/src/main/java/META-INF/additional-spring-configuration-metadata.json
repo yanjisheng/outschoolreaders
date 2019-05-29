@@ -1,5 +1,12 @@
-{"properties": [{
-  "name": "default-password",
-  "type": "java.lang.String",
-  "description": "新管理员账户的默认密码"
-}]}
+{"properties": [
+  {
+    "name": "default-password",
+    "type": "java.lang.String",
+    "description": "新管理员账户的默认密码"
+  },
+  {
+    "name": "upload-file-path",
+    "type": "java.lang.String",
+    "description": "上传文件路径"
+  }
+]}
