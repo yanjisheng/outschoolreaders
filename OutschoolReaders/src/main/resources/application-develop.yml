@@ -8,5 +8,5 @@ server:
   port: 9301
 default-password: abc123
 upload-file-path: 
-  #E:\outschoolreaders #windows
-  /home/yanjisheng/outschoolreaders/upload #linux
+  E:\outschoolreaders #windows
+  #/home/yanjisheng/outschoolreaders/upload #linux

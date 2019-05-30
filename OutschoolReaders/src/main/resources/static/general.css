@@ -36,7 +36,7 @@ label{
 	width: 100px;
 	height: 30px;
 }
-input[type=text], input[type=password], input[type=date], input[type=number]{
+input[type=text], input[type=password], input[type=date], input[type=number], input[type=file]{
 	width: 190px;
 	height: 30px;
 	border: 1px solid #000000;

@@ -35,8 +35,6 @@ public class FileController {
 	
 	private Integer serialNo = new Integer(0);
 	
-	private static final long fileSizeLimit = 2097152l;
-	
 	/**
 	 * 上传图片
 	 */
@@ -46,9 +44,6 @@ public class FileController {
 		String originalFileName = multipartFile.getOriginalFilename();
 		String extension = originalFileName.substring(originalFileName.lastIndexOf(".") == -1 ? 0 
 				: (originalFileName.lastIndexOf(".") + 1));
-//		if(multipartFile.getSize() > fileSizeLimit) {
-//			return "File too large.";
-//		}
 		if(!(extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("gif") 
 				|| extension.equalsIgnoreCase("png") || extension.equalsIgnoreCase("bmp"))) {
 			return "File format not supported.";
@@ -57,6 +52,7 @@ public class FileController {
 		File file = new File(filePath, generatedFileName + "." + extension);
 		path.mkdirs();
 		multipartFile.transferTo(file);
+		log.info("上传图片" + generatedFileName + "." + extension);
 		return generatedFileName + "." + extension;
 	}
 	
@@ -73,7 +69,6 @@ public class FileController {
 		while(numOfBytes >= 0) {
 			numOfBytes = is.read(buf);
 			os.write(buf, 0, numOfBytes);
-			Arrays.fill(buf, (byte) 0);
 		}
 		is.close();
 		os.close();

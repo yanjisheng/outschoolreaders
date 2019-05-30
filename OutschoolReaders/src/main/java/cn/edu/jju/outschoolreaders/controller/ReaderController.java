@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.jju.outschoolreaders.model.Reader;
 import cn.edu.jju.outschoolreaders.service.ReaderService;
@@ -25,11 +26,20 @@ public class ReaderController {
 	@Autowired
 	private ReaderService readerService;
 	
+	@Autowired
+	private FileController fileController;
+	
 	/**
 	 * 新读者注册
 	 */
 	@PostMapping("/reader/addReader")
-	public void addReader(HttpServletResponse response, Reader reader) throws IOException {
+	public void addReader(HttpServletResponse response, Reader reader, MultipartFile file) throws IOException {
+		if(file.getSize() > 0) {
+			String image = fileController.upload(file);
+			if(!image.equals("File format not supported.")) {
+				reader.setImage(image);
+			}
+		}
 		readerService.addReader(reader);
 		response.sendRedirect("/reader/new-reader-success.html");
 	}
