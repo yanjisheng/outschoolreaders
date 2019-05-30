@@ -12,20 +12,20 @@
 <div class="center-small">
 	<h1>新读者注册</h1>
 	<form method="post" enctype="multipart/form-data" action="addReader" onsubmit="return check()">
-		<label for="name"><font color="red">*</font>姓名：</label> <input type="text" name="name" id="name"><br>
+		<label for="name"><font color="red">*</font>姓名：</label> <input type="text" name="name" id="name" title="不超过10个字"><br>
 		<label for="gender">性别：</label> <input type="text" name="gender" id="gender"><br>
-		<label for="identityNo"><font color="red">*</font>身份证号：</label> <input type="text" name="identityNo" id="identityNo"><br>
-		<label for="address">住址（或工作单位）：</label> <input type="text" name="address" id="address"><br>
-		<label for="phone"><font color="red">*</font>联系电话：</label> <input type="text" name="phone" id="phone"><br>
-		<label for="email">电子邮件：</label> <input type="text" name="email" id="email"><br>
+		<label for="identityNo"><font color="red">*</font>身份证号：</label> <input type="text" name="identityNo" id="identityNo" title="不超过18位"><br>
+		<label for="address">住址（或工作单位）：</label> <input type="text" name="address" id="address" title="不超过60个字"><br>
+		<label for="phone"><font color="red">*</font>联系电话：</label> <input type="text" name="phone" id="phone" title="不超过16位"><br>
+		<label for="email">电子邮件：</label> <input type="text" name="email" id="email" title="不超过30位"><br>
 		<label for="category">读者类型：</label>
 		<select name="category" id="category">
 			<option value="1">A类（九江市民，原价）</option>
 			<option value="2">B类（九江学院毕业生及职工家属，服务费半价）</option>
 			<option value="3">C类（单位用户，免服务费）</option>
 		</select><br>
-		<label for="category" title="仅限jpg、gif、png和bmp格式，大小不超过10MB">照片：</label>
-		<input type="file" name="file" title="仅限jpg、gif、png和bmp格式，大小不超过10MB">
+<!-- 		<label for="file" title="仅限jpg、gif、png和bmp格式，大小不超过10MB">照片：</label> -->
+<!-- 		<input type="file" name="file" id="file" title="仅限jpg、gif、png和bmp格式，大小不超过10MB"> -->
 		<input type="submit" value="申请注册">
 		<div class="btn"><a href="main.html">返回</a></div>
 	</form>
@@ -67,6 +67,23 @@ function check(){
 	var email = document.getElementById('email').value;
 	if(email.length > 30){
 		alert('电子邮件不能长于30位！');
+		return false;
+	}
+	var imageList = document.getElementById('file').files;
+	var image;
+	if(imageList.length == 0){
+		return true;
+	}else{
+		image = imageList[0];
+	}
+	if(image.size > 10485760){
+		alert("照片大小不能超过10MB！");
+		return false;
+	}
+	var extension = image.name.substring(image.name.lastIndexOf(".") == -1 ? 0 : image.name.lastIndexOf(".") + 1);
+	if(!(extension == 'jpg' || extension == 'gif' || extension == 'png' || extension == 'bmp' 
+			|| extension == 'JPG' || extension == 'GIF' || extension == 'PNG' || extension == 'BMP')){
+		alert("照片必须为jpg、gif、png或bmp格式！");
 		return false;
 	}
 	return true;

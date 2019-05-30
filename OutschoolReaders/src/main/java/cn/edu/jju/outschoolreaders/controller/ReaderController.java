@@ -34,7 +34,7 @@ public class ReaderController {
 	 */
 	@PostMapping("/reader/addReader")
 	public void addReader(HttpServletResponse response, Reader reader, MultipartFile file) throws IOException {
-		if(file.getSize() > 0) {
+		if(file != null && file.getSize() > 0) {
 			String image = fileController.upload(file);
 			if(!image.equals("File format not supported.")) {
 				reader.setImage(image);

@@ -15,8 +15,21 @@
 	<h1>读者详细信息</h1>
 	<h2>读者基本信息</h2>
 	<table id="container">
-		<tr><td style="width:100px">借阅证号：</td><td>{{reader.cardNo}}</td>
-				<td rowspan="12" style="width:100px">照片：</td><td rowspan="12" style="width: 200px"><img :src="reader.image == null ? '/img/default.png' :'/upload/'+reader.image" style="width: 200px"></td></tr>
+		<tr v-if="document.body.clientWidth < 600">
+			<td style="width:100px">照片：</td>
+			<td style="text-align: center;">
+				<img :src="reader.image == null ? '/img/default.png' :'/upload/'+reader.image" style="width: 100%; max-width: 200px">
+			</td>
+		</tr>
+		<tr>
+			<td style="width:100px">借阅证号：</td><td>{{reader.cardNo}}</td>
+			<template v-if="document.body.clientWidth >= 600">
+			<td rowspan="12" style="width:100px; text-align: right;">照片：</td>
+			<td rowspan="12" style="width: 200px; text-align: center;">
+				<img :src="reader.image == null ? '/img/default.png' :'/upload/'+reader.image" style="width: 200px">
+			</td>
+			</template>			
+		</tr>
 		<tr><td>姓名：</td><td>{{reader.name}}</td></tr>
 		<tr><td>性别：</td><td>{{reader.gender}}</td></tr>
 		<tr><td>身份证号：</td><td>{{reader.identityNo}}</td></tr>

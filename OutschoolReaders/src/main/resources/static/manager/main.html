@@ -55,6 +55,11 @@ var vue = new Vue({
 });
 $(document).ready(function(){
 	var manager = JSON.parse(sessionStorage.getItem("manager"));
+	if(manager == null){
+		alert("您尚未登录，请先登录！");
+		window.location = "login.html";
+		return;
+	}
 	$("#managerName").text(manager.name);
 	if(manager.superAdmin != 1){
 		$("#manage").hide();
