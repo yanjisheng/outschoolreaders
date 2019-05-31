@@ -24,8 +24,8 @@
 			<option value="2">B类（九江学院毕业生及职工家属，服务费半价）</option>
 			<option value="3">C类（单位用户，免服务费）</option>
 		</select><br>
-<!-- 		<label for="file" title="仅限jpg、gif、png和bmp格式，大小不超过10MB">照片：</label> -->
-<!-- 		<input type="file" name="file" id="file" title="仅限jpg、gif、png和bmp格式，大小不超过10MB"> -->
+		<label for="file" title="仅限jpg、gif、png和bmp格式，大小不超过10MB">照片：</label>
+		<input type="file" name="file" id="file" title="仅限jpg、gif、png和bmp格式，大小不超过10MB">
 		<input type="submit" value="申请注册">
 		<div class="btn"><a href="main.html">返回</a></div>
 	</form>
@@ -81,8 +81,8 @@ function check(){
 		return false;
 	}
 	var extension = image.name.substring(image.name.lastIndexOf(".") == -1 ? 0 : image.name.lastIndexOf(".") + 1);
-	if(!(extension == 'jpg' || extension == 'gif' || extension == 'png' || extension == 'bmp' 
-			|| extension == 'JPG' || extension == 'GIF' || extension == 'PNG' || extension == 'BMP')){
+	if(!(extension == 'jpg' || extension == 'jpeg' || extension == 'gif' || extension == 'png' || extension == 'bmp' 
+			|| extension == 'JPG' || extension == 'JPEG'  || extension == 'GIF' || extension == 'PNG' || extension == 'BMP')){
 		alert("照片必须为jpg、gif、png或bmp格式！");
 		return false;
 	}
