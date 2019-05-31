@@ -18,9 +18,9 @@
 	<div class="btn" style="width:150px" id="manage"><a href="manage.html">管理员信息管理</a></div>
 	<input type="submit" value="退出" onclick="logout()">
 	<h2>用户名单</h2>
-	<label for="cardNo">借阅证号</label><input type="text" id="cardNo">
-	<label for="name">姓名</label><input type="text" id="name">
-	<label for="identityNo">身份证号</label><input type="text" id="identityNo"><br>
+	<label for="cardNo">借阅证号</label><input type="text" id="cardNo" onkeypress="enter(event)">
+	<label for="name">姓名</label><input type="text" id="name" onkeypress="enter(event)">
+	<label for="identityNo">身份证号</label><input type="text" id="identityNo" onkeypress="enter(event)"><br>
 	<label for="startCreate">申请日期</label><input type="date" id="startCreate" class="small">-<input type="date" id="endCreate" class="small">
 	<label for="startValid">有效期至</label><input type="date" id="startValid" class="small">-<input type="date" id="endValid" class="small"><br>
 	<input type="submit" value="查询" onclick="query()">
@@ -121,6 +121,11 @@ function exportData(){
 			+"&endCreate="+$("#endCreate").val()
 			+"&startValid="+$("#startValid").val()
 			+"&endValid="+$("#endValid").val());
+}
+function enter(event){
+	if(event.keyCode == 13){
+		query();
+	}
 }
 </script>
 </body>
