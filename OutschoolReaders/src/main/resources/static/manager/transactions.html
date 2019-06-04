@@ -28,7 +28,7 @@
 		<option value="">全部</option>
 		<option v-for="manager in list" :value="manager.id">{{manager.name}}</option>
 	</select><br>
-	<input type="submit" value="查询" onclick="query()">
+	<input type="submit" value="查询" onclick="queryFromFirstPage()">
 	<input type="submit" value="导出" onclick="exportData()">
 	<div id="transactions">
 		<table>
@@ -137,6 +137,10 @@ function exportData(){
 			+"&amountMax="+$("#amountMax").val()
 			+"&type="+$("#types").val()
 			+"&managerId="+$("#managerIds").val());
+}
+function queryFromFirstPage(){
+	$("#pageNum").val(1);
+	query();
 }
 </script>
 </body>
