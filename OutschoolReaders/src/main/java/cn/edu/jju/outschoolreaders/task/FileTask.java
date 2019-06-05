@@ -36,10 +36,12 @@ public class FileTask {
 		List<String> imageFileNames = readerService.getAllImages();
 		File path = new File(filePath);
 		File[] files = path.listFiles();
-		for(File file : files) {
-			if(!imageFileNames.contains(file.getName())) {
-				log.info("删除文件" + file.getName());
-				file.delete();
+		if (files != null) {
+			for (File file : files) {
+				if (!imageFileNames.contains(file.getName())) {
+					log.info("删除文件" + file.getName());
+					file.delete();
+				}
 			}
 		}
 	}
