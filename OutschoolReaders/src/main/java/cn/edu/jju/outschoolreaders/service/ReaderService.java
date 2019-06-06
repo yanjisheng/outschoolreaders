@@ -1,6 +1,7 @@
 package cn.edu.jju.outschoolreaders.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -101,5 +102,19 @@ public class ReaderService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * 查询所有用户照片的文件名
+	 */
+	public List<String> getAllImages() {
+		List<String> images = new ArrayList<>();
+		PageResult<Reader> readerPage = queryReaders(null);
+		for(Reader reader : readerPage.getList()) {
+			if(reader.getImage() != null && !reader.getImage().equals("")) {
+				images.add(reader.getImage());
+			}
+		}
+		return images;
 	}
 }

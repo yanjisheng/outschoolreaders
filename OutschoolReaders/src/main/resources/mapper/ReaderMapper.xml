@@ -79,7 +79,7 @@
 		select id, cardNo, name, gender, identityNo, address, phone, email, 
 		validThru, category, managerId, image, remark, createdAt, modifiedAt
 		from reader where identityNo = #{identityNo} and name = #{name} 
-		order by validThru desc limit 1
+		order by validThru desc, createdAt desc limit 1
 	</select>
 	<sql id="queryPart">
 		<where>
@@ -137,7 +137,7 @@
 		validThru, category, managerId, image, remark, createdAt, modifiedAt
 		from reader 
 		<include refid="queryPart"></include>
-		order by modifiedAt desc 
+		order by modifiedAt desc, createdAt desc
 		<if test="page != null and page.pageSize &gt; 0">
 			limit #{page.offset}, #{page.pageSize}
 		</if>

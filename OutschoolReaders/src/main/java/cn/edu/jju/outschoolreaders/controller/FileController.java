@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
-import java.util.Arrays;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -44,7 +42,7 @@ public class FileController {
 		String originalFileName = multipartFile.getOriginalFilename();
 		String extension = originalFileName.substring(originalFileName.lastIndexOf(".") == -1 ? 0 
 				: (originalFileName.lastIndexOf(".") + 1));
-		if(!(extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("gif") 
+		if(!(extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("jpeg") || extension.equalsIgnoreCase("gif") 
 				|| extension.equalsIgnoreCase("png") || extension.equalsIgnoreCase("bmp"))) {
 			return "File format not supported.";
 		}

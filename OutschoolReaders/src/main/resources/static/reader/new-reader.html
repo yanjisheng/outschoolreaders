@@ -69,23 +69,23 @@ function check(){
 		alert('电子邮件不能长于30位！');
 		return false;
 	}
-	var imageList = document.getElementById('file').files;
-	var image;
-	if(imageList.length == 0){
-		return true;
-	}else{
-		image = imageList[0];
-	}
-	if(image.size > 10485760){
-		alert("照片大小不能超过10MB！");
-		return false;
-	}
-	var extension = image.name.substring(image.name.lastIndexOf(".") == -1 ? 0 : image.name.lastIndexOf(".") + 1);
-	if(!(extension == 'jpg' || extension == 'gif' || extension == 'png' || extension == 'bmp' 
-			|| extension == 'JPG' || extension == 'GIF' || extension == 'PNG' || extension == 'BMP')){
-		alert("照片必须为jpg、gif、png或bmp格式！");
-		return false;
-	}
+// 	var imageList = document.getElementById('file').files;
+// 	var image;
+// 	if(imageList.length == 0){
+// 		return true;
+// 	}else{
+// 		image = imageList[0];
+// 	}
+// 	if(image.size > 10485760){
+// 		alert("照片大小不能超过10MB！");
+// 		return false;
+// 	}
+// 	var extension = image.name.substring(image.name.lastIndexOf(".") == -1 ? 0 : image.name.lastIndexOf(".") + 1);
+// 	if(!(extension == 'jpg' || extension == 'gif' || extension == 'png' || extension == 'bmp' 
+// 			|| extension == 'JPG' || extension == 'GIF' || extension == 'PNG' || extension == 'BMP')){
+// 		alert("照片必须为jpg、gif、png或bmp格式！");
+// 		return false;
+// 	}
 	return true;
 }
 </script>
