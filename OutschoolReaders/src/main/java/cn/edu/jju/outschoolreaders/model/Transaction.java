@@ -112,6 +112,7 @@ public class Transaction implements Serializable {
 		return manager;
 	}
 	public void setManager(Manager manager) {
+		manager.setPassword(null);
 		this.manager = manager;
 	}
 	
