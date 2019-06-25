@@ -21,7 +21,7 @@ logging:
   pattern:
     console: "[%p] %d %t -> %c.%M%n%m%n"
     file: "[%p] %d %t -> %c.%M%n%m%n"
-  file: OutschoolReaders.log
+  file: logs/OutschoolReaders.log
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: cn.edu.jju.outschoolreaders.model, cn.edu.jju.outschoolreaders.util
