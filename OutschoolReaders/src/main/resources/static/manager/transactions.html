@@ -15,21 +15,21 @@
 <script src="/black.js"></script>
 <div class="center">
 	<h1>缴（退）费记录</h1>
-	<label for="startDate">缴费日期</label> <input type="date" id="startDate" class="small">-<input type="date" id="endDate" class="small">
-	<label for="amountMin">缴费金额</label> <input type="number" id="amountMin" class="small">-<input type="number" id="amountMax" class="small"><br>
-	<label for="types">类型</label>
+	<div class="label"><label for="startDate">缴费日期</label> <div class="label"><input type="date" id="startDate" class="small">-<input type="date" id="endDate" class="small"></div></div>
+	<div class="label"><label for="amountMin">缴费金额</label> <div class="label"><input type="number" id="amountMin" class="small">-<input type="number" id="amountMax" class="small"></div></div>
+	<div class="label"><label for="types">类型</label>
 	<select id="types">
 		<option value="">全部</option>
 		<option value="1">阅览服务费</option>
 		<option value="2">借阅服务费</option>
 		<option value="3">借阅押金</option>
 		<option value="4">退押金</option>
-	</select>
-	<label for="managerIds">经办人</label>
+	</select></div>
+	<div class="label"><label for="managerIds">经办人</label>
 	<select id="managerIds">
 		<option value="">全部</option>
 		<option v-for="manager in list" :value="manager.id">{{manager.name}}</option>
-	</select><br>
+	</select></div><br>
 	<input type="submit" value="查询" onclick="queryFromFirstPage()">
 	<input type="submit" value="导出" onclick="exportData()">
 	<div id="transactions">
