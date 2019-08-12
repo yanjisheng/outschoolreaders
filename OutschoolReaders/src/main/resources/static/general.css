@@ -34,6 +34,9 @@ div.center-small{
 	margin: 0px auto;
 	max-width: 320px;
 }
+div.label{
+	display: inline-block;
+}
 label{
 	display: inline-block;
 	text-align: right;
