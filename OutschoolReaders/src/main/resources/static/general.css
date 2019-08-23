@@ -137,6 +137,9 @@ body.black{
 	background-color: #333333;
 	color: #ffffff;
 }
+body.black a.small{
+	color: #58a5ef;
+}
 body.black input[type=text], body.black input[type=password], body.black input[type=date], body.black input[type=number], body.black input[type=file], body.black select{
 	background-color: #000000;
 	color: #ffffff;
@@ -153,4 +156,7 @@ body.black table td{
 body.black tr:hover{
 	background-color: #999999;
 	color: #000000;
+}
+body.black tr:hover a.small{
+	color: #1c5be8;
 }

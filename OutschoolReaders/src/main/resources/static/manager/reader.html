@@ -46,7 +46,15 @@
 	</table>
 	<h2>读者缴费记录</h2>
 	<table id="payRecords">
-		<tr><td>序号</td><td>缴费日期</td><td>金额</td><td>类型</td><td>有效期至</td><td>经办人</td></tr>
+		<tr>
+			<td>序号</td>
+			<td>缴费日期</td>
+			<td>金额</td>
+			<td>类型</td>
+			<td>有效期至</td>
+			<td>经办人</td>
+			<td><a class="small" href="#">全部删除</a></td>
+		</tr>
 		<tr v-for="(transaction,index) in list">
 			<td>{{index+1}}</td>
 			<td>{{transaction.date}}</td>
@@ -54,10 +62,12 @@
 			<td>{{transaction.typeName}}</td>
 			<td>{{transaction.validThru}}</td>
 			<td>{{transaction.manager.name}}</td>
+			<td><a class="small" href="#">删除</a></td>
 		</tr>
 	</table>
 	<input type="submit" value="修改" onclick="modify()">
 	<input type="submit" value="缴费" onclick="pay()">
+	<input type="submit" value="删除" onclick="deleteReader()">
 	<div class="btn"><a href="main.html">返回</a></div>
 </div><!-- end of center -->
 <script>
@@ -133,6 +143,13 @@ function modify(){
 }
 function pay(){
 	window.location = "pay.html?id="+id;
+}
+function deleteReader(){
+	alert("您真的要删除“"+vue.reader.name+"”在系统中的所有记录吗？\n"
+			+"本功能仅用于删除测试数据，请勿删除真实数据！");
+	//TODO 删除
+	alert("删除功能未完成");
+	window.location = "main.html";
 }
 $("document").ready(init);
 </script>
