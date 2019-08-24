@@ -44,6 +44,9 @@ function login(){
 			}else if(manager.id == -1){
 				alert("登录名或密码错误！");
 			}
+		},
+		"error": function(){
+			alert("系统错误！");
 		}
 	});
 }

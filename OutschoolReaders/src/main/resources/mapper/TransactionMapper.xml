@@ -69,4 +69,7 @@
 			limit #{page.offset}, #{page.pageSize}
 		</if>
 	</select>
+	<delete id="delete" parameterType="Integer">
+		delete from transaction where id = #{transactionId}
+	</delete>
 </mapper>

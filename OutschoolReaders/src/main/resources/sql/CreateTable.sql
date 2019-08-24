@@ -39,5 +39,12 @@ createdAt datetime comment '创建时间',
 index date(date)
 )comment='校外读者缴（退）费记录';
 
+create table if not exists deleteLog
+(id int primary key auto_increment,
+managerId int comment '删除操作人',
+deletedAt datetime comment '删除时间',
+data text comment '被删除的数据(json)'
+)comment='删除记录';
+
 insert into manager(loginName, password, name, superAdmin)
 values('superadmin', 'abc123', '超级管理员', 1);

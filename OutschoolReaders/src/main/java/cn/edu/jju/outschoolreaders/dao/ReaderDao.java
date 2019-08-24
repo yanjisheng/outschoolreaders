@@ -34,4 +34,6 @@ public interface ReaderDao {
 	
 	public List<Reader> query(ReaderQuery query);
 
+	public int delete(Integer readerId);
+
 }

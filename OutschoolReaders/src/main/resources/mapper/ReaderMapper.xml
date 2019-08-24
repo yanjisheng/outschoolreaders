@@ -142,4 +142,7 @@
 			limit #{page.offset}, #{page.pageSize}
 		</if>
 	</select>
+	<delete id="delete" parameterType="Integer">
+		delete from reader where id = #{readerId}
+	</delete>
 </mapper>
