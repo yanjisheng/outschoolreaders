@@ -204,7 +204,7 @@ function deleteTransactions(){
 }
 function deleteTransaction(transactionId){
 	var conf = confirm("您真的要删除这一条缴费记录吗？\n"
-			+ "本操作不可恢复，请勿删除真实数据！"+transactionId);
+			+ "本操作不可恢复，请勿删除真实数据！");
 	if(!conf){
 		return;
 	}
