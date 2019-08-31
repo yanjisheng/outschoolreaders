@@ -19,8 +19,8 @@ logging:
     root: info
     cn.edu.jju.outschoolreaders: debug
   pattern:
-    console: "[%p] %d %t -> %c.%M%n%m%n"
-    file: "[%p] %d %t -> %c.%M%n%m%n"
+    console: "[%p] %d ${PID} %t -> %c.%M%n%m%n"
+    file: "[%p] %d ${PID} %t -> %c.%M%n%m%n"
   file: logs/OutschoolReaders.log
 mybatis:
   mapper-locations: classpath:mapper/*.xml
