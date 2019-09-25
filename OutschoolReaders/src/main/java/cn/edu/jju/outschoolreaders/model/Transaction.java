@@ -98,6 +98,9 @@ public class Transaction implements Serializable {
 		case 4:
 			typeName = "退押金";
 			break;
+		case 5:
+			typeName = "补证服务费";
+			break;
 		}
 		return typeName;
 	}

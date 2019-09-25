@@ -32,7 +32,7 @@ create table if not exists transaction
 readerId int not null comment '缴费人',
 date datetime not null comment '缴费日期',
 amount decimal(10,2) not null comment '金额',
-type tinyint comment '类型（1阅览服务费，2借阅服务费，3借阅押金，4退押金）',
+type tinyint comment '类型（1阅览服务费，2借阅服务费，3借阅押金，4退押金，5补证工本费）',
 validThru datetime comment '有效期至',
 managerId int comment '经办人',
 createdAt datetime comment '创建时间',
