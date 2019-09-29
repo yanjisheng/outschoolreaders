@@ -46,5 +46,5 @@ deletedAt datetime comment '删除时间',
 data text comment '被删除的数据(json)'
 )comment='删除记录';
 
-insert into manager(loginName, password, name, superAdmin)
+insert ignore into manager(loginName, password, name, superAdmin)
 values('superadmin', 'abc123', '超级管理员', 1);
