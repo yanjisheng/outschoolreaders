@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>cn.edu.jju</groupId>
 	<artifactId>outschoolreaders</artifactId>
-	<version>2019.09.25</version>
+	<version>2019.09.30</version>
 	<name>OutschoolReaders</name>
 	<description>校外读者阅览（借阅）管理系统</description>
 
