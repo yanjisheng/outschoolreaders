@@ -115,13 +115,21 @@ tr:hover{
  * 样式切换条
  */
 #style-changer{
-	position: retative;
-	width: 100%;
 	font-size: 12px;
 	border: 1px solid #666666;
 	text-align: center;
 	vertical-align: middle;
 	line-height: 20px;
+	height: 20px;
+}
+#style-changer.phone{
+	position: relative;
+	width: 100%;
+}
+#style-changer.pc{
+	position: fixed;
+	right: 15px;
+	width: 40px;
 }
 #style-changer span{
 	cursor: default;
@@ -129,6 +137,9 @@ tr:hover{
 	-moz-user-select: none;
 	-ms-user-select: none;
 	-webkit-user-select: none;
+}
+#style-changer img{
+	height: 12px;
 }
 /**
  * 黑色样式
