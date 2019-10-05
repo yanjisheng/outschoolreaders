@@ -123,6 +123,19 @@ public class ManagerController {
 	}
 	
 	/**
+	 * 管理员删除读者信息
+	 */
+	@PostMapping("/manager/deleteReader")
+	public String deleteReader(String loginName, String password, Integer id) {
+		Manager manager = managerService.getManagerByLoginNameAndPassword(loginName, password);
+		if(manager == null) {
+			return "unauthorized";
+		}
+		readerService.deleteReader(id, manager.getId());
+		return "success";
+	}
+	
+	/**
 	 * 读者缴费
 	 */
 	@PostMapping("/manager/pay")
@@ -182,6 +195,32 @@ public class ManagerController {
 			return null;
 		}
 		return transactionService.getDepositByReaderId(id);
+	}
+	
+	/**
+	 * 删除某读者的全部缴费记录
+	 */
+	@PostMapping("/manager/deleteReaderTransactions")
+	public String deleteReaderTransactions(String loginName, String password, Integer id) {
+		Manager manager = managerService.getManagerByLoginNameAndPassword(loginName, password);
+		if(manager == null) {
+			return "unauthorized";
+		}
+		transactionService.deleteReaderTransactions(id, manager.getId());
+		return "success";
+	}
+	
+	/**
+	 * 根据id删除一条缴费记录
+	 */
+	@PostMapping("/manager/deleteTransactionById")
+	public String deleteTransactionById(String loginName, String password, Integer id) {
+		Manager manager = managerService.getManagerByLoginNameAndPassword(loginName, password);
+		if(manager == null) {
+			return "unauthorized";
+		}
+		transactionService.deleteTransaction(id, manager.getId());
+		return "success";
 	}
 	
 	/**

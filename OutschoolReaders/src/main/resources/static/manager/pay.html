@@ -11,7 +11,7 @@
 <script src="/dependencies/vue.js"></script>
 </head>
 <body>
-<div id="style-changer"><span onclick="toggle()">点击切换主题</span> <span onclick="hideme()">隐藏</span></div>
+<div id="style-changer"></div>
 <script src="/black.js"></script>
 <div class="center-small">
 	<h1>读者缴（退）费</h1>
@@ -31,8 +31,9 @@
 	<select id="type" onchange="countAmount()" onblur="countAmount()">
 		<option value="1">阅览服务费（原价100元/年）</option>
 		<option value="2">借阅服务费（原价150元/年）</option>
-		<option value="3">借阅押金（100元2本）</option>
+		<option value="3">借阅押金（100元/2本）</option>
 		<option value="4">退押金</option>
+		<option value="5">补证工本费（10元）</option>
 	</select><br>
 	<label for="period">期限：</label>
 	<select id="period" onchange="countAmount()" onblur="countAmount()">
@@ -113,7 +114,7 @@ function pay(){
 		"dataType": "text",
 		"success": function(res){
 			if(res=="success"){
-				alert("缴费成功！");
+				alert("缴（退）费办理成功！");
 				window.location = "reader.html?id="+id;
 			}
 		},
@@ -163,6 +164,14 @@ function countAmount(){
 				$("#amount").val(amount);
 			},
 		});
+	}else if($("#type").val() == 5){//补证工本费没有有效期
+		$("#validThru").hide();
+		$("#validThru").prev().hide();
+		$("#validThru").next().hide();
+		$("#period").hide();
+		$("#period").prev().hide();
+		$("#period").next().hide();
+		$("#amount").val(10);
 	}else{
 		$("#validThru").show();
 		$("#validThru").prev().show();
@@ -173,6 +182,8 @@ function countAmount(){
 		var validThru;
 		var originalValid = vue.reader.validThru;
 		if(originalValid == null){
+			originalValid = new Date();
+		}else if(new Date(originalValid) < new Date()){//原有效期在今天之前的，从今天开始算新的有效期
 			originalValid = new Date();
 		}
 		if($("#period").val() == 0){//自定义期限

@@ -13,8 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import cn.edu.jju.outschoolreaders.dao.DeleteLogDao;
 import cn.edu.jju.outschoolreaders.dao.ReaderDao;
 import cn.edu.jju.outschoolreaders.dao.TransactionDao;
+import cn.edu.jju.outschoolreaders.model.DeleteLog;
 import cn.edu.jju.outschoolreaders.model.Reader;
 import cn.edu.jju.outschoolreaders.model.Transaction;
 import cn.edu.jju.outschoolreaders.model.TransactionExtend;
@@ -39,7 +44,13 @@ public class TransactionService {
 	private ReaderDao readerDao;
 	
 	@Autowired
+	private ObjectMapper objectMapper;
+	
+	@Autowired
 	private ExcelExporter excelExporter;
+	
+	@Autowired
+	private DeleteLogDao deleteLogDao;
 	
 	@Transactional
 	public void addTransaction(TransactionExtend transaction) {
@@ -106,6 +117,29 @@ public class TransactionService {
 			excelExporter.export(Transaction.class, list, response);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void deleteTransaction(Integer transactionId, Integer managerId) {
+		log.info("管理员["+managerId+"]按id["+transactionId+"]删除缴费记录");
+		Transaction transaction = transactionDao.selectById(transactionId);
+		DeleteLog deleteLog = new DeleteLog();
+		deleteLog.setManagerId(managerId);
+		deleteLog.setDeletedAt(new Date());
+		try {
+			deleteLog.setData(objectMapper.writeValueAsString(transaction));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		deleteLogDao.add(deleteLog);
+		transactionDao.delete(transactionId);
+	}
+	
+	public void deleteReaderTransactions(Integer readerId, Integer managerId) {
+		log.info("管理员["+managerId+"]删除读者["+readerId+"]所有缴费记录");
+		PageResult<Transaction> pageResult = getTransactionsByReaderId(readerId);
+		for(Transaction transaction : pageResult.getList()) {
+			deleteTransaction(transaction.getId(), managerId);
 		}
 	}
 }

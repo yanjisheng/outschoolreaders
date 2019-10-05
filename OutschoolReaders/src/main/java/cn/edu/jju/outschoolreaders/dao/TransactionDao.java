@@ -23,4 +23,6 @@ public interface TransactionDao {
 	public int count(TransactionQuery query);
 	
 	public List<Transaction> query(TransactionQuery query);
+
+	public int delete(Integer transactionId);
 }

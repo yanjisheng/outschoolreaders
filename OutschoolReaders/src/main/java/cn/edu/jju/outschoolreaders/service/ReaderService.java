@@ -2,6 +2,7 @@ package cn.edu.jju.outschoolreaders.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import cn.edu.jju.outschoolreaders.dao.DeleteLogDao;
 import cn.edu.jju.outschoolreaders.dao.ReaderDao;
+import cn.edu.jju.outschoolreaders.model.DeleteLog;
 import cn.edu.jju.outschoolreaders.model.Reader;
 import cn.edu.jju.outschoolreaders.model.ReaderQuery;
 import cn.edu.jju.outschoolreaders.util.ExcelExporter;
@@ -29,6 +35,15 @@ public class ReaderService {
 	
 	@Autowired
 	private ReaderDao readerDao;
+	
+	@Autowired
+	private TransactionService transactionService;
+	
+	@Autowired
+	private ObjectMapper objectMapper;
+	
+	@Autowired
+	private DeleteLogDao deleteLogDao;
 	
 	@Autowired
 	private ExcelExporter excelExporter;
@@ -102,6 +117,22 @@ public class ReaderService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void deleteReader(Integer readerId, Integer managerId) {
+		log.info("管理员["+managerId+"]删除读者["+readerId+"]信息");
+		transactionService.deleteReaderTransactions(readerId, managerId);
+		Reader reader = readerDao.selectById(readerId);
+		DeleteLog deleteLog = new DeleteLog();
+		deleteLog.setManagerId(managerId);
+		deleteLog.setDeletedAt(new Date());
+		try {
+			deleteLog.setData(objectMapper.writeValueAsString(reader));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		deleteLogDao.add(deleteLog);
+		readerDao.delete(readerId);
 	}
 	
 	/**

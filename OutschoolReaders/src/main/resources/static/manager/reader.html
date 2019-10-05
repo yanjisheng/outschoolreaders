@@ -11,7 +11,7 @@
 <script src="/dependencies/vue.js"></script>
 </head>
 <body>
-<div id="style-changer"><span onclick="toggle()">点击切换主题</span> <span onclick="hideme()">隐藏</span></div>
+<div id="style-changer"></div>
 <script src="/black.js"></script>
 <div class="center">
 	<h1>读者详细信息</h1>
@@ -46,7 +46,15 @@
 	</table>
 	<h2>读者缴费记录</h2>
 	<table id="payRecords">
-		<tr><td>序号</td><td>缴费日期</td><td>金额</td><td>类型</td><td>有效期至</td><td>经办人</td></tr>
+		<tr>
+			<td>序号</td>
+			<td>缴费日期</td>
+			<td>金额</td>
+			<td>类型</td>
+			<td>有效期至</td>
+			<td>经办人</td>
+			<td><a class="small" href="javascript:deleteTransactions()">删除缴费记录</a></td>
+		</tr>
 		<tr v-for="(transaction,index) in list">
 			<td>{{index+1}}</td>
 			<td>{{transaction.date}}</td>
@@ -54,10 +62,12 @@
 			<td>{{transaction.typeName}}</td>
 			<td>{{transaction.validThru}}</td>
 			<td>{{transaction.manager.name}}</td>
+			<td><a class="small" :href="'javascript:deleteTransaction('+transaction.id+')'">删除</a></td>
 		</tr>
 	</table>
 	<input type="submit" value="修改" onclick="modify()">
-	<input type="submit" value="缴费" onclick="pay()">
+	<input type="submit" value="缴(退)费" onclick="pay()">
+	<input type="submit" value="删除" onclick="deleteReader()">
 	<div class="btn"><a href="main.html">返回</a></div>
 </div><!-- end of center -->
 <script>
@@ -133,6 +143,93 @@ function modify(){
 }
 function pay(){
 	window.location = "pay.html?id="+id;
+}
+function deleteReader(){
+	var conf = confirm("您真的要删除“"+vue.reader.name+"”在系统中的所有记录吗？\n"
+			+ "本操作不可恢复，请勿删除真实数据！");
+	if(!conf){
+		return;
+	}
+	$.ajax({
+		"url": "deleteReader",
+		"method": "POST",
+		"data": {
+			"loginName": sessionStorage.getItem("loginName"),
+			"password": sessionStorage.getItem("password"),
+			"id": id
+		},
+		"dataType": "text",
+		"success":function(data){
+			if(data == "unauthorized"){
+				alert("您尚未登录，请先登录！");
+				window.location = "login.html";
+			}else{
+				alert("删除成功！");
+				window.location = "main.html";
+			}
+		},
+		"error":function(){
+			alert("系统错误3！");
+		}
+	});
+}
+function deleteTransactions(){
+	var conf = confirm("您真的要删除“"+vue.reader.name+"”在系统中的所有缴费记录吗？\n"
+			+ "本操作不可恢复，请勿删除真实数据！");
+	if(!conf){
+		return;
+	}
+	$.ajax({
+		"url": "deleteReaderTransactions",
+		"method": "POST",
+		"data": {
+			"loginName": sessionStorage.getItem("loginName"),
+			"password": sessionStorage.getItem("password"),
+			"id": id
+		},
+		"dataType": "text",
+		"success":function(data){
+			if(data == "unauthorized"){
+				alert("您尚未登录，请先登录！");
+				window.location = "login.html";
+			}else{
+				alert("删除成功！");
+				window.location = "reader.html?id=" + id;
+			}
+		},
+		"error":function(){
+			alert("系统错误4！");
+		}
+	});
+}
+function deleteTransaction(transactionId){
+	var conf = confirm("您真的要删除这一条缴费记录吗？\n"
+			+ "本操作不可恢复，请勿删除真实数据！");
+	if(!conf){
+		return;
+	}
+	$.ajax({
+		"url": "deleteTransactionById",
+		"method": "POST",
+		"data": {
+			"loginName": sessionStorage.getItem("loginName"),
+			"password": sessionStorage.getItem("password"),
+			"id": transactionId
+		},
+		"dataType": "text",
+		"success":function(data){
+			if(data == "unauthorized"){
+				alert("您尚未登录，请先登录！");
+				window.location = "login.html";
+			}else{
+				alert("删除成功！");
+				window.location = "reader.html?id=" + id;
+			}
+		},
+		"error":function(){
+			alert("系统错误5！");
+		}
+	});
 }
 $("document").ready(init);
 </script>

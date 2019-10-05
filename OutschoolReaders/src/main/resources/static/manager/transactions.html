@@ -11,7 +11,7 @@
 <script src="/dependencies/vue.js"></script>
 </head>
 <body>
-<div id="style-changer"><span onclick="toggle()">点击切换主题</span> <span onclick="hideme()">隐藏</span></div>
+<div id="style-changer"></div>
 <script src="/black.js"></script>
 <div class="center">
 	<h1>缴（退）费记录</h1>
@@ -24,6 +24,7 @@
 		<option value="2">借阅服务费</option>
 		<option value="3">借阅押金</option>
 		<option value="4">退押金</option>
+		<option value="5">补证工本费</option>
 	</select></div>
 	<div class="label"><label for="managerIds">经办人</label>
 	<select id="managerIds">
@@ -37,7 +38,7 @@
 			<tr><td>序号</td><td>缴费人</td><td>缴费日期</td><td>金额</td><td>类型</td><td>经办人</td></tr>
 			<tr v-for="(transaction,index) in list">
 				<td>{{index+1}}</td>
-				<td>{{transaction.reader.name}}</td>
+				<td><a class="small" :href="'reader.html?id=' + transaction.reader.id">{{transaction.reader.name}}</a></td>
 				<td>{{transaction.date}}</td>
 				<td align="right">{{transaction.amount}}元</td>
 				<td>{{transaction.typeName}}</td>
@@ -118,7 +119,7 @@ function getManagers(){
 			}
 		},
 		"error":function(){
-			alert("系统错误！");
+			alert("系统错误2！");
 		}
 	});
 }
