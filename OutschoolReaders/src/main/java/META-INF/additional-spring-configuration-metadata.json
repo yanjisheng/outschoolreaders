@@ -8,5 +8,10 @@
     "name": "upload-file-path",
     "type": "java.lang.String",
     "description": "上传文件路径"
+  },
+  {
+    "name": "news-source",
+    "type": "java.lang.String",
+    "description": "通知公告来源路径"
   }
 ]}
