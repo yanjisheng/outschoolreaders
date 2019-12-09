@@ -7,6 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>九江学院图书馆校外读者管理系统</title>
 <link rel="stylesheet" type="text/css" href="/general.css">
+<script src="/dependencies/jquery.js"></script>
+<script src="/dependencies/vue.js"></script>
 </head>
 <body>
 <div id="style-changer"></div>
@@ -21,7 +23,33 @@
 		<div class="btn"><a href="agreement.html">新读者注册</a></div><br>
 	</form>
 	<h2>通知公告</h2>
-	<a class="small" target="_blank" href="@news-source@">点击查看通知公告</a>
+	<div id="news">
+		<div v-for="news in list" class="news">
+			<a class="small" target="_blank" :href="news.url">{{news.title}}({{news.date}})</a>
+		</div>
+	</div>
+	<a class="small" target="_blank" href="@news-source@">更多</a>
 </div>
+<script>
+var vue = new Vue({
+	"el": "#news",
+	"data": {
+		"list": []
+	}
+});
+$(document).ready(function(){
+	getNews();
+});
+function getNews(){
+	$.ajax({
+		"url":"/news",
+		"method":"GET",
+		"dataType": "json",
+		"success": function(data){
+			vue.list = data;
+		}
+	});
+}
+</script>
 </body>
 </html>

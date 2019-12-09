@@ -47,10 +47,11 @@ public class NewsService {
 		}
 		if(content != null) {
 			int endIndexDate = 0;
-			for(int i=0; i<20; i++) {
+			for(int i=0; i<3; i++) {
 				int beginIndexUrl = content.indexOf("c43021", endIndexDate);
 				int endIndexUrl = content.indexOf("target", beginIndexUrl);
-				String url = content.substring(beginIndexUrl+14, endIndexUrl-2);
+				String urlRaw = content.substring(beginIndexUrl+14, endIndexUrl-2);
+				String url = newsSource.substring(0, newsSource.lastIndexOf("/")) + "/" + urlRaw;
 				int beginIndexTitle = content.indexOf("title", endIndexUrl);
 				int endIndexTitle = content.indexOf("\">", beginIndexTitle);
 				String title = content.substring(beginIndexTitle+7, endIndexTitle);

@@ -111,6 +111,9 @@ tr>td:first-of-type{
 tr:hover{
 	background-color: #e5e5e5;
 }
+div.news{
+	margin: 10px 0px;
+}
 /**
  * 样式切换条
  */
