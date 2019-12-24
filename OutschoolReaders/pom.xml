@@ -13,11 +13,19 @@
 	<version>2019.12.09</version>
 	<name>OutschoolReaders</name>
 	<description>校外读者阅览（借阅）管理系统</description>
+	<developers>
+		<developer>
+			<name>yanjisheng</name>
+			<email>1104935691@qq.com</email>
+		</developer>
+	</developers>
 
 	<properties>
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<news-source>https://lib.jju.edu.cn/tzgg.htm</news-source>
+		<email>1104935691@qq.com</email>
+		<source-code-url>https://gitee.com/yanjisheng/outschoolreaders</source-code-url>
 	</properties>
 	
 	<profiles>
