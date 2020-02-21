@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.edu.jju.outschoolreaders.dao.ManagerDao">
-	<cache type="cn.edu.jju.outschoolreaders.config.RedisCache"></cache>
+	<cache type="cn.edu.jju.outschoolreaders.config.MyRedisCache"></cache>
 	<insert id="add" parameterType="Manager">
 		insert into manager(loginName, password, name, superAdmin) 
 		values(#{loginName}, #{password}, #{name}, #{superAdmin})

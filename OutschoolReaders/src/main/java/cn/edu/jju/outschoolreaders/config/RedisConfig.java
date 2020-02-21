@@ -11,7 +11,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport{
 	
-	@Bean(name = "RedisTemplate")
+	@Bean
 	public static RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
 		RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
 		template.setConnectionFactory(factory);

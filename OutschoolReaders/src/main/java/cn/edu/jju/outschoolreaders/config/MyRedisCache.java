@@ -5,6 +5,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.apache.ibatis.cache.Cache;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
@@ -15,11 +16,14 @@ import org.springframework.stereotype.Component;
 
 import cn.edu.jju.outschoolreaders.OutschoolReadersApplication;
 
-@Component
-@Scope("prototype")
-public class RedisCache implements Cache {
+//@Component
+//@Scope("prototype")
+public class MyRedisCache implements Cache {
 
-	@Autowired
+	//@Autowired
+	//private BeanFactory beanFactory;
+	
+	//@Autowired
 	private RedisTemplate<String, Object> redisTemplate;// = new RedisTemplate<String, Object>();
 			//=(RedisTemplate<String, Object>) OutschoolReadersApplication.getApplicationContext().
 			//getBean(RedisTemplate.class);
@@ -32,7 +36,7 @@ public class RedisCache implements Cache {
 //		
 //	}
 //	
-	public RedisCache(String id) {
+	public MyRedisCache(String id) {
 		this.id = id;
 	}
 
@@ -43,21 +47,25 @@ public class RedisCache implements Cache {
 
 	@Override
 	public void putObject(Object key, Object value) {
+		redisTemplate = (RedisTemplate<String, Object>) OutschoolReadersApplication.getApplicationContext().getBean("redisTemplate");
 		redisTemplate.opsForValue().set(key.toString(), value, Duration.ofHours(1));
 	}
 
 	@Override
 	public Object getObject(Object key) {
+		redisTemplate = (RedisTemplate<String, Object>) OutschoolReadersApplication.getApplicationContext().getBean("redisTemplate");
 		return redisTemplate.opsForValue().get(key);
 	}
 
 	@Override
 	public Object removeObject(Object key) {
+		redisTemplate = (RedisTemplate<String, Object>) OutschoolReadersApplication.getApplicationContext().getBean("redisTemplate");
 		return redisTemplate.delete(key.toString());
 	}
 
 	@Override
 	public void clear() {
+		redisTemplate = (RedisTemplate<String, Object>) OutschoolReadersApplication.getApplicationContext().getBean("redisTemplate");
 		redisTemplate.execute(new RedisCallback<Object>() {
 			@Override
 			public Object doInRedis(RedisConnection connection) throws DataAccessException {
@@ -69,6 +77,7 @@ public class RedisCache implements Cache {
 
 	@Override
 	public int getSize() {
+		redisTemplate = (RedisTemplate<String, Object>) OutschoolReadersApplication.getApplicationContext().getBean("redisTemplate");
 		Integer i = redisTemplate.execute(new RedisCallback<Integer>() {
 			@Override
 			public Integer doInRedis(RedisConnection connection) throws DataAccessException {
