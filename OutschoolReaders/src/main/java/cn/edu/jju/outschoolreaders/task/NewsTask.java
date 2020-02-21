@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import cn.edu.jju.outschoolreaders.service.NewsService;
 
 /**
- * 新闻定时任务
+ * 通知公告定时任务
  * @author yanjisheng
  *
  */

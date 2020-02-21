@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 import cn.edu.jju.outschoolreaders.model.News;
 import cn.edu.jju.outschoolreaders.service.NewsService;
 
+/**
+ * 获取通知公告列表
+ * @author yanjisheng
+ *
+ */
 @RestController
 public class NewsController {
 	

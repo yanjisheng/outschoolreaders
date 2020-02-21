@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import cn.edu.jju.outschoolreaders.model.DeleteLog;
 
 /**
- * 管理员
+ * 删除记录
  * @author yanjisheng
  *
  */

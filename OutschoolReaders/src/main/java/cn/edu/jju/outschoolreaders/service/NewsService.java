@@ -16,6 +16,13 @@ import org.springframework.stereotype.Service;
 
 import cn.edu.jju.outschoolreaders.model.News;
 
+/**
+ * 通知公告Service层<br>
+ * 通过查询九江学院图书馆原通知公告列表页获取通知标题和链接。<br>
+ * 由NewsTask类定时调用，刷新通知列表。
+ * @author yanjisheng
+ * @see cn.edu.jju.outschoolreaders.task.NewsTask
+ */
 @Service
 public class NewsService {
 	
@@ -27,7 +34,7 @@ public class NewsService {
 	private List<News> news = null;
 
 	public void init() throws IOException {
-		log.info("刷新新闻列表");
+		log.info("刷新通知列表");
 		news = new ArrayList<>();
 		String content = null;
 		URL u = new URL(newsSource);
@@ -69,7 +76,7 @@ public class NewsService {
 				init();
 			} catch (IOException e) {
 				e.printStackTrace();
-				log.error("新闻列表更新失败", e);
+				log.error("通知列表更新失败", e);
 			}
 		}
 		return news;
