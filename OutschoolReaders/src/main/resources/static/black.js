@@ -14,11 +14,11 @@ function toggle(){
 	if(localStorage.getItem("black")==null || localStorage.getItem("black")!="black"){
 		localStorage.setItem("black", "black");
 		document.body.className="black";
-		document.getElementById("toggleImg").setAttribute("src","/img/day.png");
+		document.getElementById("toggleImg").setAttribute("src","/img/day.svg");
 	}else{
 		localStorage.setItem("black", "white");
 		document.body.className="";
-		document.getElementById("toggleImg").setAttribute("src","/img/night.png");
+		document.getElementById("toggleImg").setAttribute("src","/img/night.svg");
 	}
 	localStorage.removeItem("hideToggle");
 }
@@ -28,9 +28,9 @@ function hideme(){
 }
 if(localStorage.getItem("black")=="black"){
 	document.body.className="black";
-	document.getElementById("toggleImg").setAttribute("src","/img/day.png");
+	document.getElementById("toggleImg").setAttribute("src","/img/day.svg");
 }else{
-	document.getElementById("toggleImg").setAttribute("src","/img/night.png");
+	document.getElementById("toggleImg").setAttribute("src","/img/night.svg");
 }
 if(localStorage.getItem("hideToggle")=="yes"){
 	var path = window.location.pathname;
