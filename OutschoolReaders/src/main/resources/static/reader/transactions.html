@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="yanjisheng">
+<meta name="X-UA-compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>九江学院图书馆校外读者管理系统</title>
+<link rel="stylesheet" type="text/css" href="/general.css">
+<script src="/dependencies/jquery.js"></script>
+<script src="/dependencies/vue.js"></script>
+</head>
+<body>
+<div id="style-changer"></div>
+<script src="/black.js"></script>
+<div class="center">
+	<h1>读者缴费记录查询</h1>
+	<p>姓名：<span id="name"></span></p>
+	<table id="payRecords">
+		<tr>
+			<td>序号</td>
+			<td>缴费日期</td>
+			<td>金额</td>
+			<td>类型</td>
+			<td>有效期至</td>
+		</tr>
+		<tr v-for="(transaction,index) in list">
+			<td>{{index+1}}</td>
+			<td>{{transaction.date}}</td>
+			<td>{{transaction.amount}}元</td>
+			<td>{{transaction.typeName}}</td>
+			<td>{{transaction.validThru}}</td>
+		</tr>
+	</table>
+	<div class="btn"><a href="javascript:history.go(-1)">返回</a></div>
+</div>
+<script>
+var url = window.location.toString();
+var nameIndex = url.indexOf('name=');
+var idIndex = url.indexOf('id=');
+var name;
+var id;
+if(idIndex < nameIndex && idIndex > 0){
+	id = url.substring(idIndex + 3, nameIndex - 1);
+	name = decodeURI(url.substring(nameIndex + 5, url.length));
+}
+var vueRecords = new Vue({
+	"el": "#payRecords",
+	"data": {
+		"count": 0,
+		"list": null
+	}
+});
+$(document).ready(function(){
+	$("#name").text(name);
+	getPayments();
+});
+function getPayments(){
+	$.ajax({
+		"url":"getPaymentsByReaderId",
+		"method":"POST",
+		"data":{
+			"id": id,
+			"name": name
+		},
+		"dataType":"json",
+		"success":function(data){
+			if(data.count == -1){
+				alert("系统错误！");
+				window.location = "main.html";
+			}else{
+				vueRecords.count = data.count;
+				vueRecords.list = data.list;			
+			}
+		},
+		"error":function(){
+			alert("系统错误2！");
+		}
+	});
+}
+</script>
+</body>
+</html>

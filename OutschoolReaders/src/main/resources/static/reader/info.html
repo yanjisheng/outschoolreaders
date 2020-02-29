@@ -24,8 +24,8 @@
 		<tr><td>有效期至：</td><td><span id="validThru"></span></td></tr>
 		<tr><td>读者类型：</td><td><span id="category"></span></td></tr>
 	</table>
-	<!-- <div class="btn btn-blue"><a href="modify.html">修改</a></div> -->
 	<button onclick="modify()">修改</button>
+	<button onclick="transactions()" style="width:120px">查询缴费记录</button>
 	<div class="btn"><a href="main.html">返回首页</a></div>
 </div>
 <script>
@@ -75,6 +75,9 @@ xhr.onreadystatechange = function(){
 xhr.send();
 function modify(){
 	window.location = "modify.html?id="+id+"&name="+name;
+}
+function transactions(){
+	window.location = "transactions.html?id="+id+"&name="+name;
 }
 </script>
 </body>

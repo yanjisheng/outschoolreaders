@@ -2,6 +2,7 @@ package cn.edu.jju.outschoolreaders.controller;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,8 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import cn.edu.jju.outschoolreaders.model.Manager;
 import cn.edu.jju.outschoolreaders.model.Reader;
+import cn.edu.jju.outschoolreaders.model.Transaction;
 import cn.edu.jju.outschoolreaders.service.ReaderService;
+import cn.edu.jju.outschoolreaders.service.TransactionService;
+import cn.edu.jju.outschoolreaders.util.PageResult;
 
 /**
  * 读者操作
@@ -25,6 +30,9 @@ public class ReaderController {
 
 	@Autowired
 	private ReaderService readerService;
+	
+	@Autowired
+	private TransactionService transactionService;
 	
 	@Autowired
 	private FileController fileController;
@@ -65,6 +73,19 @@ public class ReaderController {
 	@GetMapping("/reader/getReader")
 	public Reader getReader(Integer id, String identityNo, String name) {
 		return readerService.getReaderByIdentityNoAndName(id, identityNo, name);
+	}
+	
+	/**
+	 * 查询某读者的缴费记录
+	 */
+	@PostMapping("/reader/getPaymentsByReaderId")
+	public PageResult<Transaction> getPaymentsByReaderId(HttpServletResponse response, String name, Integer id) throws IOException{
+		Reader reader = readerService.getReaderByIdentityNoAndName(id, null, name);
+		if(reader == null) {
+			return new PageResult<>(PageResult.UNAUTHORIZED, new ArrayList<>());
+		} else {
+			return transactionService.getTransactionsByReaderId(id);
+		}
 	}
 	
 	/**

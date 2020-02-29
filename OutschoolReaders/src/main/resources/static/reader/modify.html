@@ -13,6 +13,7 @@
 <script src="/black.js"></script>
 <div class="center-small">
 	<h1>修改读者信息</h1>
+	<label for="name">姓名：</label> <input type="text" id="name" readonly><br>
 	<label for="address">住址（或工作单位）：</label> <input type="text" name="address" id="address"><br>
 	<label for="phone">联系电话：</label> <input type="text" name="phone" id="phone"><br>
 	<label for="email">电子邮件：</label> <input type="text" name="email" id="email"><br>
@@ -29,6 +30,7 @@ if(idIndex < nameIndex && idIndex > 0){
 	id = url.substring(idIndex + 3, nameIndex - 1);
 	name = decodeURI(url.substring(nameIndex + 5, url.length));
 }
+document.getElementById('name').value = name;
 var address;
 var phone;
 var email;
