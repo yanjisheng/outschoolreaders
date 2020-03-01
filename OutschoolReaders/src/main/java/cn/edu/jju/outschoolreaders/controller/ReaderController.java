@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import cn.edu.jju.outschoolreaders.model.Manager;
 import cn.edu.jju.outschoolreaders.model.Reader;
 import cn.edu.jju.outschoolreaders.model.Transaction;
 import cn.edu.jju.outschoolreaders.service.ReaderService;
